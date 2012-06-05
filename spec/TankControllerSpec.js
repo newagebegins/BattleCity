@@ -1,28 +1,28 @@
 describe("TankController", function () {
-  describe("KEY_DOWN", function () {
+  describe("should move the tank if the direction key is pressed", function () {
     var SPEED = 4;
     
-    it("LEFT", function () {
-      checkKey(Tank.Direction.RIGHT, Keyboard.Key.LEFT, SPEED, Tank.Direction.LEFT);
+    it("LEFT - move left", function () {
+      checkKeyDown(Tank.Direction.RIGHT, Keyboard.Key.LEFT, SPEED, Tank.Direction.LEFT);
     });
 
-    it("RIGHT", function () {
-      checkKey(Tank.Direction.LEFT, Keyboard.Key.RIGHT, SPEED, Tank.Direction.RIGHT);
+    it("RIGHT - move right", function () {
+      checkKeyDown(Tank.Direction.LEFT, Keyboard.Key.RIGHT, SPEED, Tank.Direction.RIGHT);
     });
 
-    it("UP", function () {
-      checkKey(Tank.Direction.LEFT, Keyboard.Key.UP, SPEED, Tank.Direction.UP);
+    it("UP - move up", function () {
+      checkKeyDown(Tank.Direction.LEFT, Keyboard.Key.UP, SPEED, Tank.Direction.UP);
     });
 
-    it("DOWN", function () {
-      checkKey(Tank.Direction.LEFT, Keyboard.Key.DOWN, SPEED, Tank.Direction.DOWN);
+    it("DOWN - move down", function () {
+      checkKeyDown(Tank.Direction.LEFT, Keyboard.Key.DOWN, SPEED, Tank.Direction.DOWN);
     });
     
-    it("SPACE", function () {
-      checkKey(Tank.Direction.LEFT, Keyboard.Key.SPACE, 0, Tank.Direction.LEFT);
+    it("SPACE - don't move", function () {
+      checkKeyDown(Tank.Direction.LEFT, Keyboard.Key.SPACE, 0, Tank.Direction.LEFT);
     });
 
-    function checkKey(initialDirection, pressedKey, expectedSpeed, expectedDirection) {
+    function checkKeyDown(initialDirection, pressedKey, expectedSpeed, expectedDirection) {
       var eventManager = new EventManager();
       var tank = new Tank(eventManager);
       tank.setNormalSpeed(SPEED);
