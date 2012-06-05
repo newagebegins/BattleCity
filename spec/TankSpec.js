@@ -15,6 +15,10 @@ describe("Tank", function () {
       expect(tank.getSpeed()).toEqual(0);
     });
     
+    it("normal speed should be 0", function () {
+      expect(tank.getNormalSpeed()).toEqual(0);
+    });
+    
     it("direction should be Right", function () {
       expect(tank.getDirection()).toEqual(Tank.Direction.RIGHT);
     });

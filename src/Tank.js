@@ -3,12 +3,11 @@ function Tank(eventManager) {
   
   this._eventManager = eventManager;
   this._speed = 0;
+  this._normalSpeed = 0;
   this._direction = Tank.Direction.RIGHT;
 }
 
 Tank.subclass(Sprite);
-
-Tank.SPEED = 4;
 
 Tank.Direction = {
   RIGHT: 'RIGHT',
@@ -23,6 +22,22 @@ Tank.prototype.getSpeed = function () {
   
 Tank.prototype.setSpeed = function (speed) {
   this._speed = speed;
+};
+
+Tank.prototype.getNormalSpeed = function () {
+  return this._normalSpeed;
+};
+
+Tank.prototype.setNormalSpeed = function (speed) {
+  this._normalSpeed = speed;
+};
+
+Tank.prototype.toNormalSpeed = function () {
+  this._speed = this._normalSpeed;
+};
+
+Tank.prototype.stop = function () {
+  this._speed = 0;
 };
   
 Tank.prototype.getDirection = function () {

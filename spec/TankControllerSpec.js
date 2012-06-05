@@ -17,14 +17,16 @@ describe("TankController", function () {
     });
 
     function checkKey(initialDirection, pressedKey, expectedDirection) {
+      var SPEED = 4;
       var eventManager = new EventManager();
       var tank = new Tank(eventManager);
+      tank.setNormalSpeed(SPEED);
       tank.setDirection(initialDirection);
       var tankController = new TankController(tank);
 
       tankController.notify({name: Keyboard.Event.KEY_DOWN, key: pressedKey});
 
-      expect(tank.getSpeed()).toEqual(Tank.SPEED);
+      expect(tank.getSpeed()).toEqual(SPEED);
       expect(tank.getDirection()).toEqual(expectedDirection);
     }
   });
@@ -33,7 +35,7 @@ describe("TankController", function () {
     it("should stop the tank", function () {
       var eventManager = new EventManager();
       var tank = new Tank(eventManager);
-      tank.setSpeed(Tank.SPEED);
+      tank.setSpeed(4);
       var tankController = new TankController(tank);
       
       tankController.notify({name: Keyboard.Event.KEY_UP, key: Keyboard.Key.RIGHT});

@@ -12,7 +12,7 @@ TankController.prototype.notify = function (event) {
 };
 
 TankController.prototype._keyDown = function (key) {
-  this._tank.setSpeed(Tank.SPEED);
+  this._tank.toNormalSpeed();
   
   if (key == Keyboard.Key.LEFT) {
     this._tank.setDirection(Tank.Direction.LEFT);
@@ -29,5 +29,5 @@ TankController.prototype._keyDown = function (key) {
 };
 
 TankController.prototype._keyUp = function (key) {
-  this._tank.setSpeed(0);
+  this._tank.stop();
 };
