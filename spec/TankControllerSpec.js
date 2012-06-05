@@ -1,19 +1,19 @@
 describe("TankController", function () {
   describe("KEY_DOWN", function () {
     it("LEFT", function () {
-      checkKey(Direction.RIGHT, Keyboard.Key.LEFT, Direction.LEFT);
+      checkKey(Tank.Direction.RIGHT, Keyboard.Key.LEFT, Tank.Direction.LEFT);
     });
 
     it("RIGHT", function () {
-      checkKey(Direction.LEFT, Keyboard.Key.RIGHT, Direction.RIGHT);
+      checkKey(Tank.Direction.LEFT, Keyboard.Key.RIGHT, Tank.Direction.RIGHT);
     });
 
     it("UP", function () {
-      checkKey(Direction.LEFT, Keyboard.Key.UP, Direction.UP);
+      checkKey(Tank.Direction.LEFT, Keyboard.Key.UP, Tank.Direction.UP);
     });
 
     it("DOWN", function () {
-      checkKey(Direction.LEFT, Keyboard.Key.DOWN, Direction.DOWN);
+      checkKey(Tank.Direction.LEFT, Keyboard.Key.DOWN, Tank.Direction.DOWN);
     });
 
     function checkKey(initialDirection, pressedKey, expectedDirection) {

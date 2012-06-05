@@ -16,7 +16,7 @@ describe("Tank", function () {
     });
     
     it("direction should be Right", function () {
-      expect(tank.getDirection()).toEqual(Direction.RIGHT);
+      expect(tank.getDirection()).toEqual(Tank.Direction.RIGHT);
     });
   });
   
@@ -27,7 +27,7 @@ describe("Tank", function () {
   });
   
   it("#setDirection", function () {
-    var DIRECTION = Direction.LEFT;
+    var DIRECTION = Tank.Direction.LEFT;
     tank.setDirection(DIRECTION);
     expect(tank.getDirection()).toEqual(DIRECTION);
   });
@@ -36,19 +36,19 @@ describe("Tank", function () {
     var INIT_X = 0, INIT_Y = 0, SPEED = 1;
     
     it("right", function () {
-      checkDirection(Direction.RIGHT, new Point(INIT_X + SPEED, INIT_Y))
+      checkDirection(Tank.Direction.RIGHT, new Point(INIT_X + SPEED, INIT_Y))
     });
 
     it("left", function () {
-      checkDirection(Direction.LEFT, new Point(INIT_X - SPEED, INIT_Y))
+      checkDirection(Tank.Direction.LEFT, new Point(INIT_X - SPEED, INIT_Y))
     });
     
     it("up", function () {
-      checkDirection(Direction.UP, new Point(INIT_X, INIT_Y - SPEED))
+      checkDirection(Tank.Direction.UP, new Point(INIT_X, INIT_Y - SPEED))
     });
     
     it("down", function () {
-      checkDirection(Direction.DOWN, new Point(INIT_X, INIT_Y + SPEED))
+      checkDirection(Tank.Direction.DOWN, new Point(INIT_X, INIT_Y + SPEED))
     });
     
     function checkDirection(direction, finalPosition) {

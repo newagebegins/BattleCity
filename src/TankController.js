@@ -15,16 +15,16 @@ TankController.prototype._keyDown = function (key) {
   this._tank.setSpeed(Tank.SPEED);
   
   if (key == Keyboard.Key.LEFT) {
-    this._tank.setDirection(Direction.LEFT);
+    this._tank.setDirection(Tank.Direction.LEFT);
   }
   else if (key == Keyboard.Key.RIGHT) {
-    this._tank.setDirection(Direction.RIGHT);
+    this._tank.setDirection(Tank.Direction.RIGHT);
   }
   else if (key == Keyboard.Key.UP) {
-    this._tank.setDirection(Direction.UP);
+    this._tank.setDirection(Tank.Direction.UP);
   }
   else if (key == Keyboard.Key.DOWN) {
-    this._tank.setDirection(Direction.DOWN);
+    this._tank.setDirection(Tank.Direction.DOWN);
   }
 };
 
