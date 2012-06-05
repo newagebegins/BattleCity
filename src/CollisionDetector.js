@@ -1,6 +1,5 @@
 function CollisionDetector(eventManager) {
   this._eventManager = eventManager;
-  this._eventManager.addSubscriber(this, [Sprite.Event.MOVED])
   this._objects = [];
 }
 

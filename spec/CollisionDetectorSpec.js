@@ -12,6 +12,7 @@ describe("CollisionDetector", function () {
     wall.setRect(new Rect(1, 0, 1, 1));
     
     var collisionDetector = new CollisionDetector(eventManager);
+    eventManager.addSubscriber(collisionDetector, [Sprite.Event.MOVED])
     collisionDetector.addObject(tank);
     collisionDetector.addObject(wall);
     
