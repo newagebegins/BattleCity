@@ -32,15 +32,26 @@ describe("TankController", function () {
   });
   
   describe("KEY_UP", function () {
-    it("should stop the tank", function () {
+    var SPEED = 4;
+    
+    it("should stop the tank when released key is the current direction key", function () {
+      checkKeyUp(Keyboard.Key.RIGHT, 0);
+    });
+    
+    it("shouldn't stop the tank when released key is not the current direction key", function () {
+      checkKeyUp(Keyboard.Key.LEFT, SPEED);
+    });
+    
+    function checkKeyUp(key, expectedSpeed) {
       var eventManager = new EventManager();
       var tank = new Tank(eventManager);
-      tank.setSpeed(4);
+      tank.setSpeed(SPEED);
+      tank.setDirection(Tank.Direction.RIGHT);
       var tankController = new TankController(tank);
       
-      tankController.notify({name: Keyboard.Event.KEY_UP, key: Keyboard.Key.RIGHT});
+      tankController.notify({name: Keyboard.Event.KEY_UP, key: key});
       
-      expect(tank.getSpeed()).toEqual(0);
-    });
+      expect(tank.getSpeed()).toEqual(expectedSpeed);
+    }
   });
 });

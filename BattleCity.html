@@ -36,6 +36,7 @@
       
       var tank = new Tank(eventManager);
       tank.setRect(0, 0, 32, 32);
+      tank.setNormalSpeed(4);
       var tankController = new TankController(tank);
       var tankView = new TankView(tank);
       eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_DOWN, Keyboard.Event.KEY_UP]);

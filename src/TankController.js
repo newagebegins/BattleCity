@@ -29,5 +29,10 @@ TankController.prototype._keyDown = function (key) {
 };
 
 TankController.prototype._keyUp = function (key) {
-  this._tank.stop();
+  if (this._tank.getDirection() == Tank.Direction.LEFT && key == Keyboard.Key.LEFT ||
+      this._tank.getDirection() == Tank.Direction.RIGHT && key == Keyboard.Key.RIGHT ||
+      this._tank.getDirection() == Tank.Direction.UP && key == Keyboard.Key.UP ||
+      this._tank.getDirection() == Tank.Direction.DOWN && key == Keyboard.Key.DOWN) {
+    this._tank.stop();
+  }
 };
