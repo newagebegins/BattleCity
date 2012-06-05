@@ -1,13 +1,14 @@
 describe("Tank", function () {
-  var tank;
+  var eventManager, tank;
   
   beforeEach(function () {
-    tank = new Tank();
+    eventManager = new EventManager();
+    tank = new Tank(eventManager);
   });
   
   describe("initial state", function () {
     it("position should be (0,0)", function () {
-      expect(tank.getPosition()).toEqual(new Position(0, 0));
+      expect(tank.getPosition()).toEqual(new Point(0, 0));
     });
     
     it("speed should be 0", function () {
@@ -17,12 +18,6 @@ describe("Tank", function () {
     it("direction should be Right", function () {
       expect(tank.getDirection()).toEqual(Direction.RIGHT);
     });
-  });
-  
-  it("#setPosition", function () {
-    var POSITION = new Position(1, 2);
-    tank.setPosition(POSITION);
-    expect(tank.getPosition()).toEqual(POSITION);
   });
   
   it("#setSpeed", function () {
@@ -41,27 +36,35 @@ describe("Tank", function () {
     var INIT_X = 0, INIT_Y = 0, SPEED = 1;
     
     it("right", function () {
-      checkDirection(Direction.RIGHT, new Position(INIT_X + SPEED, INIT_Y))
+      checkDirection(Direction.RIGHT, new Point(INIT_X + SPEED, INIT_Y))
     });
 
     it("left", function () {
-      checkDirection(Direction.LEFT, new Position(INIT_X - SPEED, INIT_Y))
+      checkDirection(Direction.LEFT, new Point(INIT_X - SPEED, INIT_Y))
     });
     
     it("up", function () {
-      checkDirection(Direction.UP, new Position(INIT_X, INIT_Y - SPEED))
+      checkDirection(Direction.UP, new Point(INIT_X, INIT_Y - SPEED))
     });
     
     it("down", function () {
-      checkDirection(Direction.DOWN, new Position(INIT_X, INIT_Y + SPEED))
+      checkDirection(Direction.DOWN, new Point(INIT_X, INIT_Y + SPEED))
     });
     
     function checkDirection(direction, finalPosition) {
-      tank.setPosition(new Position(INIT_X, INIT_Y));
+      tank.setPosition(INIT_X, INIT_Y);
       tank.setSpeed(SPEED);
       tank.setDirection(direction);
       tank.move();
       expect(tank.getPosition()).toEqual(finalPosition);
     }
+  });
+  
+  it("should fire event when moved", function () {
+    spyOn(eventManager, 'fireEvent');
+    tank.move();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({
+      'name': Sprite.Event.MOVED,
+      'sprite': tank});
   });
 });
