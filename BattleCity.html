@@ -39,7 +39,7 @@
       tank.setNormalSpeed(4);
       var tankController = new TankController(tank);
       var tankView = new TankView(tank);
-      eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_DOWN, Keyboard.Event.KEY_UP]);
+      eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_PRESSED, Keyboard.Event.KEY_RELEASED]);
       
       setInterval(gameLoop, 1000 / FPS);
       

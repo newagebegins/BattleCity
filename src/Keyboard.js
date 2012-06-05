@@ -12,17 +12,17 @@ Keyboard.Key.RIGHT = 39;
 Keyboard.Key.DOWN = 40;
 
 Keyboard.Event = {};
-Keyboard.Event.KEY_DOWN = 'Keyboard.Event.KEY_DOWN';
-Keyboard.Event.KEY_UP = 'Keyboard.Event.KEY_UP';
+Keyboard.Event.KEY_PRESSED = 'Keyboard.Event.KEY_PRESSED';
+Keyboard.Event.KEY_RELEASED = 'Keyboard.Event.KEY_RELEASED';
 
 Keyboard.prototype._listen = function () {
   var self = this;
   $(document).keydown(function (event) {
-    self._events.push({name: Keyboard.Event.KEY_DOWN, key: event.which});
+    self._events.push({name: Keyboard.Event.KEY_PRESSED, key: event.which});
     event.preventDefault();
   });
   $(document).keyup(function (event) {
-    self._events.push({name: Keyboard.Event.KEY_UP, key: event.which});
+    self._events.push({name: Keyboard.Event.KEY_RELEASED, key: event.which});
     event.preventDefault();
   });
 };

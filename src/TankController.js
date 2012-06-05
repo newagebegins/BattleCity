@@ -3,15 +3,15 @@ function TankController(tank) {
 }
 
 TankController.prototype.notify = function (event) {
-  if (event.name == Keyboard.Event.KEY_DOWN) {
-    this._keyDown(event.key);
+  if (event.name == Keyboard.Event.KEY_PRESSED) {
+    this._keyPressed(event.key);
   }
-  else if (event.name == Keyboard.Event.KEY_UP) {
-    this._keyUp(event.key);
+  else if (event.name == Keyboard.Event.KEY_RELEASED) {
+    this._keyReleased(event.key);
   }
 };
 
-TankController.prototype._keyDown = function (key) {
+TankController.prototype._keyPressed = function (key) {
   if (key == Keyboard.Key.LEFT) {
     this._tank.setDirection(Tank.Direction.LEFT);
     this._tank.toNormalSpeed();
@@ -30,7 +30,7 @@ TankController.prototype._keyDown = function (key) {
   }
 };
 
-TankController.prototype._keyUp = function (key) {
+TankController.prototype._keyReleased = function (key) {
   if (this._tank.getDirection() == Tank.Direction.LEFT && key == Keyboard.Key.LEFT ||
       this._tank.getDirection() == Tank.Direction.RIGHT && key == Keyboard.Key.RIGHT ||
       this._tank.getDirection() == Tank.Direction.UP && key == Keyboard.Key.UP ||
