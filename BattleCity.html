@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Battle City</title>
+  
+  <script type="text/javascript" src="lib/jquery-1.7.2.js"></script>
+
+  <script type="text/javascript" src="src/Utils.js"></script>
+  <script type="text/javascript" src="src/Point.js"></script>
+  <script type="text/javascript" src="src/Rect.js"></script>
+  <script type="text/javascript" src="src/Sprite.js"></script>
+  <script type="text/javascript" src="src/Tank.js"></script>
+  <script type="text/javascript" src="src/Wall.js"></script>
+  <script type="text/javascript" src="src/CollisionDetector.js"></script>
+  <script type="text/javascript" src="src/EventManager.js"></script>
+  <script type="text/javascript" src="src/TankController.js"></script>
+  <script type="text/javascript" src="src/Keyboard.js"></script>
+  <script type="text/javascript" src="src/TankView.js"></script>
+  
+  <script type="text/javascript" src="lib/Stats.js"></script>
+  <script type="text/javascript" src="src/FPSCounter.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      var FPS = 24;
+      var CANVAS_ID = 'canvas';
+      var CANVAS_WIDTH = 640;
+      var CANVAS_HEIGHT = 480;
+      
+      var ctx = createCanvasContext();
+      var fpsCounter = new FPSCounter();
+      
+      var eventManager = new EventManager();
+      var keyboard = new Keyboard(eventManager);
+      
+      var tank = new Tank(eventManager);
+      tank.setRect(0, 0, 32, 32);
+      var tankController = new TankController(tank);
+      var tankView = new TankView(tank);
+      eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_DOWN, Keyboard.Event.KEY_UP]);
+      
+      setInterval(gameLoop, 1000 / FPS);
+      
+      function gameLoop() {
+        fpsCounter.begin();
+        
+        keyboard.fireEvents();
+        tank.move();
+        
+        clearCanvas();
+        tankView.draw(ctx);
+        
+        fpsCounter.end();
+      }
+      
+      function createCanvasContext() {
+        $('<canvas id="' + CANVAS_ID + '" width="' + CANVAS_WIDTH + '" height="' + CANVAS_HEIGHT + '"></canvas>').appendTo('body');
+        var canvas = document.getElementById(CANVAS_ID);
+        return canvas.getContext('2d');
+      };
+      
+      function clearCanvas() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      };
+    });
+  </script>
+
+</head>
+
+<body>
+</body>
+</html>
