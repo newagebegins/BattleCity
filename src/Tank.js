@@ -8,6 +8,8 @@ function Tank(eventManager) {
 
 Tank.subclass(Sprite);
 
+Tank.SPEED = 4;
+
 Tank.prototype.getSpeed = function () {
   return this._speed;
 };
