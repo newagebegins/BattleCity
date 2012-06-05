@@ -5,6 +5,7 @@ function Keyboard(eventManager) {
 }
 
 Keyboard.Key = {};
+Keyboard.Key.SPACE = 32;
 Keyboard.Key.LEFT = 37;
 Keyboard.Key.UP = 38;
 Keyboard.Key.RIGHT = 39;
