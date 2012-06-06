@@ -1,4 +1,11 @@
 describe("BulletFactory", function () {
+  it("should subscribe", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'addSubscriber');
+    var factory = new BulletFactory(eventManager);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [Tank.Event.SHOOT]);
+  });
+  
   describe("#createBullet", function () {
     it("RIGHT", function () {
       checkDirection(new Point(0, 0), new Point(32, 14), Sprite.Direction.RIGHT);

@@ -1,5 +1,6 @@
 function BulletFactory(eventManager) {
   this._eventManager = eventManager;
+  this._eventManager.addSubscriber(this, [Tank.Event.SHOOT]);
 }
 
 BulletFactory.prototype.notify = function (event) {
