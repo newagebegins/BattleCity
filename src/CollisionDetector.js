@@ -1,15 +1,19 @@
 function CollisionDetector(eventManager, bounds) {
   this._eventManager = eventManager;
   this._bounds = bounds;
-  this._objects = [];
+  this._sprites = [];
 }
 
 CollisionDetector.Event = {};
 CollisionDetector.Event.COLLISION = 'CollisionDetector.Event.COLLISION';
 CollisionDetector.Event.OUT_OF_BOUNDS = 'CollisionDetector.Event.OUT_OF_BOUNDS';
 
-CollisionDetector.prototype.addObject = function (object) {
-  this._objects.push(object);
+CollisionDetector.prototype.addSprite = function (sprite) {
+  this._sprites.push(sprite);
+};
+
+CollisionDetector.prototype.containsSprite = function (sprite) {
+  return arrayContains(this._sprites, sprite);
 };
 
 CollisionDetector.prototype.notify = function (event) {
@@ -17,18 +21,21 @@ CollisionDetector.prototype.notify = function (event) {
     this._detectCollisionsForSprite(event.sprite);
     this._detectOutOfBoundsForSprite(event.sprite);
   }
+  else if (event.name == Sprite.Event.DESTROYED) {
+    arrayRemove(this._sprites, event.sprite);
+  }
 };
 
 CollisionDetector.prototype._detectCollisionsForSprite = function (sprite) {
-  this._objects.forEach(function (object) {
-    if (sprite === object) {
+  this._sprites.forEach(function (other) {
+    if (sprite === other) {
       return;
     }
-    if (sprite.intersects(object)) {
+    if (sprite.intersects(other)) {
       this._eventManager.fireEvent({
         'name': CollisionDetector.Event.COLLISION,
         'initiator': sprite,
-        'object': object});
+        'sprite': other});
     }
   }, this);
 };

@@ -14,15 +14,15 @@ describe("CollisionDetector", function () {
     var bounds = new Rect(0, 0, 100, 100);
     var collisionDetector = new CollisionDetector(eventManager, bounds);
     eventManager.addSubscriber(collisionDetector, [Sprite.Event.MOVED])
-    collisionDetector.addObject(tank);
-    collisionDetector.addObject(wall);
+    collisionDetector.addSprite(tank);
+    collisionDetector.addSprite(wall);
     
     tank.move();
     
     expect(eventManager.fireEvent).toHaveBeenCalledWith({
       'name': CollisionDetector.Event.COLLISION,
       'initiator': tank,
-      'object': wall});
+      'sprite': wall});
   });
   
   it("should fire event when sprite goes out of bounds", function () {
@@ -37,12 +37,27 @@ describe("CollisionDetector", function () {
     var bounds = new Rect(0, 0, 10, 5);
     var collisionDetector = new CollisionDetector(eventManager, bounds);
     eventManager.addSubscriber(collisionDetector, [Sprite.Event.MOVED])
-    collisionDetector.addObject(tank);
+    collisionDetector.addSprite(tank);
     
     tank.move();
     
     expect(eventManager.fireEvent).toHaveBeenCalledWith({
       'name': CollisionDetector.Event.OUT_OF_BOUNDS,
       'sprite': tank});
+  });
+  
+  it("should remove sprite when it is destroyed", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    
+    var tank = new Tank(eventManager);
+    
+    var bounds = new Rect(0, 0, 100, 100);
+    var collisionDetector = new CollisionDetector(eventManager, bounds);
+    collisionDetector.addSprite(tank);
+    
+    expect(collisionDetector.containsSprite(tank)).toBeTruthy();
+    collisionDetector.notify({'name': Sprite.Event.DESTROYED, 'sprite': tank});
+    expect(collisionDetector.containsSprite(tank)).toBeFalsy();
   });
 });
