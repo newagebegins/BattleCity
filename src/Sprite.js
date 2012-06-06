@@ -48,6 +48,10 @@ Sprite.prototype.move = function () {
   this._y = this._getNewY();
   this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
 };
+  
+Sprite.prototype.draw = function (ctx) {
+  
+};
 
 Sprite.prototype._getNewX = function () {
   var result = this._x;

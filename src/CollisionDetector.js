@@ -1,28 +1,22 @@
 function CollisionDetector(eventManager, bounds) {
+  SpriteContainer.call(this);
+  
   this._eventManager = eventManager;
   this._bounds = bounds;
-  this._sprites = [];
 }
+
+CollisionDetector.subclass(SpriteContainer);
 
 CollisionDetector.Event = {};
 CollisionDetector.Event.COLLISION = 'CollisionDetector.Event.COLLISION';
 CollisionDetector.Event.OUT_OF_BOUNDS = 'CollisionDetector.Event.OUT_OF_BOUNDS';
 
-CollisionDetector.prototype.addSprite = function (sprite) {
-  this._sprites.push(sprite);
-};
-
-CollisionDetector.prototype.containsSprite = function (sprite) {
-  return arrayContains(this._sprites, sprite);
-};
-
 CollisionDetector.prototype.notify = function (event) {
+  SpriteContainer.prototype.notify.call(this, event);
+  
   if (event.name == Sprite.Event.MOVED) {
     this._detectCollisionsForSprite(event.sprite);
     this._detectOutOfBoundsForSprite(event.sprite);
-  }
-  else if (event.name == Sprite.Event.DESTROYED) {
-    arrayRemove(this._sprites, event.sprite);
   }
 };
 

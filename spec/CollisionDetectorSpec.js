@@ -45,19 +45,4 @@ describe("CollisionDetector", function () {
       'name': CollisionDetector.Event.OUT_OF_BOUNDS,
       'sprite': tank});
   });
-  
-  it("should remove sprite when it is destroyed", function () {
-    var eventManager = new EventManager();
-    spyOn(eventManager, 'fireEvent');
-    
-    var tank = new Tank(eventManager);
-    
-    var bounds = new Rect(0, 0, 100, 100);
-    var collisionDetector = new CollisionDetector(eventManager, bounds);
-    collisionDetector.addSprite(tank);
-    
-    expect(collisionDetector.containsSprite(tank)).toBeTruthy();
-    collisionDetector.notify({'name': Sprite.Event.DESTROYED, 'sprite': tank});
-    expect(collisionDetector.containsSprite(tank)).toBeFalsy();
-  });
 });
