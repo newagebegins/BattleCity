@@ -48,11 +48,26 @@ describe("Tank", function () {
     }
   });
   
-  it('#shoot', function () {
-    spyOn(eventManager, 'fireEvent');
-    tank.shoot();
-    expect(eventManager.fireEvent).toHaveBeenCalledWith({
-      'name': Tank.Event.SHOOT,
-      'tank': tank});
+  describe("#shoot", function () {
+    it("should fire event", function () {
+      spyOn(eventManager, "fireEvent");
+      tank.shoot();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Tank.Event.SHOOT,
+        'tank': tank});
+    });
+    
+    it("only one bullet can be shot at once", function () {
+      spyOn(eventManager, "fireEvent");
+      tank.shoot();
+      eventManager.fireEvent.reset();
+      tank.shoot();
+      expect(eventManager.fireEvent).not.toHaveBeenCalled();
+      tank.notify({'name': Bullet.Event.DESTROYED});
+      tank.shoot();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Tank.Event.SHOOT,
+        'tank': tank});
+    });
   });
 });

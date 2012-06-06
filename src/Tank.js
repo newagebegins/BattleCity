@@ -40,5 +40,15 @@ Tank.prototype.getBulletSpeed = function () {
 };
   
 Tank.prototype.shoot = function () {
+  if (this._bulletShot) {
+    return;
+  }
+  this._bulletShot = true;
   this._eventManager.fireEvent({'name': Tank.Event.SHOOT, 'tank': this});
+};
+
+Tank.prototype.notify = function (event) {
+  if (event.name == 'Bullet.Event.DESTROYED') {
+    this._bulletShot = false;
+  }
 };
