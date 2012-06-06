@@ -1,5 +1,5 @@
-function Painter() {
-  SpriteContainer.call(this);
+function Painter(eventManager) {
+  SpriteContainer.call(this, eventManager);
 }
 
 Painter.subclass(SpriteContainer);

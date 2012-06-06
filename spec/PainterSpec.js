@@ -5,7 +5,7 @@ describe("Painter", function () {
     spyOn(tank, 'draw');
     var wall = new Wall(eventManager);
     spyOn(wall, 'draw');
-    var painter = new Painter();
+    var painter = new Painter(eventManager);
     painter.addSprite(tank);
     painter.addSprite(wall);
     

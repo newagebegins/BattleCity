@@ -5,7 +5,7 @@ describe("Updater", function () {
     spyOn(tank, 'update');
     var wall = new Wall(eventManager);
     spyOn(wall, 'update');
-    var updater = new Updater();
+    var updater = new Updater(eventManager);
     updater.addSprite(tank);
     updater.addSprite(wall);
     

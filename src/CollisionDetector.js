@@ -1,7 +1,5 @@
 function CollisionDetector(eventManager, bounds) {
-  SpriteContainer.call(this);
-  
-  this._eventManager = eventManager;
+  SpriteContainer.call(this, eventManager);
   this._bounds = bounds;
 }
 

@@ -1,4 +1,6 @@
-function SpriteContainer() {
+function SpriteContainer(eventManager) {
+  this._eventManager = eventManager;
+  eventManager.addSubscriber(this, [Sprite.Event.CREATED, Sprite.Event.DESTROYED]);
   this._sprites = [];
 }
 

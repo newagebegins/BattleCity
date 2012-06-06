@@ -1,5 +1,5 @@
-function Updater() {
-  SpriteContainer.call(this);
+function Updater(eventManager) {
+  SpriteContainer.call(this, eventManager);
 }
 
 Updater.subclass(SpriteContainer);
