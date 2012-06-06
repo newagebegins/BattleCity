@@ -54,4 +54,30 @@ describe("Rect", function () {
       expect(rect1.intersects(rect2)).toBeTruthy();
     });
   });
+  
+  describe("#containsWhole", function () {
+    it("test 1", function () {
+      var rect1 = new Rect(0, 0, 10, 10);
+      var rect2 = new Rect(0, 0, 10, 10);
+      expect(rect1.containsWhole(rect2)).toBeTruthy();
+    });
+    
+    it("test 2", function () {
+      var rect1 = new Rect(0, 0, 10, 10);
+      var rect2 = new Rect(-1, 0, 10, 10);
+      expect(rect1.containsWhole(rect2)).toBeFalsy();
+    });
+    
+    it("test 3", function () {
+      var rect1 = new Rect(0, 0, 10, 10);
+      var rect2 = new Rect(3, 3, 3, 3);
+      expect(rect1.containsWhole(rect2)).toBeTruthy();
+    });
+    
+    it("test 3", function () {
+      var rect1 = new Rect(0, 0, 10, 10);
+      var rect2 = new Rect(8, 3, 3, 3);
+      expect(rect1.containsWhole(rect2)).toBeFalsy();
+    });
+  });
 });

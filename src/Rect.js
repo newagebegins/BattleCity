@@ -56,3 +56,10 @@ Rect.prototype.intersects = function (other) {
     this.getTop() > other.getBottom() ||
     this.getBottom() < other.getTop());
 };
+
+Rect.prototype.containsWhole = function (other) {
+  return other.getLeft() >= this.getLeft() &&
+    other.getRight() <= this.getRight() &&
+    other.getBottom() <= this.getBottom() &&
+    other.getTop() >= this.getTop();
+};
