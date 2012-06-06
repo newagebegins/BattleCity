@@ -1,4 +1,6 @@
-function TankController(tank) {
+function TankController(eventManager, tank) {
+  this._eventManager = eventManager;
+  this._eventManager.addSubscriber(this, [Keyboard.Event.KEY_PRESSED, Keyboard.Event.KEY_RELEASED]);
   this._tank = tank;
 }
 

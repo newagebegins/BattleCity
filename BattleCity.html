@@ -49,8 +49,8 @@
       tank.setBulletSize(4);
       tank.setBulletSpeed(2);
       eventManager.fireEvent({name: Sprite.Event.CREATED, sprite: tank});
-      var tankController = new TankController(tank);
-      eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_PRESSED, Keyboard.Event.KEY_RELEASED]);
+      
+      var tankController = new TankController(eventManager, tank);
       
       var bulletFactory = new BulletFactory(eventManager);
       eventManager.addSubscriber(bulletFactory, [Tank.Event.SHOOT]);
