@@ -52,6 +52,10 @@ Sprite.prototype.move = function () {
 Sprite.prototype.draw = function (ctx) {
   
 };
+  
+Sprite.prototype.update = function () {
+  
+};
 
 Sprite.prototype._getNewX = function () {
   var result = this._x;
