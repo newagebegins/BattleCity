@@ -9,7 +9,7 @@ BulletFactory.prototype.notify = function (event) {
 };
 
 BulletFactory.prototype._createBullet = function (tank) {
-  var bullet = new Bullet(this._eventManager);
+  var bullet = new Bullet(this._eventManager, tank);
   bullet.setPosition(this._getBulletPosition(tank));
   bullet.setDimensions(tank.getBulletSize(), tank.getBulletSize());
   bullet.setDirection(tank.getDirection());

@@ -32,7 +32,7 @@ describe("BulletFactory", function () {
       tank.setBulletSize(BULLET_SIZE);
       tank.setBulletSpeed(BULLET_SPEED);
 
-      var bullet = new Bullet(eventManager);
+      var bullet = new Bullet(eventManager, tank);
       bullet.setPosition(bulletPosition);
       bullet.setDimensions(BULLET_SIZE, BULLET_SIZE);
       bullet.setDirection(direction);

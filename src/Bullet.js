@@ -1,6 +1,7 @@
-function Bullet(eventManager) {
+function Bullet(eventManager, tank) {
   Sprite.call(this, eventManager);
   eventManager.addSubscriber(this, [CollisionDetector.Event.OUT_OF_BOUNDS]);
+  this._tank = tank;
 }
 
 Bullet.subclass(Sprite);
@@ -16,5 +17,5 @@ Bullet.prototype.notify = function (event) {
 
 Bullet.prototype.destroy = function () {
   Sprite.prototype.destroy.call(this);
-  this._eventManager.fireEvent({'name': Bullet.Event.DESTROYED});
+  this._eventManager.fireEvent({'name': Bullet.Event.DESTROYED, 'tank': this._tank});
 };

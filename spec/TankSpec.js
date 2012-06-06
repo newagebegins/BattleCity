@@ -63,7 +63,7 @@ describe("Tank", function () {
       eventManager.fireEvent.reset();
       tank.shoot();
       expect(eventManager.fireEvent).not.toHaveBeenCalled();
-      tank.notify({'name': Bullet.Event.DESTROYED});
+      tank.notify({'name': Bullet.Event.DESTROYED, 'tank': tank});
       tank.shoot();
       expect(eventManager.fireEvent).toHaveBeenCalledWith({
         'name': Tank.Event.SHOOT,
