@@ -28,6 +28,9 @@ TankController.prototype._keyPressed = function (key) {
     this._tank.setDirection(Tank.Direction.DOWN);
     this._tank.toNormalSpeed();
   }
+  else if (key == Keyboard.Key.SPACE) {
+    this._tank.shoot();
+  }
 };
 
 TankController.prototype._keyReleased = function (key) {

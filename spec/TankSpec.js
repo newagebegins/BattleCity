@@ -71,4 +71,12 @@ describe("Tank", function () {
       'name': Sprite.Event.MOVED,
       'sprite': tank});
   });
+  
+  it('#shoot', function () {
+    spyOn(eventManager, 'fireEvent');
+    tank.shoot();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({
+      'name': Tank.Event.SHOOT,
+      'tank': tank});
+  });
 });

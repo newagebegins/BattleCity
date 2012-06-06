@@ -16,6 +16,9 @@ Tank.Direction = {
   DOWN: 'DOWN',
 };
 
+Tank.Event = {};
+Tank.Event.SHOOT = 'Tank.Event.SHOOT';
+
 Tank.prototype.getSpeed = function () {
   return this._speed;
 };
@@ -51,7 +54,11 @@ Tank.prototype.setDirection = function (direction) {
 Tank.prototype.move = function () {
   this._x = this._getNewX();
   this._y = this._getNewY();
-  this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this})
+  this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
+};
+  
+Tank.prototype.shoot = function () {
+  this._eventManager.fireEvent({'name': Tank.Event.SHOOT, 'tank': this});
 };
   
 Tank.prototype._getNewX = function () {
