@@ -1,4 +1,13 @@
 describe("CollisionDetector", function () {
+  it("should subscribe", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'addSubscriber');
+    var bounds = new Rect(0, 0, 100, 100);
+    var collisionDetector = new CollisionDetector(eventManager, bounds);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(collisionDetector,
+      [Sprite.Event.MOVED]);
+  });
+  
   it("should fire event when collision takes place", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'fireEvent').andCallThrough();
@@ -13,7 +22,6 @@ describe("CollisionDetector", function () {
     
     var bounds = new Rect(0, 0, 100, 100);
     var collisionDetector = new CollisionDetector(eventManager, bounds);
-    eventManager.addSubscriber(collisionDetector, [Sprite.Event.MOVED])
     collisionDetector.addSprite(tank);
     collisionDetector.addSprite(wall);
     
@@ -36,7 +44,6 @@ describe("CollisionDetector", function () {
     
     var bounds = new Rect(0, 0, 10, 5);
     var collisionDetector = new CollisionDetector(eventManager, bounds);
-    eventManager.addSubscriber(collisionDetector, [Sprite.Event.MOVED])
     collisionDetector.addSprite(tank);
     
     tank.move();

@@ -1,5 +1,7 @@
 function CollisionDetector(eventManager, bounds) {
   SpriteContainer.call(this, eventManager);
+  
+  eventManager.addSubscriber(this, [Sprite.Event.MOVED]);
   this._bounds = bounds;
 }
 
