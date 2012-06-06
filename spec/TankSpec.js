@@ -71,3 +71,13 @@ describe("Tank", function () {
     });
   });
 });
+
+describe("Tank", function () {
+  it("should subscribe", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'addSubscriber');
+    var tank = new Tank(eventManager);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(tank,
+      [Bullet.Event.DESTROYED]);
+  });
+});

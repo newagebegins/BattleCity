@@ -1,6 +1,8 @@
 function Tank(eventManager) {
   Sprite.call(this, eventManager);
   
+  eventManager.addSubscriber(this, [Bullet.Event.DESTROYED]);
+  
   this._normalSpeed = 0;
   this._bulletSize = 1;
   this._bulletSpeed = 1;
@@ -48,7 +50,7 @@ Tank.prototype.shoot = function () {
 };
 
 Tank.prototype.notify = function (event) {
-  if (event.name == 'Bullet.Event.DESTROYED') {
+  if (event.name == Bullet.Event.DESTROYED) {
     this._bulletShot = false;
   }
 };
