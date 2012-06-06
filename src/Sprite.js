@@ -50,11 +50,12 @@ Sprite.prototype.move = function () {
 };
   
 Sprite.prototype.draw = function (ctx) {
-  
+  ctx.fillStyle = "red";
+  ctx.fillRect(this._x, this._y, this._w, this._h);
 };
   
 Sprite.prototype.update = function () {
-  
+  this.move();
 };
 
 Sprite.prototype._getNewX = function () {
