@@ -38,26 +38,22 @@
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
       
+      var painter = new Painter(eventManager);
+      var updater = new Updater(eventManager);
+      var bounds = new Rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      var collisionDetector = new CollisionDetector(eventManager, bounds);
+      
       var tank = new Tank(eventManager);
       tank.setRect(0, 0, 32, 32);
       tank.setNormalSpeed(4);
       tank.setBulletSize(4);
       tank.setBulletSpeed(2);
+      eventManager.fireEvent({name: Sprite.Event.CREATED, sprite: tank});
       var tankController = new TankController(tank);
       eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_PRESSED, Keyboard.Event.KEY_RELEASED]);
       
-      var bounds = new Rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      var collisionDetector = new CollisionDetector(eventManager, bounds);
-      collisionDetector.addSprite(tank);
-      
       var bulletFactory = new BulletFactory(eventManager);
       eventManager.addSubscriber(bulletFactory, [Tank.Event.SHOOT]);
-      
-      var painter = new Painter(eventManager);
-      painter.addSprite(tank);
-      
-      var updater = new Updater(eventManager);
-      updater.addSprite(tank);
       
       setInterval(gameLoop, 1000 / FPS);
       
