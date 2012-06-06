@@ -51,6 +51,9 @@
       var tankController = new TankController(eventManager, tank);
       var bulletFactory = new BulletFactory(eventManager);
       
+      var wall = new Wall(eventManager);
+      wall.setRect(50, 50, 32, 32);
+      
       setInterval(gameLoop, 1000 / FPS);
       
       function gameLoop() {

@@ -78,6 +78,6 @@ describe("Tank", function () {
     spyOn(eventManager, 'addSubscriber');
     var tank = new Tank(eventManager);
     expect(eventManager.addSubscriber).toHaveBeenCalledWith(tank,
-      [Bullet.Event.DESTROYED]);
+      [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION]);
   });
 });

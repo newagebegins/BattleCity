@@ -1,7 +1,7 @@
 function Tank(eventManager) {
   Sprite.call(this, eventManager);
   
-  eventManager.addSubscriber(this, [Bullet.Event.DESTROYED]);
+  eventManager.addSubscriber(this, [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION]);
   
   this._normalSpeed = 0;
   this._bulletSize = 1;
@@ -53,4 +53,26 @@ Tank.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED && event.tank == this) {
     this._bulletShot = false;
   }
+  else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
+    this._resolveCollisionWithWall(event.sprite);
+  }
+};
+
+Tank.prototype._resolveCollisionWithWall = function (wall) {
+  var moveX = 0;
+  var moveY = 0;
+  if (this._direction == Sprite.Direction.RIGHT) {
+    moveX = this.getRight() - wall.getLeft() + 1;
+  }
+  else if (this._direction == Sprite.Direction.LEFT) {
+    moveX = this.getLeft() - wall.getRight() - 1;
+  }
+  else if (this._direction == Sprite.Direction.UP) {
+    moveY = this.getTop() - wall.getBottom() - 1;
+  }
+  else if (this._direction == Sprite.Direction.DOWN) {
+    moveY = this.getBottom() - wall.getTop() + 1;
+  }
+  this._x -= moveX;
+  this._y -= moveY;
 };
