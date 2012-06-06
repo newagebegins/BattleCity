@@ -13,16 +13,29 @@ Rect.prototype.setRect = function (x, y, w, h) {
   this._h = h;
 };
 
+Rect.prototype.setWidth = function (width) {
+  this._w = width;
+};
+
 Rect.prototype.getWidth = function () {
-    return this._w;
+  return this._w;
+};
+
+Rect.prototype.setHeight = function (height) {
+  this._h = height;
 };
 
 Rect.prototype.getHeight = function () {
-    return this._h;
+  return this._h;
+};
+
+Rect.prototype.setDimensions = function (width, height) {
+  this._w = width;
+  this._h = height;
 };
 
 Rect.prototype.getLeft = function () {
-    return this._x;
+  return this._x;
 };
   
 Rect.prototype.getRight = function () {

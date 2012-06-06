@@ -15,7 +15,12 @@ Point.prototype.getPosition = function () {
   return new Point(this._x, this._y);
 };
 
-Point.prototype.setPosition = function (x, y) {
+Point.prototype.setPosition = function (position) {
+  this._x = position.getX();
+  this._y = position.getY();
+};
+
+Point.prototype.setXY = function (x, y) {
   this._x = x;
   this._y = y;
 };

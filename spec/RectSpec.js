@@ -1,8 +1,6 @@
 describe("Rect", function () {
   it("default state", function () {
     var rect = new Rect();
-    expect(rect.getX()).toEqual(0);
-    expect(rect.getY()).toEqual(0);
     expect(rect.getWidth()).toEqual(1);
     expect(rect.getHeight()).toEqual(1);
   });

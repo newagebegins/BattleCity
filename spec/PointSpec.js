@@ -3,6 +3,7 @@ describe("Point", function () {
     var point = new Point();
     expect(point.getX()).toEqual(0);
     expect(point.getY()).toEqual(0);
+    expect(point.getPosition()).toEqual(new Point(0, 0));
   });
   
   it("should know its coordinates", function () {
