@@ -12,11 +12,15 @@
   <script type="text/javascript" src="src/Sprite.js"></script>
   <script type="text/javascript" src="src/Tank.js"></script>
   <script type="text/javascript" src="src/Wall.js"></script>
+  <script type="text/javascript" src="src/SpriteContainer.js"></script>
   <script type="text/javascript" src="src/CollisionDetector.js"></script>
   <script type="text/javascript" src="src/EventManager.js"></script>
   <script type="text/javascript" src="src/TankController.js"></script>
   <script type="text/javascript" src="src/Keyboard.js"></script>
-  <script type="text/javascript" src="src/TankView.js"></script>
+  <script type="text/javascript" src="src/BulletFactory.js"></script>
+  <script type="text/javascript" src="src/Bullet.js"></script>
+  <script type="text/javascript" src="src/Painter.js"></script>
+  <script type="text/javascript" src="src/Updater.js"></script>
   
   <script type="text/javascript" src="lib/Stats.js"></script>
   <script type="text/javascript" src="src/FPSCounter.js"></script>
@@ -37,9 +41,23 @@
       var tank = new Tank(eventManager);
       tank.setRect(0, 0, 32, 32);
       tank.setNormalSpeed(4);
+      tank.setBulletSize(4);
+      tank.setBulletSpeed(2);
       var tankController = new TankController(tank);
-      var tankView = new TankView(tank);
       eventManager.addSubscriber(tankController, [Keyboard.Event.KEY_PRESSED, Keyboard.Event.KEY_RELEASED]);
+      
+      var bounds = new Rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      var collisionDetector = new CollisionDetector(eventManager, bounds);
+      collisionDetector.addSprite(tank);
+      
+      var bulletFactory = new BulletFactory(eventManager);
+      eventManager.addSubscriber(bulletFactory, [Tank.Event.SHOOT]);
+      
+      var painter = new Painter(eventManager);
+      painter.addSprite(tank);
+      
+      var updater = new Updater(eventManager);
+      updater.addSprite(tank);
       
       setInterval(gameLoop, 1000 / FPS);
       
@@ -47,10 +65,10 @@
         fpsCounter.begin();
         
         keyboard.fireEvents();
-        tank.move();
+        updater.update();
         
         clearCanvas();
-        tankView.draw(ctx);
+        painter.draw(ctx);
         
         fpsCounter.end();
       }

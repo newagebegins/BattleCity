@@ -57,6 +57,11 @@ Sprite.prototype.draw = function (ctx) {
 Sprite.prototype.update = function () {
   this.move();
 };
+  
+Sprite.prototype.destroy = function () {
+  this._eventManager.removeSubscriber(this);
+  this._eventManager.fireEvent({'name': Sprite.Event.DESTROYED, 'sprite': this});
+};
 
 Sprite.prototype._getNewX = function () {
   var result = this._x;

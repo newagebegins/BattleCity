@@ -32,4 +32,12 @@ describe("Sprite", function () {
       expect(eventManager.fireEvent).not.toHaveBeenCalled();
     });
   });
+  
+  it("#destroy", function () {
+    spyOn(eventManager, 'removeSubscriber');
+    spyOn(eventManager, 'fireEvent');
+    sprite.destroy();
+    expect(eventManager.removeSubscriber).toHaveBeenCalledWith(sprite);
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Sprite.Event.DESTROYED, 'sprite': sprite});
+  });
 });
