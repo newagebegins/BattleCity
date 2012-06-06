@@ -4,17 +4,10 @@ function Tank(eventManager) {
   this._eventManager = eventManager;
   this._speed = 0;
   this._normalSpeed = 0;
-  this._direction = Tank.Direction.RIGHT;
+  this._direction = Sprite.Direction.RIGHT;
 }
 
 Tank.subclass(Sprite);
-
-Tank.Direction = {
-  RIGHT: 'RIGHT',
-  LEFT: 'LEFT',
-  UP: 'UP',
-  DOWN: 'DOWN',
-};
 
 Tank.Event = {};
 Tank.Event.SHOOT = 'Tank.Event.SHOOT';
@@ -64,10 +57,10 @@ Tank.prototype.shoot = function () {
 Tank.prototype._getNewX = function () {
   var result = this._x;
       
-  if (this._direction == Tank.Direction.RIGHT) {
+  if (this._direction == Sprite.Direction.RIGHT) {
     result += this._speed;
   }
-  else if (this._direction == Tank.Direction.LEFT) {
+  else if (this._direction == Sprite.Direction.LEFT) {
     result -= this._speed;
   }
     
@@ -77,10 +70,10 @@ Tank.prototype._getNewX = function () {
 Tank.prototype._getNewY = function () {
   var result = this._y;
       
-  if (this._direction == Tank.Direction.UP) {
+  if (this._direction == Sprite.Direction.UP) {
     result -= this._speed;
   }
-  else if (this._direction == Tank.Direction.DOWN) {
+  else if (this._direction == Sprite.Direction.DOWN) {
     result += this._speed;
   }
     

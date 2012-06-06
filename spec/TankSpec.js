@@ -20,7 +20,7 @@ describe("Tank", function () {
     });
     
     it("direction should be Right", function () {
-      expect(tank.getDirection()).toEqual(Tank.Direction.RIGHT);
+      expect(tank.getDirection()).toEqual(Sprite.Direction.RIGHT);
     });
   });
   
@@ -31,7 +31,7 @@ describe("Tank", function () {
   });
   
   it("#setDirection", function () {
-    var DIRECTION = Tank.Direction.LEFT;
+    var DIRECTION = Sprite.Direction.LEFT;
     tank.setDirection(DIRECTION);
     expect(tank.getDirection()).toEqual(DIRECTION);
   });
@@ -40,19 +40,19 @@ describe("Tank", function () {
     var INIT_X = 0, INIT_Y = 0, SPEED = 1;
     
     it("right", function () {
-      checkDirection(Tank.Direction.RIGHT, new Point(INIT_X + SPEED, INIT_Y))
+      checkDirection(Sprite.Direction.RIGHT, new Point(INIT_X + SPEED, INIT_Y))
     });
 
     it("left", function () {
-      checkDirection(Tank.Direction.LEFT, new Point(INIT_X - SPEED, INIT_Y))
+      checkDirection(Sprite.Direction.LEFT, new Point(INIT_X - SPEED, INIT_Y))
     });
     
     it("up", function () {
-      checkDirection(Tank.Direction.UP, new Point(INIT_X, INIT_Y - SPEED))
+      checkDirection(Sprite.Direction.UP, new Point(INIT_X, INIT_Y - SPEED))
     });
     
     it("down", function () {
-      checkDirection(Tank.Direction.DOWN, new Point(INIT_X, INIT_Y + SPEED))
+      checkDirection(Sprite.Direction.DOWN, new Point(INIT_X, INIT_Y + SPEED))
     });
     
     function checkDirection(direction, finalPosition) {
