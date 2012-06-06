@@ -8,7 +8,7 @@ describe("CollisionDetector", function () {
     tank.setSpeed(1);
     tank.setDirection(Sprite.Direction.RIGHT);
     
-    var wall = new Wall();
+    var wall = new Wall(eventManager);
     wall.setRect(new Rect(1, 0, 1, 1));
     
     var collisionDetector = new CollisionDetector(eventManager);

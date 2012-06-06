@@ -1,5 +1,5 @@
-function Bullet() {
-  Sprite.call(this);
+function Bullet(eventManager) {
+  Sprite.call(this, eventManager);
 }
 
 Bullet.subclass(Sprite);

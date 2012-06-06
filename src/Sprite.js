@@ -1,6 +1,7 @@
-function Sprite() {
+function Sprite(eventManager) {
   Rect.call(this);
   
+  this._eventManager = eventManager;
   this._direction = Sprite.Direction.RIGHT;
   this._speed = 0;
 }
@@ -32,4 +33,40 @@ Sprite.prototype.getSpeed = function () {
   
 Sprite.prototype.setSpeed = function (speed) {
   this._speed = speed;
+};
+
+Sprite.prototype.stop = function () {
+  this._speed = 0;
+};
+  
+Sprite.prototype.move = function () {
+  this._x = this._getNewX();
+  this._y = this._getNewY();
+  this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
+};
+
+Sprite.prototype._getNewX = function () {
+  var result = this._x;
+      
+  if (this._direction == Sprite.Direction.RIGHT) {
+    result += this._speed;
+  }
+  else if (this._direction == Sprite.Direction.LEFT) {
+    result -= this._speed;
+  }
+    
+  return result;
+};
+  
+Sprite.prototype._getNewY = function () {
+  var result = this._y;
+      
+  if (this._direction == Sprite.Direction.UP) {
+    result -= this._speed;
+  }
+  else if (this._direction == Sprite.Direction.DOWN) {
+    result += this._speed;
+  }
+    
+  return result;
 };
