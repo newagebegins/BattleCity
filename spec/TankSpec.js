@@ -20,12 +20,6 @@ describe("Tank", function () {
     });
   });
   
-  it("#setSpeed", function () {
-    var SPEED = 2;
-    tank.setSpeed(SPEED);
-    expect(tank.getSpeed()).toEqual(SPEED);
-  });
-  
   describe("can move", function () {
     var INIT_X = 0, INIT_Y = 0, SPEED = 1;
     
@@ -52,14 +46,6 @@ describe("Tank", function () {
       tank.move();
       expect(tank.getPosition()).toEqual(finalPosition);
     }
-  });
-  
-  it("should fire event when moved", function () {
-    spyOn(eventManager, 'fireEvent');
-    tank.move();
-    expect(eventManager.fireEvent).toHaveBeenCalledWith({
-      'name': Sprite.Event.MOVED,
-      'sprite': tank});
   });
   
   it('#shoot', function () {

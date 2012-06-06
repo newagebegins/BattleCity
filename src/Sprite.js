@@ -40,6 +40,9 @@ Sprite.prototype.stop = function () {
 };
   
 Sprite.prototype.move = function () {
+  if (this._speed == 0) {
+    return;
+  }
   this._x = this._getNewX();
   this._y = this._getNewY();
   this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
