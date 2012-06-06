@@ -45,12 +45,7 @@ describe("BulletFactory", function () {
       bullet.setDirection(direction);
       bullet.setSpeed(BULLET_SPEED);
       
-      factory.notify({'name': Tank.Event.SHOOT, 'tank': tank});
-      
-      expect(eventManager.fireEvent).toHaveBeenCalledWith({
-        'name': Sprite.Event.CREATED,
-        'sprite': bullet
-      });
+      expect(factory.createBullet(tank)).toEqual(bullet);
     }
   });
 });

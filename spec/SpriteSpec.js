@@ -41,3 +41,15 @@ describe("Sprite", function () {
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Sprite.Event.DESTROYED, 'sprite': sprite});
   });
 });
+
+describe("Sprite", function () {
+  it("should fire an event when created", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    var sprite = new Sprite(eventManager);
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({
+      'name': Sprite.Event.CREATED,
+      'sprite': sprite
+    });
+  });
+});

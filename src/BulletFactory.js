@@ -5,18 +5,18 @@ function BulletFactory(eventManager) {
 
 BulletFactory.prototype.notify = function (event) {
   if (event.name == Tank.Event.SHOOT) {
-    this._createBullet(event.tank);
+    this.createBullet(event.tank);
   }
 };
 
-BulletFactory.prototype._createBullet = function (tank) {
+BulletFactory.prototype.createBullet = function (tank) {
   var bullet = new Bullet(this._eventManager, tank);
   bullet.setPosition(this._getBulletPosition(tank));
   bullet.setDimensions(tank.getBulletSize(), tank.getBulletSize());
   bullet.setDirection(tank.getDirection());
   bullet.setSpeed(tank.getBulletSpeed());
   
-  this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': bullet});
+  return bullet;
 };
 
 BulletFactory.prototype._getBulletPosition = function (tank) {

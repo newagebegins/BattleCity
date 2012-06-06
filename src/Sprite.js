@@ -4,6 +4,8 @@ function Sprite(eventManager) {
   this._eventManager = eventManager;
   this._direction = Sprite.Direction.RIGHT;
   this._speed = 0;
+  
+  this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': this});
 }
 
 Sprite.subclass(Rect);
