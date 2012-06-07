@@ -108,6 +108,43 @@ describe("Tank", function () {
       expect(tank.getImage()).toEqual('tank_left_2');
     });
   });
+  
+  describe("#resolveCollisionWithWall", function () {
+    it("tank moves right", function () {
+      checkDirection(new Rect(1, 1, 2, 2), new Rect(2, 1, 2, 2), Sprite.Direction.RIGHT, new Point(0, 1));
+    });
+    
+    it("tank moves left", function () {
+      checkDirection(new Rect(2, 1, 2, 2), new Rect(1, 1, 2, 2), Sprite.Direction.LEFT, new Point(3, 1));
+    });
+    
+    it("tank moves up", function () {
+      checkDirection(new Rect(1, 2, 2, 2), new Rect(1, 1, 2, 2), Sprite.Direction.UP, new Point(1, 3));
+    });
+    
+    it("tank moves down", function () {
+      checkDirection(new Rect(1, 1, 2, 2), new Rect(1, 2, 2, 2), Sprite.Direction.DOWN, new Point(1, 0));
+    });
+    
+    function checkDirection(tankRect, wallRect, direction, resolvedTankPosition) {
+      tank.setRect(tankRect);
+      tank.setDirection(direction);
+      var wall = new Wall(eventManager);
+      wall.setRect(wallRect);
+      tank.resolveCollisionWithWall(wall);
+      expect(tank.getPosition()).toEqual(resolvedTankPosition);
+    }
+  });
+  
+  it("should resolve collision when collides with a wall", function () {
+    spyOn(tank, 'resolveCollisionWithWall');
+    var wall = new Wall(eventManager);
+    tank.notify({
+      'name': CollisionDetector.Event.COLLISION,
+      'initiator': tank,
+      'sprite': wall});
+    expect(tank.resolveCollisionWithWall).toHaveBeenCalledWith(wall);
+  });
 });
 
 describe("Tank", function () {

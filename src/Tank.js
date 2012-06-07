@@ -82,7 +82,7 @@ Tank.prototype.notify = function (event) {
     this._bulletShot = false;
   }
   else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
-    this._resolveCollisionWithWall(event.sprite);
+    this.resolveCollisionWithWall(event.sprite);
   }
 };
 
@@ -90,7 +90,7 @@ Tank.prototype.draw = function (ctx) {
   ctx.drawImage(ImageManager.getImage(this.getImage()), this._x, this._y);
 };
 
-Tank.prototype._resolveCollisionWithWall = function (wall) {
+Tank.prototype.resolveCollisionWithWall = function (wall) {
   var moveX = 0;
   var moveY = 0;
   if (this._direction == Sprite.Direction.RIGHT) {
