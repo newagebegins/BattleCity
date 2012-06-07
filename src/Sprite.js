@@ -72,9 +72,24 @@ Sprite.prototype.update = function () {
 Sprite.prototype.updateHook = function () {
   
 };
-  
+
+/**
+ * Should not be overriden by subclasses. Instead override destroyHook().
+ */
 Sprite.prototype.destroy = function () {
+  if (this._destroyed) {
+    return;
+  }
   this._destroyed = true;
+  this.destroyHook();
+};
+
+/**
+ * Should be overriden by subclasses. All destroy operations specific to a
+ * subclass should be placed here.
+ */
+Sprite.prototype.destroyHook = function () {
+  
 };
   
 Sprite.prototype.isDestroyed = function () {

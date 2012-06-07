@@ -7,9 +7,9 @@ describe("Bullet", function () {
     bullet = new Bullet(eventManager, tank);
   });
   
-  it("#destroy", function () {
+  it("#destroyHook", function () {
     spyOn(eventManager, 'fireEvent');
-    bullet.destroy();
+    bullet.destroyHook();
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Bullet.Event.DESTROYED, 'bullet': bullet, 'tank': tank});
   });
   
