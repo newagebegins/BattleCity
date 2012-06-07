@@ -18,13 +18,18 @@ Explosion.prototype.setFrame = function (frame) {
   this._frame = frame;
 };
 
+Explosion.prototype.getFrame = function () {
+  return this._frame;
+};
+
 Explosion.prototype.getImage = function () {
   return 'explosion_' + this._frame;
 };
 
-Explosion.prototype.update = function () {
+Explosion.prototype.updateHook = function () {
   this._frame++;
   if (this._frame > this._framesCount) {
+    this._frame = this._framesCount;
     this.destroy();
   }
 };

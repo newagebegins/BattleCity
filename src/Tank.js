@@ -75,8 +75,7 @@ Tank.prototype.getImage = function () {
   return 'tank_' + this._direction + '_' + this._trackFrame;
 };
 
-Tank.prototype.update = function () {
-  Sprite.prototype.update.call(this);
+Tank.prototype.updateHook = function () {
   this.updateTrackFrame();
 };
 

@@ -11,11 +11,11 @@ describe("Explosion", function () {
   });
   
   it("should be animated", function () {
-    expect(explosion.getImage()).toEqual('explosion_1');
+    expect(explosion.getFrame()).toEqual(1);
     explosion.update();
-    expect(explosion.getImage()).toEqual('explosion_2');
+    expect(explosion.getFrame()).toEqual(2);
     explosion.update();
-    expect(explosion.getImage()).toEqual('explosion_3');
+    expect(explosion.getFrame()).toEqual(3);
   });
   
   it("should be destroyed when animation is finished", function () {
@@ -27,5 +27,6 @@ describe("Explosion", function () {
     expect(explosion.destroy).not.toHaveBeenCalled();
     explosion.update();
     expect(explosion.destroy).toHaveBeenCalled();
+    expect(explosion.getFrame()).toEqual(FRAMES_COUNT);
   });
 });

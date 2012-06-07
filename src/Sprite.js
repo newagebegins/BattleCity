@@ -4,6 +4,7 @@ function Sprite(eventManager) {
   this._eventManager = eventManager;
   this._direction = Sprite.Direction.RIGHT;
   this._speed = 0;
+  this._destroyed = false;
   
   this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': this});
 }
@@ -55,12 +56,37 @@ Sprite.prototype.draw = function (ctx) {
   ctx.fillStyle = "red";
   ctx.fillRect(this._x, this._y, this._w, this._h);
 };
-  
+
+/**
+ * Should not be overriden by subclasses. Instead override updateHook().
+ */
 Sprite.prototype.update = function () {
+  if (this._destroyed) {
+    this.doDestroy();
+    return;
+  }
+  
   this.move();
+  this.updateHook();
+};
+
+/**
+ * Should be overriden by subclasses. All update operations specific to a
+ * subclass should be placed here.
+ */
+Sprite.prototype.updateHook = function () {
+  
 };
   
 Sprite.prototype.destroy = function () {
+  this._destroyed = true;
+};
+  
+Sprite.prototype.isDestroyed = function () {
+  return this._destroyed;
+};
+
+Sprite.prototype.doDestroy = function () {
   this._eventManager.removeSubscriber(this);
   this._eventManager.fireEvent({'name': Sprite.Event.DESTROYED, 'sprite': this});
 };
