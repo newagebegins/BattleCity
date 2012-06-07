@@ -51,11 +51,6 @@ Sprite.prototype.move = function () {
   this._y = this._getNewY();
   this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
 };
-  
-Sprite.prototype.draw = function (ctx) {
-  ctx.fillStyle = "red";
-  ctx.fillRect(this._x, this._y, this._w, this._h);
-};
 
 /**
  * Should not be overriden by subclasses. Instead override updateHook().

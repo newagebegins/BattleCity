@@ -6,6 +6,13 @@ describe("Wall", function () {
     expect(eventManager.addSubscriber).toHaveBeenCalledWith(wall, [CollisionDetector.Event.COLLISION]);
   });
   
+  it("initial state", function () {
+    var eventManager = new EventManager();
+    var wall = new Wall(eventManager);
+    expect(wall.getWidth()).toEqual(16);
+    expect(wall.getHeight()).toEqual(16);
+  });
+  
   it("should be destroyed when hit by a bullet", function () {
     var eventManager = new EventManager();
     var wall = new Wall(eventManager);

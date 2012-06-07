@@ -22,8 +22,11 @@ function Level(eventManager) {
   var bulletFactory = new BulletFactory(eventManager);
   var explosionFactory = new ExplosionFactory(eventManager);
 
-  var wall = new Wall(eventManager);
-  wall.setRect(new Rect(this._x + 50, this._y + 50, 32, 32));
+  new Wall(eventManager).setPosition(new Point(64, 64));
+  new Wall(eventManager).setPosition(new Point(80, 64));
+  new Wall(eventManager).setPosition(new Point(96, 64));
+  new Wall(eventManager).setPosition(new Point(64, 80));
+  new Wall(eventManager).setPosition(new Point(80, 80));
 }
 
 Level.subclass(Rect);

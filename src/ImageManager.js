@@ -16,7 +16,9 @@ var ImageManager = (function() {
     
     explosion_1: null,
     explosion_2: null,
-    explosion_3: null
+    explosion_3: null,
+    
+    wall_brick: null
   };
   
   for (var i in images) {
