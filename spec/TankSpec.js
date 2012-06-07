@@ -145,6 +145,40 @@ describe("Tank", function () {
       'sprite': wall});
     expect(tank.resolveCollisionWithWall).toHaveBeenCalledWith(wall);
   });
+  
+  describe("#resolveOutOfBounds", function () {
+    it("tank moves right", function () {
+      checkDirection(new Point(9, 3), Sprite.Direction.RIGHT, new Point(8, 3));
+    });
+    
+    it("tank moves left", function () {
+      checkDirection(new Point(0, 3), Sprite.Direction.LEFT, new Point(1, 3));
+    });
+    
+    it("tank moves up", function () {
+      checkDirection(new Point(4, 1), Sprite.Direction.UP, new Point(4, 2));
+    });
+    
+    it("tank moves down", function () {
+      checkDirection(new Point(4, 7), Sprite.Direction.DOWN, new Point(4, 6));
+    });
+    
+    function checkDirection(tankPosition, direction, resolvedPosition) {
+      tank.setPosition(tankPosition);
+      tank.setDimensions(2, 2);
+      tank.setDirection(direction);
+      var bounds = new Rect(1, 2, 9, 6);
+      tank.resolveOutOfBounds(bounds);
+      expect(tank.getPosition()).toEqual(resolvedPosition);
+    }
+  });
+  
+  it("should resolve collision when goes out of bounds", function () {
+    spyOn(tank, 'resolveOutOfBounds');
+    var bounds = new Rect(0, 0, 100, 100);
+    tank.notify({'name': CollisionDetector.Event.OUT_OF_BOUNDS, 'sprite': tank, 'bounds': bounds});
+    expect(tank.resolveOutOfBounds).toHaveBeenCalledWith(bounds);
+  });
 });
 
 describe("Tank", function () {
@@ -153,6 +187,6 @@ describe("Tank", function () {
     spyOn(eventManager, 'addSubscriber');
     var tank = new Tank(eventManager);
     expect(eventManager.addSubscriber).toHaveBeenCalledWith(tank,
-      [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION]);
+      [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION, CollisionDetector.Event.OUT_OF_BOUNDS]);
   });
 });

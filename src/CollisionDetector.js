@@ -38,6 +38,7 @@ CollisionDetector.prototype._detectOutOfBoundsForSprite = function (sprite) {
   if (!this._bounds.containsWhole(sprite)) {
     this._eventManager.fireEvent({
         'name': CollisionDetector.Event.OUT_OF_BOUNDS,
-        'sprite': sprite});
+        'sprite': sprite,
+        'bounds': this._bounds});
   }
 };

@@ -50,6 +50,7 @@ describe("CollisionDetector", function () {
     
     expect(eventManager.fireEvent).toHaveBeenCalledWith({
       'name': CollisionDetector.Event.OUT_OF_BOUNDS,
-      'sprite': tank});
+      'sprite': tank,
+      'bounds': bounds});
   });
 });

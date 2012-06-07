@@ -1,7 +1,10 @@
 function Tank(eventManager) {
   Sprite.call(this, eventManager);
   
-  eventManager.addSubscriber(this, [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION]);
+  eventManager.addSubscriber(this,
+   [Bullet.Event.DESTROYED,
+    CollisionDetector.Event.COLLISION,
+    CollisionDetector.Event.OUT_OF_BOUNDS]);
   
   this._w = 26;
   this._h = 26;
@@ -84,6 +87,9 @@ Tank.prototype.notify = function (event) {
   else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
     this.resolveCollisionWithWall(event.sprite);
   }
+  else if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {
+    this.resolveOutOfBounds(event.bounds);
+  }
 };
 
 Tank.prototype.draw = function (ctx) {
@@ -107,4 +113,19 @@ Tank.prototype.resolveCollisionWithWall = function (wall) {
   }
   this._x -= moveX;
   this._y -= moveY;
+};
+
+Tank.prototype.resolveOutOfBounds = function (bounds) {
+  if (this._direction == Sprite.Direction.RIGHT) {
+    this._x = bounds.getRight() - this._w + 1;
+  }
+  else if (this._direction == Sprite.Direction.LEFT) {
+    this._x = bounds.getLeft();
+  }
+  else if (this._direction == Sprite.Direction.UP) {
+    this._y = bounds.getTop();
+  }
+  else if (this._direction == Sprite.Direction.DOWN) {
+    this._y = bounds.getBottom() - this._h + 1;
+  }
 };
