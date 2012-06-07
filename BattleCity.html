@@ -21,6 +21,8 @@
   <script type="text/javascript" src="src/Bullet.js"></script>
   <script type="text/javascript" src="src/Painter.js"></script>
   <script type="text/javascript" src="src/Updater.js"></script>
+  <script type="text/javascript" src="src/ExplosionFactory.js"></script>
+  <script type="text/javascript" src="src/Explosion.js"></script>
   
   <script type="text/javascript" src="lib/Stats.js"></script>
   <script type="text/javascript" src="src/FPSCounter.js"></script>
@@ -45,16 +47,17 @@
       var collisionDetector = new CollisionDetector(eventManager, bounds);
       
       var tank = new Tank(eventManager);
-      tank.setRect(0, 0, 26, 26);
+      tank.setPosition(new Point(0, 0));
       tank.setNormalSpeed(4);
       tank.setBulletSize(8);
       tank.setBulletSpeed(4);
       
       var tankController = new TankController(eventManager, tank);
       var bulletFactory = new BulletFactory(eventManager);
+      var explosionFactory = new ExplosionFactory(eventManager);
       
       var wall = new Wall(eventManager);
-      wall.setRect(50, 50, 32, 32);
+      wall.setRect(new Rect(50, 50, 32, 32));
       
       setInterval(gameLoop, 1000 / FPS);
       

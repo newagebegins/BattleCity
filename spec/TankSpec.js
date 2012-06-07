@@ -18,6 +18,11 @@ describe("Tank", function () {
     it("bullet speed should be 1", function () {
       expect(tank.getBulletSpeed()).toEqual(1);
     });
+    
+    it("should have proper size", function () {
+      expect(tank.getWidth()).toEqual(26);
+      expect(tank.getHeight()).toEqual(26);
+    });
   });
   
   describe("can move", function () {

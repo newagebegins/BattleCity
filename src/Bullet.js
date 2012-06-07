@@ -17,7 +17,7 @@ Bullet.prototype.notify = function (event) {
 
 Bullet.prototype.destroy = function () {
   Sprite.prototype.destroy.call(this);
-  this._eventManager.fireEvent({'name': Bullet.Event.DESTROYED, 'tank': this._tank});
+  this._eventManager.fireEvent({'name': Bullet.Event.DESTROYED, 'bullet': this, 'tank': this._tank});
 };
 
 Bullet.prototype.getImage = function () {

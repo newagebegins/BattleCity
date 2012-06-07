@@ -3,6 +3,9 @@ function Tank(eventManager) {
   
   eventManager.addSubscriber(this, [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION]);
   
+  this._w = 26;
+  this._h = 26;
+  
   this._normalSpeed = 0;
   this._bulletSize = 1;
   this._bulletSpeed = 1;

@@ -14,6 +14,6 @@ describe("Bullet", function () {
     var tank = new Tank(eventManager);
     var bullet = new Bullet(eventManager, tank);
     bullet.notify({'name': CollisionDetector.Event.OUT_OF_BOUNDS, 'sprite': bullet});
-    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Bullet.Event.DESTROYED, 'tank': tank});
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Bullet.Event.DESTROYED, 'bullet': bullet, 'tank': tank});
   });
 });

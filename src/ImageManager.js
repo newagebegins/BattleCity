@@ -12,7 +12,11 @@ var ImageManager = (function() {
     bullet_up: null,
     bullet_down: null,
     bullet_left: null,
-    bullet_right: null
+    bullet_right: null,
+    
+    explosion_1: null,
+    explosion_2: null,
+    explosion_3: null
   };
   
   for (var i in images) {
