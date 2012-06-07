@@ -7,7 +7,12 @@ var ImageManager = (function() {
     tank_right_1: null,
     tank_right_2: null,
     tank_up_1: null,
-    tank_up_2: null
+    tank_up_2: null,
+    
+    bullet_up: null,
+    bullet_down: null,
+    bullet_left: null,
+    bullet_right: null
   };
   
   for (var i in images) {

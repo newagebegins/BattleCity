@@ -33,8 +33,8 @@
       var fpsCounter = new FPSCounter();
       
       var CANVAS_ID = 'canvas';
-      var CANVAS_WIDTH = 640;
-      var CANVAS_HEIGHT = 480;
+      var CANVAS_WIDTH = 100;
+      var CANVAS_HEIGHT = 100;
       var ctx = createCanvasContext();
       
       var eventManager = new EventManager();
@@ -47,8 +47,8 @@
       var tank = new Tank(eventManager);
       tank.setRect(0, 0, 26, 26);
       tank.setNormalSpeed(4);
-      tank.setBulletSize(4);
-      tank.setBulletSpeed(2);
+      tank.setBulletSize(8);
+      tank.setBulletSpeed(4);
       
       var tankController = new TankController(eventManager, tank);
       var bulletFactory = new BulletFactory(eventManager);

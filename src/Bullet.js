@@ -19,3 +19,11 @@ Bullet.prototype.destroy = function () {
   Sprite.prototype.destroy.call(this);
   this._eventManager.fireEvent({'name': Bullet.Event.DESTROYED, 'tank': this._tank});
 };
+
+Bullet.prototype.getImage = function () {
+  return 'bullet_' + this._direction;
+};
+
+Bullet.prototype.draw = function (ctx) {
+  ctx.drawImage(ImageManager.getImage(this.getImage()), this._x, this._y);
+};
