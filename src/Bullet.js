@@ -1,6 +1,9 @@
 function Bullet(eventManager, tank) {
   Sprite.call(this, eventManager);
-  eventManager.addSubscriber(this, [CollisionDetector.Event.OUT_OF_BOUNDS]);
+  eventManager.addSubscriber(this, [
+    CollisionDetector.Event.OUT_OF_BOUNDS,
+    CollisionDetector.Event.COLLISION
+  ]);
   this._tank = tank;
 }
 
@@ -10,7 +13,8 @@ Bullet.Event = {};
 Bullet.Event.DESTROYED = 'Bullet.Event.DESTROYED';
 
 Bullet.prototype.notify = function (event) {
-  if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {
+  if ((event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) ||
+      (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall)) {
     this.destroy();
   }
 };

@@ -16,7 +16,7 @@ function Level(eventManager) {
   tank.setPosition(new Point(this._x, this._y));
   tank.setNormalSpeed(4);
   tank.setBulletSize(8);
-  tank.setBulletSpeed(4);
+  tank.setBulletSpeed(8);
 
   var tankController = new TankController(eventManager, tank);
   var bulletFactory = new BulletFactory(eventManager);
