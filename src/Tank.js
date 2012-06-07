@@ -6,6 +6,7 @@ function Tank(eventManager) {
   this._normalSpeed = 0;
   this._bulletSize = 1;
   this._bulletSpeed = 1;
+  this._trackFrame = 1;
 }
 
 Tank.subclass(Sprite);
@@ -48,6 +49,30 @@ Tank.prototype.shoot = function () {
   this._bulletShot = true;
   this._eventManager.fireEvent({'name': Tank.Event.SHOOT, 'tank': this});
 };
+  
+Tank.prototype.setTrackFrame = function (frame) {
+  this._trackFrame = frame;
+};
+  
+Tank.prototype.getTrackFrame = function () {
+  return this._trackFrame;
+};
+
+Tank.prototype.updateTrackFrame = function () {
+  if (this._speed == 0) {
+    return;
+  }
+  this._trackFrame = this._trackFrame == 1 ? 2 : 1;
+};
+
+Tank.prototype.getImage = function () {
+  return 'tank_' + this._direction + '_' + this._trackFrame;
+};
+
+Tank.prototype.update = function () {
+  Sprite.prototype.update.call(this);
+  this.updateTrackFrame();
+};
 
 Tank.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED && event.tank == this) {
@@ -56,6 +81,10 @@ Tank.prototype.notify = function (event) {
   else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
     this._resolveCollisionWithWall(event.sprite);
   }
+};
+
+Tank.prototype.draw = function (ctx) {
+  ctx.drawImage(ImageManager.getImage(this.getImage()), this._x, this._y);
 };
 
 Tank.prototype._resolveCollisionWithWall = function (wall) {

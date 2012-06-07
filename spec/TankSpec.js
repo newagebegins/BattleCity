@@ -70,6 +70,39 @@ describe("Tank", function () {
         'tank': tank});
     });
   });
+  
+  describe("track animation", function () {
+    it("animate when tank is moving", function () {
+      tank.setSpeed(1);
+      expect(tank.getTrackFrame()).toEqual(1);
+      tank.updateTrackFrame();
+      expect(tank.getTrackFrame()).toEqual(2);
+      tank.updateTrackFrame();
+      expect(tank.getTrackFrame()).toEqual(1);
+    });
+
+    it("don't animate when tank is not moving", function () {
+      tank.setSpeed(0);
+      expect(tank.getTrackFrame()).toEqual(1);
+      tank.updateTrackFrame();
+      expect(tank.getTrackFrame()).toEqual(1);
+      tank.updateTrackFrame();
+      expect(tank.getTrackFrame()).toEqual(1);
+    });
+  });
+  
+  describe("image", function () {
+    it("RIGHT", function () {
+      tank.setDirection(Sprite.Direction.RIGHT);
+      tank.setTrackFrame(1);
+      expect(tank.getImage()).toEqual('tank_right_1');
+    });
+    it("LEFT", function () {
+      tank.setDirection(Sprite.Direction.LEFT);
+      tank.setTrackFrame(2);
+      expect(tank.getImage()).toEqual('tank_left_2');
+    });
+  });
 });
 
 describe("Tank", function () {

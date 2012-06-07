@@ -24,6 +24,8 @@
   
   <script type="text/javascript" src="lib/Stats.js"></script>
   <script type="text/javascript" src="src/FPSCounter.js"></script>
+  
+  <script type="text/javascript" src="src/ImageManager.js"></script>
 
   <script type="text/javascript">
     $(function () {
@@ -43,7 +45,7 @@
       var collisionDetector = new CollisionDetector(eventManager, bounds);
       
       var tank = new Tank(eventManager);
-      tank.setRect(0, 0, 32, 32);
+      tank.setRect(0, 0, 26, 26);
       tank.setNormalSpeed(4);
       tank.setBulletSize(4);
       tank.setBulletSpeed(2);

@@ -11,10 +11,10 @@ function Sprite(eventManager) {
 Sprite.subclass(Rect);
 
 Sprite.Direction = {
-  RIGHT: 'RIGHT',
-  LEFT: 'LEFT',
-  UP: 'UP',
-  DOWN: 'DOWN',
+  RIGHT: 'right',
+  LEFT: 'left',
+  UP: 'up',
+  DOWN: 'down',
 };
 
 Sprite.Event = {};
