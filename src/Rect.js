@@ -53,6 +53,10 @@ Rect.prototype.getTop = function () {
 Rect.prototype.getBottom = function () {
   return this._y + this._h - 1;
 };
+
+Rect.prototype.getCenter = function () {
+  return new Point(this._x + this._w / 2, this._y + this._h / 2);
+};
   
 Rect.prototype.intersects = function (other) {
   return !(this.getLeft() > other.getRight() ||

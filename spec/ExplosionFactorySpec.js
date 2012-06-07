@@ -14,8 +14,6 @@ describe("ExplosionFactory", function () {
   });
   
   it("should place explosions correctly", function () {
-    var BULLET_X = 0;
-    var BULLET_Y = 0;
     var EXPLOSION_SIZE = 32;
     var eventManager = new EventManager();
     var explosionFactory = new ExplosionFactory(eventManager);
@@ -25,11 +23,7 @@ describe("ExplosionFactory", function () {
     bullet.setRect(new Rect(0, 0, 8, 8));
     var explosion = explosionFactory.createExplosion(bullet);
     
-    expect(explosion.getRect()).toEqual(new Rect(
-      (BULLET_X - EXPLOSION_SIZE) / 2,
-      (BULLET_Y - EXPLOSION_SIZE) / 2,
-      EXPLOSION_SIZE,
-      EXPLOSION_SIZE));
+    expect(explosion.getRect()).toEqual(new Rect(-12, -12, EXPLOSION_SIZE, EXPLOSION_SIZE));
   });
   
   it("should create explosions when notified about destroyed bullet", function () {

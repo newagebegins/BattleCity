@@ -21,9 +21,10 @@ ExplosionFactory.prototype.notify = function (event) {
 
 ExplosionFactory.prototype.createExplosion = function (bullet) {
   var explosion = new Explosion(this._eventManager);
+  var bulletCenter = bullet.getCenter();
   explosion.setRect(new Rect(
-    bullet.getX() - this._explosionSize / 2,
-    bullet.getY() - this._explosionSize / 2,
+    bulletCenter.getX() - this._explosionSize / 2,
+    bulletCenter.getY() - this._explosionSize / 2,
     this._explosionSize,
     this._explosionSize));
   return explosion;
