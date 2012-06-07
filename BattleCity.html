@@ -28,6 +28,7 @@
   <script type="text/javascript" src="src/FPSCounter.js"></script>
   
   <script type="text/javascript" src="src/ImageManager.js"></script>
+  <script type="text/javascript" src="src/Level.js"></script>
 
   <script type="text/javascript">
     $(function () {
@@ -35,29 +36,13 @@
       var fpsCounter = new FPSCounter();
       
       var CANVAS_ID = 'canvas';
-      var CANVAS_WIDTH = 100;
-      var CANVAS_HEIGHT = 100;
+      var CANVAS_WIDTH = 640;
+      var CANVAS_HEIGHT = 480;
       var ctx = createCanvasContext();
       
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
-      var painter = new Painter(eventManager);
-      var updater = new Updater(eventManager);
-      var bounds = new Rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      var collisionDetector = new CollisionDetector(eventManager, bounds);
-      
-      var tank = new Tank(eventManager);
-      tank.setPosition(new Point(0, 0));
-      tank.setNormalSpeed(4);
-      tank.setBulletSize(8);
-      tank.setBulletSpeed(4);
-      
-      var tankController = new TankController(eventManager, tank);
-      var bulletFactory = new BulletFactory(eventManager);
-      var explosionFactory = new ExplosionFactory(eventManager);
-      
-      var wall = new Wall(eventManager);
-      wall.setRect(new Rect(50, 50, 32, 32));
+      var level = new Level(eventManager);
       
       setInterval(gameLoop, 1000 / FPS);
       
@@ -65,10 +50,10 @@
         fpsCounter.begin();
         
         keyboard.fireEvents();
-        updater.update();
+        level.update();
         
         clearCanvas();
-        painter.draw(ctx);
+        level.draw(ctx);
         
         fpsCounter.end();
       }
@@ -80,7 +65,7 @@
       };
       
       function clearCanvas() {
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#808080";
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       };
     });
