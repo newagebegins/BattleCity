@@ -3,7 +3,7 @@ describe("Painter", function () {
     var eventManager = new EventManager();
     var tank = new Tank(eventManager);
     spyOn(tank, 'draw');
-    var wall = new Wall(eventManager);
+    var wall = new BrickWall(eventManager);
     spyOn(wall, 'draw');
     var painter = new Painter(eventManager);
     painter.addSprite(tank);
