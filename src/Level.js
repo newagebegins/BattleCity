@@ -27,6 +27,9 @@ function Level(eventManager) {
   new BrickWall(eventManager).setPosition(new Point(this._x + 64, this._y + 32));
   new BrickWall(eventManager).setPosition(new Point(this._x + 32, this._y + 48));
   new BrickWall(eventManager).setPosition(new Point(this._x + 48, this._y + 48));
+  
+  new SteelWall(eventManager).setPosition(new Point(this._x + 80, this._y + 48));
+  new SteelWall(eventManager).setPosition(new Point(this._x + 96, this._y + 48));
 }
 
 Level.subclass(Rect);
