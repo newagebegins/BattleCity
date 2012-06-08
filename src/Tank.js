@@ -6,8 +6,8 @@ function Tank(eventManager) {
     CollisionDetector.Event.COLLISION,
     CollisionDetector.Event.OUT_OF_BOUNDS]);
   
-  this._w = 26;
-  this._h = 26;
+  this._w = 32;
+  this._h = 32;
   
   this._normalSpeed = 0;
   this._bulletSize = 1;

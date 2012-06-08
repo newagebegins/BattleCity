@@ -20,8 +20,8 @@ describe("Tank", function () {
     });
     
     it("should have proper size", function () {
-      expect(tank.getWidth()).toEqual(26);
-      expect(tank.getHeight()).toEqual(26);
+      expect(tank.getWidth()).toEqual(32);
+      expect(tank.getHeight()).toEqual(32);
     });
   });
   
