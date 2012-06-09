@@ -13,6 +13,10 @@ function Tank(eventManager) {
   this._bulletSize = 1;
   this._bulletSpeed = 1;
   this._trackFrame = 1;
+  
+  // turn smoothing sensitivity
+  this._turnSmoothSens = 10;
+  this._turnRoundTo = 16;
 }
 
 Tank.subclass(Sprite);
@@ -88,6 +92,62 @@ Tank.prototype.notify = function (event) {
   }
   else if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {
     this.resolveOutOfBounds(event.bounds);
+  }
+};
+
+Tank.prototype.setTurnSmoothSens = function (sensitivity) {
+  this._turnSmoothSens = sensitivity;
+};
+
+Tank.prototype.getTurnSmoothSens = function () {
+  return this._turnSmoothSens;
+};
+
+Tank.prototype.setTurnRoundTo = function (value) {
+  this._turnRoundTo = value;
+};
+
+Tank.prototype.getTurnRoundTo = function () {
+  return this._turnRoundTo;
+};
+
+Tank.prototype.move = function () {
+  if (this._turn) {
+    this._smoothTurn();
+  }
+  Sprite.prototype.move.call(this);
+};
+
+Tank.prototype._smoothTurn = function () {
+  var val;
+  
+  if (this._direction == Sprite.Direction.UP || this._direction == Sprite.Direction.DOWN) {
+    if (this._prevDirection == Sprite.Direction.RIGHT) {
+      val = this._turnRoundTo - (this._x % this._turnRoundTo);
+      if (val < this._turnSmoothSens) {
+        this._x += val;
+      }
+    }
+    else if (this._prevDirection == Sprite.Direction.LEFT) {
+      val = this._x % this._turnRoundTo;
+      if (val < this._turnSmoothSens) {
+        this._x -= val;
+      }
+    }
+  }
+  else {
+    if (this._prevDirection == Sprite.Direction.DOWN) {
+      val = this._turnRoundTo - (this._y % this._turnRoundTo);
+      if (val < this._turnSmoothSens) {
+        this._y += val;
+      }
+    }
+    else if (this._prevDirection == Sprite.Direction.UP) {
+      val = this._y % this._turnRoundTo;
+      if (val < this._turnSmoothSens) {
+        this._y -= val;
+      }
+    }
   }
 };
 

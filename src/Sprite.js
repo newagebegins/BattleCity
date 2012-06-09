@@ -2,9 +2,11 @@ function Sprite(eventManager) {
   Rect.call(this);
   
   this._eventManager = eventManager;
+  this._prevDirection = Sprite.Direction.RIGHT;
   this._direction = Sprite.Direction.RIGHT;
   this._speed = 0;
   this._destroyed = false;
+  this._turn = false;
   
   this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': this});
 }
@@ -26,9 +28,22 @@ Sprite.Event.DESTROYED = 'Sprite.Event.DESTROYED';
 Sprite.prototype.getDirection = function () {
   return this._direction;
 };
-  
+
 Sprite.prototype.setDirection = function (direction) {
+  if (direction == this._direction) {
+    return;
+  }
+  this._prevDirection = this._direction;
   this._direction = direction;
+  this._turn = true;
+};
+
+Sprite.prototype.getPrevDirection = function () {
+  return this._prevDirection;
+};
+
+Sprite.prototype.isTurn = function () {
+  return this._turn;
 };
 
 Sprite.prototype.getSpeed = function () {
@@ -49,6 +64,7 @@ Sprite.prototype.move = function () {
   }
   this._x = this._getNewX();
   this._y = this._getNewY();
+  this._turn = false;
   this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
 };
 

@@ -8,8 +8,10 @@ describe("Sprite", function () {
   
   it("initial state", function () {
     expect(sprite.getDirection()).toEqual(Sprite.Direction.RIGHT);
+    expect(sprite.getPrevDirection()).toEqual(Sprite.Direction.RIGHT);
     expect(sprite.getSpeed()).toEqual(0);
     expect(sprite.isDestroyed()).toBeFalsy();
+    expect(sprite.isTurn()).toBeFalsy();
   });
   
   describe("#move", function () {
@@ -70,6 +72,35 @@ describe("Sprite", function () {
       expect(sprite.move).not.toHaveBeenCalled();
     });
   });
+  
+  describe("#isTurn", function () {
+    it("test 1", function () {
+      sprite.setDirection(Sprite.Direction.RIGHT);
+      sprite.move();
+      sprite.setDirection(Sprite.Direction.UP);
+      expect(sprite.isTurn()).toBeTruthy();
+    });
+    
+    it("test 2", function () {
+      sprite.setDirection(Sprite.Direction.RIGHT);
+      sprite.move();
+      expect(sprite.isTurn()).toBeFalsy();
+    });
+  });
+  
+  describe("#getPrevDirection", function () {
+    it("test 1", function () {
+      sprite.setDirection(Sprite.Direction.RIGHT);
+      sprite.setDirection(Sprite.Direction.LEFT);
+      expect(sprite.getPrevDirection()).toEqual(Sprite.Direction.RIGHT);
+    });
+    
+    it("test 2", function () {
+      sprite.setDirection(Sprite.Direction.DOWN);
+      sprite.setDirection(Sprite.Direction.RIGHT);
+      expect(sprite.getPrevDirection()).toEqual(Sprite.Direction.DOWN);
+    });
+  }); 
 });
 
 describe("Sprite", function () {

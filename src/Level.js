@@ -1,10 +1,10 @@
 function Level(eventManager) {
   Rect.call(this);
   
-  this._x = 50;
-  this._y = 20;
-  this._w = 200;
-  this._h = 150;
+  this._x = 48;
+  this._y = 32;
+  this._w = 480;
+  this._h = 320;
   
   this._painter = new Painter(eventManager);
   this._updater = new Updater(eventManager);
@@ -23,10 +23,10 @@ function Level(eventManager) {
   var explosionFactory = new ExplosionFactory(eventManager);
 
   new BrickWall(eventManager).setPosition(new Point(this._x + 32, this._y + 32));
-  new BrickWall(eventManager).setPosition(new Point(this._x + 48, this._y + 32));
-  new BrickWall(eventManager).setPosition(new Point(this._x + 64, this._y + 32));
   new BrickWall(eventManager).setPosition(new Point(this._x + 32, this._y + 48));
-  new BrickWall(eventManager).setPosition(new Point(this._x + 48, this._y + 48));
+  
+  new BrickWall(eventManager).setPosition(new Point(this._x + 32, this._y + 96));
+  new BrickWall(eventManager).setPosition(new Point(this._x + 32, this._y + 112));
   
   new SteelWall(eventManager).setPosition(new Point(this._x + 80, this._y + 48));
   new SteelWall(eventManager).setPosition(new Point(this._x + 96, this._y + 48));
