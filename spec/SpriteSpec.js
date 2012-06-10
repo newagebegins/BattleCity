@@ -9,6 +9,7 @@ describe("Sprite", function () {
   it("initial state", function () {
     expect(sprite.getDirection()).toEqual(Sprite.Direction.RIGHT);
     expect(sprite.getPrevDirection()).toEqual(Sprite.Direction.RIGHT);
+    expect(sprite.getNormalSpeed()).toEqual(0);
     expect(sprite.getSpeed()).toEqual(0);
     expect(sprite.isDestroyed()).toBeFalsy();
     expect(sprite.isTurn()).toBeFalsy();
@@ -29,6 +30,34 @@ describe("Sprite", function () {
       sprite.move();
       expect(eventManager.fireEvent).not.toHaveBeenCalled();
     });
+  });
+  
+  describe("can move", function () {
+    var INIT_X = 0, INIT_Y = 0, SPEED = 1;
+    
+    it("right", function () {
+      checkDirection(Sprite.Direction.RIGHT, new Point(INIT_X + SPEED, INIT_Y))
+    });
+
+    it("left", function () {
+      checkDirection(Sprite.Direction.LEFT, new Point(INIT_X - SPEED, INIT_Y))
+    });
+    
+    it("up", function () {
+      checkDirection(Sprite.Direction.UP, new Point(INIT_X, INIT_Y - SPEED))
+    });
+    
+    it("down", function () {
+      checkDirection(Sprite.Direction.DOWN, new Point(INIT_X, INIT_Y + SPEED))
+    });
+    
+    function checkDirection(direction, finalPosition) {
+      sprite.setXY(INIT_X, INIT_Y);
+      sprite.setSpeed(SPEED);
+      sprite.setDirection(direction);
+      sprite.move();
+      expect(sprite.getPosition()).toEqual(finalPosition);
+    }
   });
   
   describe("#destroy", function () {

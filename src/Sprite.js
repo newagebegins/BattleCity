@@ -4,6 +4,7 @@ function Sprite(eventManager) {
   this._eventManager = eventManager;
   this._prevDirection = Sprite.Direction.RIGHT;
   this._direction = Sprite.Direction.RIGHT;
+  this._normalSpeed = 0;
   this._speed = 0;
   this._destroyed = false;
   this._turn = false;
@@ -52,6 +53,18 @@ Sprite.prototype.getSpeed = function () {
   
 Sprite.prototype.setSpeed = function (speed) {
   this._speed = speed;
+};
+
+Sprite.prototype.getNormalSpeed = function () {
+  return this._normalSpeed;
+};
+
+Sprite.prototype.setNormalSpeed = function (speed) {
+  this._normalSpeed = speed;
+};
+
+Sprite.prototype.toNormalSpeed = function () {
+  this._speed = this._normalSpeed;
 };
 
 Sprite.prototype.stop = function () {

@@ -9,7 +9,6 @@ function Tank(eventManager) {
   this._w = 32;
   this._h = 32;
   
-  this._normalSpeed = 0;
   this._bulletSize = 1;
   this._bulletSpeed = 1;
   this._trackFrame = 1;
@@ -23,18 +22,6 @@ Tank.subclass(Sprite);
 
 Tank.Event = {};
 Tank.Event.SHOOT = 'Tank.Event.SHOOT';
-
-Tank.prototype.getNormalSpeed = function () {
-  return this._normalSpeed;
-};
-
-Tank.prototype.setNormalSpeed = function (speed) {
-  this._normalSpeed = speed;
-};
-
-Tank.prototype.toNormalSpeed = function () {
-  this._speed = this._normalSpeed;
-};
 
 Tank.prototype.setBulletSize = function (size) {
   this._bulletSize = size;

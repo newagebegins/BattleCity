@@ -16,7 +16,7 @@ function Cursor(eventManager) {
 Cursor.subclass(Sprite);
 
 Cursor.prototype.toNormalSpeed = function () {
-  this._speed = this._normalSpeed;
+  Sprite.prototype.toNormalSpeed.call(this);
   this._moved = false;
 };
 
