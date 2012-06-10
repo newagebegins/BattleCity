@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Battle City</title>
+  <title>Construction</title>
   
   <script type="text/javascript" src="lib/jquery-1.7.2.js"></script>
 
@@ -32,6 +32,9 @@
   <script type="text/javascript" src="src/ImageManager.js"></script>
   <script type="text/javascript" src="src/Gamefield.js"></script>
   <script type="text/javascript" src="src/Level.js"></script>
+  <script type="text/javascript" src="src/Construction.js"></script>
+  <script type="text/javascript" src="src/Cursor.js"></script>
+  <script type="text/javascript" src="src/CursorController.js"></script>
 
   <script type="text/javascript">
     $(function () {
@@ -45,7 +48,7 @@
       
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
-      var level = new Level(eventManager);
+      var construction = new Construction(eventManager);
       
       setInterval(gameLoop, 1000 / FPS);
       
@@ -53,10 +56,10 @@
         fpsCounter.begin();
         
         keyboard.fireEvents();
-        level.update();
+        construction.update();
         
         clearCanvas();
-        level.draw(ctx);
+        construction.draw(ctx);
         
         fpsCounter.end();
       }
