@@ -1,10 +1,10 @@
 function Level(eventManager) {
   Rect.call(this);
   
-  this._x = 48;
-  this._y = 32;
-  this._w = 480;
-  this._h = 320;
+  this._x = 32;
+  this._y = 16;
+  this._w = 416; // 13 tiles * 32 px
+  this._h = 416;
   
   this._painter = new Painter(eventManager);
   this._updater = new Updater(eventManager);
