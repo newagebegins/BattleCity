@@ -6,6 +6,7 @@ function Cursor(eventManager) {
   this._w = 32;
   this._h = 32;
   this._normalSpeed = 32;
+  this._blinkTimer = new BlinkTimer(12);
 }
 
 Cursor.subclass(Sprite);
@@ -20,8 +21,14 @@ Cursor.prototype.notify = function (event) {
   }
 };
 
+Cursor.prototype.updateHook = function () {
+  this._blinkTimer.update();
+};
+
 Cursor.prototype.draw = function (ctx) {
-  ctx.drawImage(ImageManager.getImage('tank_up_1'), this._x, this._y);
+  if (this._blinkTimer.isVisible()) {
+    ctx.drawImage(ImageManager.getImage('tank_up_1'), this._x, this._y);
+  }
 };
 
 Cursor.prototype.resolveOutOfBounds = function (bounds) {
