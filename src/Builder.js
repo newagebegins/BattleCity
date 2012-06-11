@@ -58,7 +58,8 @@ Builder.prototype.build = function (cursor) {
   }
   this._eventManager.fireEvent({
     'name': Builder.Event.STRUCTURE_CREATED,
-    'structure': structure
+    'structure': structure,
+    'cursor': cursor
   });
   this._nextStructure();
 };

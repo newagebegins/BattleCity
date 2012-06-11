@@ -64,7 +64,8 @@ describe("Builder", function () {
       builder.build(cursor);
       expect(eventManager.fireEvent).toHaveBeenCalledWith({
         'name': Builder.Event.STRUCTURE_CREATED,
-        'structure': builder.buildBrickWallRight(cursor.getPosition())
+        'structure': builder.buildBrickWallRight(cursor.getPosition()),
+        'cursor': cursor
       });
     });
   });
