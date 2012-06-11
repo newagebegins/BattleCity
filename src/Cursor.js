@@ -15,6 +15,9 @@ function Cursor(eventManager) {
 
 Cursor.subclass(Sprite);
 
+Cursor.Event = {};
+Cursor.Event.BUILD = 'Cursor.Event.BUILD';
+
 Cursor.prototype.toNormalSpeed = function () {
   Sprite.prototype.toNormalSpeed.call(this);
   this._moved = false;
@@ -22,6 +25,10 @@ Cursor.prototype.toNormalSpeed = function () {
 
 Cursor.prototype.setMoveDelay = function (delay) {
   this._moveDelay = delay;
+};
+
+Cursor.prototype.build = function () {
+  this._eventManager.fireEvent({'name': Cursor.Event.BUILD, 'cursor': this});
 };
 
 Cursor.prototype.notify = function (event) {

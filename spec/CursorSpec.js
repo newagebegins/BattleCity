@@ -31,4 +31,17 @@ describe("Cursor", function () {
     cursor.update();
     expect(cursor.getPosition()).not.toEqual(position1);
   });
+  
+  describe("#build", function () {
+    it("fire event", function () {
+      var eventManager = new EventManager();
+      spyOn(eventManager, 'fireEvent');
+      var cursor = new Cursor(eventManager);
+      cursor.build();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Cursor.Event.BUILD,
+        'cursor': cursor
+      });
+    });
+  });
 });
