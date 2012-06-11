@@ -6,14 +6,14 @@ function SpriteController(eventManager, sprite) {
 
 SpriteController.prototype.notify = function (event) {
   if (event.name == Keyboard.Event.KEY_PRESSED) {
-    this._keyPressed(event.key);
+    this.keyPressed(event.key);
   }
   else if (event.name == Keyboard.Event.KEY_RELEASED) {
-    this._keyReleased(event.key);
+    this.keyReleased(event.key);
   }
 };
 
-SpriteController.prototype._keyPressed = function (key) {
+SpriteController.prototype.keyPressed = function (key) {
   if (key == Keyboard.Key.LEFT) {
     this._sprite.setDirection(Sprite.Direction.LEFT);
     this._sprite.toNormalSpeed();
@@ -32,7 +32,7 @@ SpriteController.prototype._keyPressed = function (key) {
   }
 };
 
-SpriteController.prototype._keyReleased = function (key) {
+SpriteController.prototype.keyReleased = function (key) {
   if (this._sprite.getDirection() == Sprite.Direction.LEFT && key == Keyboard.Key.LEFT ||
       this._sprite.getDirection() == Sprite.Direction.RIGHT && key == Keyboard.Key.RIGHT ||
       this._sprite.getDirection() == Sprite.Direction.UP && key == Keyboard.Key.UP ||
