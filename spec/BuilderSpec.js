@@ -18,15 +18,20 @@ describe("Builder", function () {
   });
   
   describe("#build", function () {
+    var eventManager, builder, cursor;
+    
+    beforeEach(function () {
+      eventManager = new EventManager();
+      builder = new Builder(eventManager);
+      cursor = new Cursor(eventManager);
+    });
+    
     it("should call appropriate build function", function () {
-      var eventManager = new EventManager();
-      var builder = new Builder(eventManager);
       spyOn(builder, 'buildBrickWallRight');
       spyOn(builder, 'buildBrickWallBottom');
       spyOn(builder, 'buildBrickWallLeft');
       spyOn(builder, 'buildBrickWallTop');
       spyOn(builder, 'buildBrickWallFull');
-      var cursor = new Cursor(eventManager);
       
       builder.build(cursor);
       expect(builder.buildBrickWallRight).toHaveBeenCalledWith(cursor.getPosition());
@@ -54,10 +59,7 @@ describe("Builder", function () {
     });
     
     it("should fire event", function () {
-      var eventManager = new EventManager();
       spyOn(eventManager, 'fireEvent');
-      var builder = new Builder(eventManager);
-      var cursor = new Cursor(eventManager);
       builder.setStructure(Builder.Structure.BRICK_WALL_RIGHT);
       builder.build(cursor);
       expect(eventManager.fireEvent).toHaveBeenCalledWith({
