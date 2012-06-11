@@ -129,7 +129,34 @@ describe("Sprite", function () {
       sprite.setDirection(Sprite.Direction.RIGHT);
       expect(sprite.getPrevDirection()).toEqual(Sprite.Direction.DOWN);
     });
-  }); 
+  });
+  
+  describe("#resolveOutOfBounds", function () {
+    it("sprite moves right", function () {
+      checkDirection(new Point(9, 3), Sprite.Direction.RIGHT, new Point(8, 3));
+    });
+    
+    it("sprite moves left", function () {
+      checkDirection(new Point(0, 3), Sprite.Direction.LEFT, new Point(1, 3));
+    });
+    
+    it("sprite moves up", function () {
+      checkDirection(new Point(4, 1), Sprite.Direction.UP, new Point(4, 2));
+    });
+    
+    it("sprite moves down", function () {
+      checkDirection(new Point(4, 7), Sprite.Direction.DOWN, new Point(4, 6));
+    });
+    
+    function checkDirection(spritePosition, direction, resolvedPosition) {
+      sprite.setPosition(spritePosition);
+      sprite.setDimensions(2, 2);
+      sprite.setDirection(direction);
+      var bounds = new Rect(1, 2, 9, 6);
+      sprite.resolveOutOfBounds(bounds);
+      expect(sprite.getPosition()).toEqual(resolvedPosition);
+    }
+  });
 });
 
 describe("Sprite", function () {

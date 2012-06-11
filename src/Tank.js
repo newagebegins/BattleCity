@@ -160,18 +160,3 @@ Tank.prototype.resolveCollisionWithWall = function (wall) {
   this._x -= moveX;
   this._y -= moveY;
 };
-
-Tank.prototype.resolveOutOfBounds = function (bounds) {
-  if (this._direction == Sprite.Direction.RIGHT) {
-    this._x = bounds.getRight() - this._w + 1;
-  }
-  else if (this._direction == Sprite.Direction.LEFT) {
-    this._x = bounds.getLeft();
-  }
-  else if (this._direction == Sprite.Direction.UP) {
-    this._y = bounds.getTop();
-  }
-  else if (this._direction == Sprite.Direction.DOWN) {
-    this._y = bounds.getBottom() - this._h + 1;
-  }
-};
