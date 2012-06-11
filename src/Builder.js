@@ -1,13 +1,36 @@
 function Builder(eventManager) {
   this._eventManager = eventManager;
   this._eventManager.addSubscriber(this, [Cursor.Event.BUILD]);
-  this._structuresCount = 5;
-  this._structure = 1;
+  
+  this._structures = [
+    Builder.Structure.BRICK_WALL_RIGHT,
+    Builder.Structure.BRICK_WALL_BOTTOM,
+    Builder.Structure.BRICK_WALL_LEFT,
+    Builder.Structure.BRICK_WALL_TOP,
+    Builder.Structure.BRICK_WALL_FULL,
+  ];
+  this._structureIndex = 0;
+  this._structure = this._structures[0];
+  
   this._tileSize = 16;
 }
 
+Builder.Structure = {};
+Builder.Structure.BRICK_WALL_RIGHT = 'Builder.Structure.BRICK_WALL_RIGHT';
+Builder.Structure.BRICK_WALL_BOTTOM = 'Builder.Structure.BRICK_WALL_BOTTOM';
+Builder.Structure.BRICK_WALL_LEFT = 'Builder.Structure.BRICK_WALL_LEFT';
+Builder.Structure.BRICK_WALL_TOP = 'Builder.Structure.BRICK_WALL_TOP';
+Builder.Structure.BRICK_WALL_FULL = 'Builder.Structure.BRICK_WALL_FULL';
+
+Builder.Event = {};
+Builder.Event.STRUCTURE_CREATED = 'Builder.Event.STRUCTURE_CREATED';
+
 Builder.prototype.setTileSize = function (size) {
   this._tileSize = size;
+};
+
+Builder.prototype.setStructure = function (structure) {
+  this._structure = structure;
 };
 
 Builder.prototype.notify = function (event) {
@@ -17,27 +40,27 @@ Builder.prototype.notify = function (event) {
 };
 
 Builder.prototype.build = function (cursor) {
-  switch (this._structure) {
-    case 1:
-      this.buildBrickWallRight(cursor.getPosition());
-      break;
-    case 2:
-      this.buildBrickWallBottom(cursor.getPosition());
-      break;
-    case 3:
-      this.buildBrickWallLeft(cursor.getPosition());
-      break;
-    case 4:
-      this.buildBrickWallTop(cursor.getPosition());
-      break;
-    case 5:
-      this.buildBrickWallFull(cursor.getPosition());
-      break;
+  var structure;
+  if (this._structure == Builder.Structure.BRICK_WALL_RIGHT) {
+    structure = this.buildBrickWallRight(cursor.getPosition());
   }
-  this._structure++;
-  if (this._structure > this._structuresCount) {
-    this._structure = 1;
+  else if (this._structure == Builder.Structure.BRICK_WALL_BOTTOM) {
+    structure = this.buildBrickWallBottom(cursor.getPosition());
   }
+  else if (this._structure == Builder.Structure.BRICK_WALL_LEFT) {
+    structure = this.buildBrickWallLeft(cursor.getPosition());
+  }
+  else if (this._structure == Builder.Structure.BRICK_WALL_TOP) {
+    structure = this.buildBrickWallTop(cursor.getPosition());
+  }
+  else if (this._structure == Builder.Structure.BRICK_WALL_FULL) {
+    structure = this.buildBrickWallFull(cursor.getPosition());
+  }
+  this._eventManager.fireEvent({
+    'name': Builder.Event.STRUCTURE_CREATED,
+    'structure': structure
+  });
+  this._nextStructure();
 };
 
 Builder.prototype.buildBrickWallRight = function (position) {
@@ -128,4 +151,12 @@ Builder.prototype.buildBrickWallFull = function (position) {
   parts.push(wallBottomRight);
   
   return parts;
+};
+
+Builder.prototype._nextStructure = function () {
+  this._structureIndex++;
+  if (this._structureIndex >= this._structures.length) {
+    this._structureIndex = 0;
+  }
+  this._structure = this._structures[this._structureIndex];
 };

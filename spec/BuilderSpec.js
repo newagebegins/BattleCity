@@ -52,6 +52,19 @@ describe("Builder", function () {
       expect(builder.buildBrickWallRight).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildBrickWallRight.reset();
     });
+    
+    it("should fire event", function () {
+      var eventManager = new EventManager();
+      spyOn(eventManager, 'fireEvent');
+      var builder = new Builder(eventManager);
+      var cursor = new Cursor(eventManager);
+      builder.setStructure(Builder.Structure.BRICK_WALL_RIGHT);
+      builder.build(cursor);
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Builder.Event.STRUCTURE_CREATED,
+        'structure': builder.buildBrickWallRight(cursor.getPosition())
+      });
+    });
   });
   
   describe("build functions", function () {
