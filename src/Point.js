@@ -6,9 +6,17 @@ function Point(x, y) {
 Point.prototype.getX = function () {
   return this._x;
 };
+
+Point.prototype.setX = function (x) {
+  this._x = x;
+};
   
 Point.prototype.getY = function () {
   return this._y;
+};
+  
+Point.prototype.setY = function (y) {
+  this._y = y;
 };
 
 Point.prototype.getPosition = function () {
