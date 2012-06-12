@@ -4,7 +4,7 @@ describe("StructureManager", function () {
     spyOn(eventManager, 'addSubscriber');
     var structureManager = new StructureManager(eventManager);
     expect(eventManager.addSubscriber).toHaveBeenCalledWith(structureManager,
-      [Builder.Event.STRUCTURE_CREATED]);
+      [Builder.Event.STRUCTURE_CREATED, Sprite.Event.DESTROYED]);
   });
   
   describe("#notify", function () {
