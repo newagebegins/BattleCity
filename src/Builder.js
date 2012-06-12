@@ -18,7 +18,7 @@ function Builder(eventManager) {
   this._structureIndex = 0;
   this._structure = this._structures[0];
   
-  this._tileSize = 16;
+  this._tileSize = Globals.TILE_SIZE;
 }
 
 Builder.Structure = {};

@@ -1,8 +1,8 @@
 function Base(eventManager) {
   Sprite.call(this, eventManager);
   
-  this._w = 32;
-  this._h = 32;
+  this._w = Globals.UNIT_SIZE;
+  this._h = Globals.UNIT_SIZE;
 }
 
 Base.subclass(Sprite);

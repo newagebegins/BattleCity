@@ -2,7 +2,7 @@ function ExplosionFactory(eventManager) {
   this._eventManager = eventManager;
   this._eventManager.addSubscriber(this, [Bullet.Event.DESTROYED]);
   
-  this._explosionSize = 32;
+  this._explosionSize = Globals.UNIT_SIZE;
 }
 
 ExplosionFactory.prototype.setExplosionSize = function (size) {

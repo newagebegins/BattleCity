@@ -3,9 +3,9 @@ function Cursor(eventManager) {
   
   eventManager.addSubscriber(this, [CollisionDetector.Event.OUT_OF_BOUNDS]);
   
-  this._w = 32;
-  this._h = 32;
-  this._normalSpeed = 32;
+  this._w = Globals.UNIT_SIZE;
+  this._h = Globals.UNIT_SIZE;
+  this._normalSpeed = Globals.UNIT_SIZE;
   this._blinkTimer = new BlinkTimer(12);
   
   this._moveDelay = 20;

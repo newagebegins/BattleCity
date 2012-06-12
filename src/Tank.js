@@ -6,16 +6,17 @@ function Tank(eventManager) {
     CollisionDetector.Event.COLLISION,
     CollisionDetector.Event.OUT_OF_BOUNDS]);
   
-  this._w = 32;
-  this._h = 32;
+  this._w = Globals.UNIT_SIZE;
+  this._h = Globals.UNIT_SIZE;
   
-  this._bulletSize = 1;
-  this._bulletSpeed = 1;
+  this._normalSpeed = 2;
+  this._bulletSize = Globals.TILE_SIZE / 2;
+  this._bulletSpeed = 4;
   this._trackFrame = 1;
   
   // turn smoothing sensitivity
-  this._turnSmoothSens = 10;
-  this._turnRoundTo = 16;
+  this._turnSmoothSens = Globals.TILE_SIZE - 6;
+  this._turnRoundTo = Globals.TILE_SIZE;
 }
 
 Tank.subclass(Sprite);

@@ -3,10 +3,10 @@ function Gamefield(eventManager) {
   
   this._eventManager = eventManager;
   
-  this._x = 32;
-  this._y = 16;
-  this._w = 416; // 13 tiles * 32 px
-  this._h = 416;
+  this._x = Globals.UNIT_SIZE;
+  this._y = Globals.TILE_SIZE;
+  this._w = 13 * Globals.UNIT_SIZE;
+  this._h = 13 * Globals.UNIT_SIZE;
   
   this._painter = new Painter(eventManager);
   this._updater = new Updater(eventManager);

@@ -7,8 +7,10 @@ describe("Tank", function () {
   });
   
   it("initial state", function () {
-    expect(tank.getBulletSize()).toEqual(1);
-    expect(tank.getBulletSpeed()).toEqual(1);
+    expect(tank.getNormalSpeed()).toEqual(2);
+    
+    expect(tank.getBulletSize()).toEqual(8);
+    expect(tank.getBulletSpeed()).toEqual(4);
     
     expect(tank.getWidth()).toEqual(32);
     expect(tank.getHeight()).toEqual(32);
