@@ -80,6 +80,11 @@ Sprite.prototype.move = function () {
   this._y = this._getNewY();
   this._turn = false;
   this._eventManager.fireEvent({'name': Sprite.Event.MOVED, 'sprite': this});
+  this.moveHook();
+};
+
+Sprite.prototype.moveHook = function () {
+  // Should be overriden by subclasses to add behavior to the move() method.
 };
 
 /**

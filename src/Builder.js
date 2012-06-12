@@ -1,6 +1,6 @@
 function Builder(eventManager) {
   this._eventManager = eventManager;
-  this._eventManager.addSubscriber(this, [Cursor.Event.BUILD]);
+  this._eventManager.addSubscriber(this, [Cursor.Event.BUILD, Cursor.Event.MOVED]);
   
   this._structures = [
     Builder.Structure.BRICK_WALL_RIGHT,
@@ -36,6 +36,9 @@ Builder.prototype.setStructure = function (structure) {
 Builder.prototype.notify = function (event) {
   if (event.name == Cursor.Event.BUILD) {
     this.build(event.cursor);
+  }
+  else if (event.name == Cursor.Event.MOVED) {
+    this._prevStructure();
   }
 };
 
@@ -158,6 +161,14 @@ Builder.prototype._nextStructure = function () {
   this._structureIndex++;
   if (this._structureIndex >= this._structures.length) {
     this._structureIndex = 0;
+  }
+  this._structure = this._structures[this._structureIndex];
+};
+
+Builder.prototype._prevStructure = function () {
+  this._structureIndex--;
+  if (this._structureIndex < 0) {
+    this._structureIndex = this._structures.length - 1;
   }
   this._structure = this._structures[this._structureIndex];
 };

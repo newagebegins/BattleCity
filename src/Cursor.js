@@ -49,6 +49,10 @@ Cursor.prototype.move = function () {
   this._moved = true;
 };
 
+Cursor.prototype.moveHook = function () {
+  this._eventManager.fireEvent({'name': Cursor.Event.MOVED, 'cursor': this});
+};
+
 Cursor.prototype.updateHook = function () {
   this._blinkTimer.update();
 };

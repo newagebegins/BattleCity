@@ -44,4 +44,18 @@ describe("Cursor", function () {
       });
     });
   });
+  
+  describe("#move", function () {
+    it("should fire Cursor.Event.MOVED event", function () {
+      var eventManager = new EventManager();
+      spyOn(eventManager, 'fireEvent');
+      var cursor = new Cursor(eventManager);
+      cursor.toNormalSpeed();
+      cursor.move();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Cursor.Event.MOVED,
+        'cursor': cursor
+      });
+    });
+  });
 });

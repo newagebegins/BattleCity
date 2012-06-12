@@ -3,7 +3,8 @@ describe("Builder", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var builder = new Builder(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(builder, [Cursor.Event.BUILD]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(builder,
+      [Cursor.Event.BUILD, Cursor.Event.MOVED]);
   });
   
   describe("#notify", function () {
@@ -56,6 +57,19 @@ describe("Builder", function () {
       builder.build(cursor);
       expect(builder.buildBrickWallRight).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildBrickWallRight.reset();
+    });
+    
+    it("if cursor has moved, build last structure on the new spot", function () {
+      spyOn(builder, 'buildBrickWallRight');
+      
+      builder.build(cursor);
+      expect(builder.buildBrickWallRight).toHaveBeenCalled();
+      builder.buildBrickWallRight.reset();
+      
+      builder.notify({'name': Cursor.Event.MOVED, 'cursor': cursor});
+      
+      builder.build(cursor);
+      expect(builder.buildBrickWallRight).toHaveBeenCalled();
     });
     
     it("should fire event", function () {
