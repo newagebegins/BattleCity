@@ -32,6 +32,10 @@ StructureManager.prototype.containsSprite = function (sprite) {
   return arrayContains(this._sprites, sprite);
 };
 
+StructureManager.prototype.getSprites = function () {
+  return this._sprites;
+};
+
 StructureManager.prototype.notify = function (event) {
   if (event.name == Builder.Event.STRUCTURE_CREATED) {
     this.destroySpritesUnderCursor(event.cursor);

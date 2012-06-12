@@ -7,6 +7,10 @@ function Base(eventManager) {
 
 Base.subclass(Sprite);
 
+Base.prototype.getClassName = function () {
+  return 'Base';
+};
+
 Base.prototype.draw = function (ctx) {
   ctx.drawImage(ImageManager.getImage('base'), this._x, this._y);
 };

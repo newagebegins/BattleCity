@@ -9,6 +9,8 @@ function Construction(eventManager) {
   this._cursor.setPosition(new Point(this._x, this._y));
   new CursorController(eventManager, this._cursor);
   
+  new SpriteSerializerController(eventManager, this._structureManager);
+  
   this._createBase();
 }
 

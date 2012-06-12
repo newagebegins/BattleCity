@@ -41,8 +41,6 @@
       var fpsCounter = new FPSCounter();
       
       var CANVAS_ID = 'canvas';
-      var CANVAS_WIDTH = 512;
-      var CANVAS_HEIGHT = 448;
       var ctx = createCanvasContext();
       
       var eventManager = new EventManager();
@@ -64,7 +62,7 @@
       }
       
       function createCanvasContext() {
-        $('<canvas id="' + CANVAS_ID + '" width="' + CANVAS_WIDTH + '" height="' + CANVAS_HEIGHT + '"></canvas>').appendTo('body');
+        $('<canvas id="' + CANVAS_ID + '" width="' + Globals.CANVAS_WIDTH + '" height="' + Globals.CANVAS_HEIGHT + '"></canvas>').appendTo('body');
         var canvas = document.getElementById(CANVAS_ID);
         return canvas.getContext('2d');
       };
