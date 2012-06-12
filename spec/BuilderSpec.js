@@ -40,6 +40,8 @@ describe("Builder", function () {
       spyOn(builder, 'buildSteelWallTop');
       spyOn(builder, 'buildSteelWallFull');
       
+      spyOn(builder, 'clear');
+      
       builder.build(cursor);
       expect(builder.buildBrickWallRight).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildBrickWallRight.reset();
@@ -79,6 +81,10 @@ describe("Builder", function () {
       builder.build(cursor);
       expect(builder.buildSteelWallFull).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildSteelWallFull.reset();
+      
+      builder.build(cursor);
+      expect(builder.clear).toHaveBeenCalledWith(cursor.getPosition());
+      builder.clear.reset();
     });
     
     it("if cursor has moved, build last structure on the new spot", function () {

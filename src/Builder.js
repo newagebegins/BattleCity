@@ -14,6 +14,8 @@ function Builder(eventManager) {
     Builder.Structure.STEEL_WALL_LEFT,
     Builder.Structure.STEEL_WALL_TOP,
     Builder.Structure.STEEL_WALL_FULL,
+    
+    Builder.Structure.CLEAR,
   ];
   this._structureIndex = 0;
   this._structure = this._structures[0];
@@ -33,6 +35,8 @@ Builder.Structure.STEEL_WALL_BOTTOM = 'Builder.Structure.STEEL_WALL_BOTTOM';
 Builder.Structure.STEEL_WALL_LEFT = 'Builder.Structure.STEEL_WALL_LEFT';
 Builder.Structure.STEEL_WALL_TOP = 'Builder.Structure.STEEL_WALL_TOP';
 Builder.Structure.STEEL_WALL_FULL = 'Builder.Structure.STEEL_WALL_FULL';
+
+Builder.Structure.CLEAR = 'Builder.Structure.CLEAR';
 
 Builder.Event = {};
 Builder.Event.STRUCTURE_CREATED = 'Builder.Event.STRUCTURE_CREATED';
@@ -86,6 +90,9 @@ Builder.prototype.build = function (cursor) {
   else if (this._structure == Builder.Structure.STEEL_WALL_FULL) {
     structure = this.buildSteelWallFull(cursor.getPosition());
   }
+  else if (this._structure == Builder.Structure.CLEAR) {
+    structure = this.clear(cursor.getPosition());
+  }
   this._eventManager.fireEvent({
     'name': Builder.Event.STRUCTURE_CREATED,
     'structure': structure,
@@ -132,6 +139,10 @@ Builder.prototype.buildSteelWallTop = function (position) {
 
 Builder.prototype.buildSteelWallFull = function (position) {
   return this._buildWallFull(position, new SteelWallFactory(this._eventManager));
+};
+
+Builder.prototype.clear = function (position) {
+  return [];
 };
 
 Builder.prototype._buildWallRight = function (position, factory) {
