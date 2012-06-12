@@ -34,6 +34,12 @@ describe("Builder", function () {
       spyOn(builder, 'buildBrickWallTop');
       spyOn(builder, 'buildBrickWallFull');
       
+      spyOn(builder, 'buildSteelWallRight');
+      spyOn(builder, 'buildSteelWallBottom');
+      spyOn(builder, 'buildSteelWallLeft');
+      spyOn(builder, 'buildSteelWallTop');
+      spyOn(builder, 'buildSteelWallFull');
+      
       builder.build(cursor);
       expect(builder.buildBrickWallRight).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildBrickWallRight.reset();
@@ -55,8 +61,24 @@ describe("Builder", function () {
       builder.buildBrickWallFull.reset();
       
       builder.build(cursor);
-      expect(builder.buildBrickWallRight).toHaveBeenCalledWith(cursor.getPosition());
-      builder.buildBrickWallRight.reset();
+      expect(builder.buildSteelWallRight).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildSteelWallRight.reset();
+      
+      builder.build(cursor);
+      expect(builder.buildSteelWallBottom).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildSteelWallBottom.reset();
+      
+      builder.build(cursor);
+      expect(builder.buildSteelWallLeft).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildSteelWallLeft.reset();
+      
+      builder.build(cursor);
+      expect(builder.buildSteelWallTop).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildSteelWallTop.reset();
+      
+      builder.build(cursor);
+      expect(builder.buildSteelWallFull).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildSteelWallFull.reset();
     });
     
     it("if cursor has moved, build last structure on the new spot", function () {
@@ -124,6 +146,43 @@ describe("Builder", function () {
     it("#buildBrickWallFull", function () {
       var parts = builder.buildBrickWallFull(new Point(2, 3));
       expect(parts[0] instanceof BrickWall).toBeTruthy();
+      expect(parts[0].getPosition()).toEqual(new Point(2, 3))
+      expect(parts[1].getPosition()).toEqual(new Point(6, 3))
+      expect(parts[2].getPosition()).toEqual(new Point(2, 7))
+      expect(parts[3].getPosition()).toEqual(new Point(6, 7))
+    });
+    
+    it("#buildSteelWallRight", function () {
+      var parts = builder.buildSteelWallRight(new Point(2, 3));
+      expect(parts[0] instanceof SteelWall).toBeTruthy();
+      expect(parts[0].getPosition()).toEqual(new Point(6, 3))
+      expect(parts[1].getPosition()).toEqual(new Point(6, 7))
+    });
+    
+    it("#buildSteelWallRight", function () {
+      var parts = builder.buildSteelWallBottom(new Point(2, 3));
+      expect(parts[0] instanceof SteelWall).toBeTruthy();
+      expect(parts[0].getPosition()).toEqual(new Point(2, 7))
+      expect(parts[1].getPosition()).toEqual(new Point(6, 7))
+    });
+    
+    it("#buildSteelWallLeft", function () {
+      var parts = builder.buildSteelWallLeft(new Point(2, 3));
+      expect(parts[0] instanceof SteelWall).toBeTruthy();
+      expect(parts[0].getPosition()).toEqual(new Point(2, 3))
+      expect(parts[1].getPosition()).toEqual(new Point(2, 7))
+    });
+    
+    it("#buildSteelWallTop", function () {
+      var parts = builder.buildSteelWallTop(new Point(2, 3));
+      expect(parts[0] instanceof SteelWall).toBeTruthy();
+      expect(parts[0].getPosition()).toEqual(new Point(2, 3))
+      expect(parts[1].getPosition()).toEqual(new Point(6, 3))
+    });
+    
+    it("#buildSteelWallFull", function () {
+      var parts = builder.buildSteelWallFull(new Point(2, 3));
+      expect(parts[0] instanceof SteelWall).toBeTruthy();
       expect(parts[0].getPosition()).toEqual(new Point(2, 3))
       expect(parts[1].getPosition()).toEqual(new Point(6, 3))
       expect(parts[2].getPosition()).toEqual(new Point(2, 7))
