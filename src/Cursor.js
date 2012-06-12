@@ -17,6 +17,7 @@ Cursor.subclass(Sprite);
 
 Cursor.Event = {};
 Cursor.Event.BUILD = 'Cursor.Event.BUILD';
+Cursor.Event.MOVED = 'Cursor.Event.MOVED';
 
 Cursor.prototype.toNormalSpeed = function () {
   Sprite.prototype.toNormalSpeed.call(this);
