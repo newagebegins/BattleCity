@@ -1,6 +1,8 @@
 function Gamefield(eventManager) {
   Rect.call(this);
   
+  this._eventManager = eventManager;
+  
   this._x = 32;
   this._y = 16;
   this._w = 416; // 13 tiles * 32 px

@@ -20,8 +20,12 @@ StructureManager.prototype.removeSprite = function (sprite) {
 
 StructureManager.prototype.addStructure = function (structure) {
   structure.forEach(function (sprite) {
-    this._sprites.push(sprite);
+    this.addSprite(sprite);
   }, this);
+};
+
+StructureManager.prototype.addSprite = function (sprite) {
+  this._sprites.push(sprite);
 };
 
 StructureManager.prototype.containsSprite = function (sprite) {
