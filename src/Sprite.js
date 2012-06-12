@@ -8,6 +8,7 @@ function Sprite(eventManager) {
   this._speed = 0;
   this._destroyed = false;
   this._turn = false;
+  this._zIndex = 0;
   
   this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': this});
 }
@@ -143,6 +144,14 @@ Sprite.prototype.resolveOutOfBounds = function (bounds) {
   else if (this._direction == Sprite.Direction.DOWN) {
     this._y = bounds.getBottom() - this._h + 1;
   }
+};
+
+Sprite.prototype.setZIndex = function (zIndex) {
+  this._zIndex = zIndex;
+};
+
+Sprite.prototype.getZIndex = function () {
+  return this._zIndex;
 };
 
 Sprite.prototype._getNewX = function () {

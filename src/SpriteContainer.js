@@ -16,6 +16,10 @@ SpriteContainer.prototype.containsSprite = function (sprite) {
   return arrayContains(this._sprites, sprite);
 };
 
+SpriteContainer.prototype.getSprites = function () {
+  return this._sprites;
+};
+
 SpriteContainer.prototype.notify = function (event) {
   if (event.name == Sprite.Event.CREATED) {
     this.addSprite(event.sprite);

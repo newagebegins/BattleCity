@@ -13,6 +13,7 @@ describe("Sprite", function () {
     expect(sprite.getSpeed()).toEqual(0);
     expect(sprite.isDestroyed()).toBeFalsy();
     expect(sprite.isTurn()).toBeFalsy();
+    expect(sprite.getZIndex()).toEqual(0);
   });
   
   describe("#move", function () {
