@@ -16,6 +16,12 @@ describe("BrickWall", function () {
     expect(wall.isHitBottom()).toBeFalsy();
   });
   
+  it("#getClassName", function () {
+    var eventManager = new EventManager();
+    var wall = new BrickWall(eventManager);
+    expect(wall.getClassName()).toEqual('BrickWall');
+  });
+  
   describe("#notify", function () {
     it("hit by a bullet", function () {
       var eventManager = new EventManager();

@@ -11,6 +11,10 @@ function BrickWall(eventManager) {
 
 BrickWall.subclass(Wall);
 
+BrickWall.prototype.getClassName = function () {
+  return 'BrickWall';
+};
+
 BrickWall.prototype.notify = function (event) {
   if (event.name == CollisionDetector.Event.COLLISION && event.initiator instanceof Bullet && event.sprite === this) {
     this.hitByBullet(event.initiator);
