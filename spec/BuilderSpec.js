@@ -95,6 +95,7 @@ describe("Builder", function () {
       builder.buildBrickWallRight.reset();
       
       builder.notify({'name': Cursor.Event.MOVED, 'cursor': cursor});
+      builder.notify({'name': Cursor.Event.MOVED, 'cursor': cursor});
       
       builder.build(cursor);
       expect(builder.buildBrickWallRight).toHaveBeenCalled();

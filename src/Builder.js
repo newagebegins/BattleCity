@@ -18,6 +18,7 @@ function Builder(eventManager) {
     Builder.Structure.CLEAR,
   ];
   this._structureIndex = 0;
+  this._prevStructureIndex = 0;
   this._structure = this._structures[0];
   
   this._tileSize = Globals.TILE_SIZE;
@@ -236,6 +237,7 @@ Builder.prototype._buildWallFull = function (position, factory) {
 };
 
 Builder.prototype._nextStructure = function () {
+  this._prevStructureIndex = this._structureIndex;
   this._structureIndex++;
   if (this._structureIndex >= this._structures.length) {
     this._structureIndex = 0;
@@ -244,9 +246,6 @@ Builder.prototype._nextStructure = function () {
 };
 
 Builder.prototype._prevStructure = function () {
-  this._structureIndex--;
-  if (this._structureIndex < 0) {
-    this._structureIndex = this._structures.length - 1;
-  }
+  this._structureIndex = this._prevStructureIndex;
   this._structure = this._structures[this._structureIndex];
 };
