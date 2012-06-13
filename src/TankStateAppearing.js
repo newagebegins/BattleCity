@@ -24,6 +24,10 @@ TankStateAppearing.prototype.updateFrame = function () {
   this._frame++;
 };
 
+TankStateAppearing.prototype.draw = function (ctx) {
+  ctx.drawImage(ImageManager.getImage(this.getImage()), this._tank.getX(), this._tank.getY());
+};
+
 TankStateAppearing.prototype.canMove = function () {
   return false;
 };

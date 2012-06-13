@@ -18,6 +18,10 @@ TankStateNormal.prototype.updateTrackFrame = function () {
   this._trackFrame = this._trackFrame == 1 ? 2 : 1;
 };
 
+TankStateNormal.prototype.draw = function (ctx) {
+  ctx.drawImage(ImageManager.getImage(this.getImage()), this._tank.getX(), this._tank.getY());
+};
+
 TankStateNormal.prototype.canMove = function () {
   return true;
 };

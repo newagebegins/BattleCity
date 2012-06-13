@@ -5,7 +5,8 @@ function Tank(eventManager) {
    [Bullet.Event.DESTROYED,
     CollisionDetector.Event.COLLISION,
     CollisionDetector.Event.OUT_OF_BOUNDS,
-    TankStateAppearing.Event.END]);
+    TankStateAppearing.Event.END,
+    TankStateInvincible.Event.END]);
   
   this._w = Globals.UNIT_SIZE;
   this._h = Globals.UNIT_SIZE;
@@ -61,10 +62,6 @@ Tank.prototype.shoot = function () {
   this._eventManager.fireEvent({'name': Tank.Event.SHOOT, 'tank': this});
 };
 
-Tank.prototype.getImage = function () {
-  return this._state.getImage();
-};
-
 Tank.prototype.updateHook = function () {
   this._state.update();
 };
@@ -80,6 +77,10 @@ Tank.prototype.notify = function (event) {
     this.resolveOutOfBounds(event.bounds);
   }
   else if (event.name == TankStateAppearing.Event.END && event.tank === this) {
+    this._state = new TankStateInvincible(this);
+    this._direction = Sprite.Direction.UP;
+  }
+  else if (event.name == TankStateInvincible.Event.END && event.tank === this) {
     this._state = new TankStateNormal(this);
   }
 };
@@ -148,7 +149,7 @@ Tank.prototype._smoothTurn = function () {
 };
 
 Tank.prototype.draw = function (ctx) {
-  ctx.drawImage(ImageManager.getImage(this.getImage()), this._x, this._y);
+  this._state.draw(ctx);
 };
 
 Tank.prototype.resolveCollisionWithWall = function (wall) {

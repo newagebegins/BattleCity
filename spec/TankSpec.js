@@ -52,14 +52,6 @@ describe("Tank", function () {
     expect(state.update).toHaveBeenCalled();
   });
   
-  it("#getImage", function () {
-    var state = new TankStateNormal(tank);
-    spyOn(state, 'getImage');
-    tank.setState(state);
-    tank.getImage();
-    expect(state.getImage).toHaveBeenCalled();
-  });
-  
   describe("#resolveCollisionWithWall", function () {
     it("tank moves right", function () {
       checkDirection(new Rect(1, 1, 2, 2), new Rect(2, 1, 2, 2), Sprite.Direction.RIGHT, new Point(0, 1));
@@ -210,10 +202,27 @@ describe("Tank", function () {
   });
   
   describe("#notify", function () {
-    it("TankStateAppearing.Event.END", function () {
-      tank.setState(new TankStateAppearing(tank));
-      tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
-      expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
+    describe("TankStateAppearing.Event.END", function () {
+      beforeEach(function () {
+        tank.setState(new TankStateAppearing(tank));
+      });
+      
+      it("state", function () {
+        tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
+        expect(tank.getState() instanceof TankStateInvincible).toBeTruthy();
+      });
+      
+      it("direction", function () {
+        tank.setDirection(Sprite.Direction.DOWN);
+        tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
+        expect(tank.getDirection()).toEqual(Sprite.Direction.UP);
+      });
+    });
+    
+    it("TankStateInvincible.Event.END", function () {
+      tank.setState(new TankStateInvincible(tank));
+      tank.notify({'name': TankStateInvincible.Event.END, 'tank': tank});
+      expect((tank.getState() instanceof TankStateNormal) && !(tank.getState() instanceof TankStateInvincible)).toBeTruthy();
     });
   });
 });
@@ -227,6 +236,7 @@ describe("Tank", function () {
       Bullet.Event.DESTROYED,
       CollisionDetector.Event.COLLISION,
       CollisionDetector.Event.OUT_OF_BOUNDS,
-      TankStateAppearing.Event.END]);
+      TankStateAppearing.Event.END,
+      TankStateInvincible.Event.END]);
   });
 });

@@ -14,6 +14,9 @@ var ImageManager = (function() {
     appear_3: null,
     appear_4: null,
     
+    shield_1: null,
+    shield_2: null,
+    
     bullet_up: null,
     bullet_down: null,
     bullet_left: null,
