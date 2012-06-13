@@ -9,6 +9,11 @@ var ImageManager = (function() {
     tank_up_1: null,
     tank_up_2: null,
     
+    appear_1: null,
+    appear_2: null,
+    appear_3: null,
+    appear_4: null,
+    
     bullet_up: null,
     bullet_down: null,
     bullet_left: null,

@@ -4,15 +4,17 @@ function Tank(eventManager) {
   eventManager.addSubscriber(this,
    [Bullet.Event.DESTROYED,
     CollisionDetector.Event.COLLISION,
-    CollisionDetector.Event.OUT_OF_BOUNDS]);
+    CollisionDetector.Event.OUT_OF_BOUNDS,
+    TankStateAppearing.Event.END]);
   
   this._w = Globals.UNIT_SIZE;
   this._h = Globals.UNIT_SIZE;
   
+  this._state = new TankStateNormal(this);
+  
   this._normalSpeed = 2;
   this._bulletSize = Globals.TILE_SIZE / 2;
   this._bulletSpeed = 4;
-  this._trackFrame = 1;
   
   // turn smoothing sensitivity
   this._turnSmoothSens = Globals.TILE_SIZE - 6;
@@ -23,6 +25,14 @@ Tank.subclass(Sprite);
 
 Tank.Event = {};
 Tank.Event.SHOOT = 'Tank.Event.SHOOT';
+
+Tank.prototype.getState = function () {
+  return this._state;
+};
+
+Tank.prototype.setState = function (state) {
+  this._state = state;
+};
 
 Tank.prototype.setBulletSize = function (size) {
   this._bulletSize = size;
@@ -41,34 +51,22 @@ Tank.prototype.getBulletSpeed = function () {
 };
   
 Tank.prototype.shoot = function () {
+  if (!this._state.canShoot()) {
+    return;
+  }
   if (this._bulletShot) {
     return;
   }
   this._bulletShot = true;
   this._eventManager.fireEvent({'name': Tank.Event.SHOOT, 'tank': this});
 };
-  
-Tank.prototype.setTrackFrame = function (frame) {
-  this._trackFrame = frame;
-};
-  
-Tank.prototype.getTrackFrame = function () {
-  return this._trackFrame;
-};
-
-Tank.prototype.updateTrackFrame = function () {
-  if (this._speed == 0) {
-    return;
-  }
-  this._trackFrame = this._trackFrame == 1 ? 2 : 1;
-};
 
 Tank.prototype.getImage = function () {
-  return 'tank_' + this._direction + '_' + this._trackFrame;
+  return this._state.getImage();
 };
 
 Tank.prototype.updateHook = function () {
-  this.updateTrackFrame();
+  this._state.update();
 };
 
 Tank.prototype.notify = function (event) {
@@ -80,6 +78,9 @@ Tank.prototype.notify = function (event) {
   }
   else if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {
     this.resolveOutOfBounds(event.bounds);
+  }
+  else if (event.name == TankStateAppearing.Event.END && event.tank === this) {
+    this._state = new TankStateNormal(this);
   }
 };
 
@@ -100,10 +101,17 @@ Tank.prototype.getTurnRoundTo = function () {
 };
 
 Tank.prototype.move = function () {
+  if (!this._state.canMove()) {
+    return;
+  }
   if (this._turn) {
     this._smoothTurn();
   }
   Sprite.prototype.move.call(this);
+};
+
+Tank.prototype.getEventManager = function () {
+  return this._eventManager;
 };
 
 Tank.prototype._smoothTurn = function () {

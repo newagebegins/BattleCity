@@ -3,6 +3,7 @@ function Level(eventManager) {
 
   var tank = new Tank(eventManager);
   tank.setPosition(new Point(this._x, this._y));
+  tank.setState(new TankStateAppearing(tank));
 
   new TankController(eventManager, tank);
   new BulletFactory(eventManager);

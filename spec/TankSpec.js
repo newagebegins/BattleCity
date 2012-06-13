@@ -17,6 +17,8 @@ describe("Tank", function () {
     
     expect(tank.getTurnSmoothSens()).toEqual(10);
     expect(tank.getTurnRoundTo()).toEqual(16);
+    
+    expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
   });
   
   describe("#shoot", function () {
@@ -42,37 +44,20 @@ describe("Tank", function () {
     });
   });
   
-  describe("track animation", function () {
-    it("animate when tank is moving", function () {
-      tank.setSpeed(1);
-      expect(tank.getTrackFrame()).toEqual(1);
-      tank.updateTrackFrame();
-      expect(tank.getTrackFrame()).toEqual(2);
-      tank.updateTrackFrame();
-      expect(tank.getTrackFrame()).toEqual(1);
-    });
-
-    it("don't animate when tank is not moving", function () {
-      tank.setSpeed(0);
-      expect(tank.getTrackFrame()).toEqual(1);
-      tank.updateTrackFrame();
-      expect(tank.getTrackFrame()).toEqual(1);
-      tank.updateTrackFrame();
-      expect(tank.getTrackFrame()).toEqual(1);
-    });
+  it("#update", function () {
+    var state = new TankStateNormal(tank);
+    spyOn(state, 'update');
+    tank.setState(state);
+    tank.updateHook();
+    expect(state.update).toHaveBeenCalled();
   });
   
-  describe("image", function () {
-    it("RIGHT", function () {
-      tank.setDirection(Sprite.Direction.RIGHT);
-      tank.setTrackFrame(1);
-      expect(tank.getImage()).toEqual('tank_right_1');
-    });
-    it("LEFT", function () {
-      tank.setDirection(Sprite.Direction.LEFT);
-      tank.setTrackFrame(2);
-      expect(tank.getImage()).toEqual('tank_left_2');
-    });
+  it("#getImage", function () {
+    var state = new TankStateNormal(tank);
+    spyOn(state, 'getImage');
+    tank.setState(state);
+    tank.getImage();
+    expect(state.getImage).toHaveBeenCalled();
   });
   
   describe("#resolveCollisionWithWall", function () {
@@ -223,6 +208,14 @@ describe("Tank", function () {
       expect(tank.getPosition()).toEqual(new Point(4, 3));
     });
   });
+  
+  describe("#notify", function () {
+    it("TankStateAppearing.Event.END", function () {
+      tank.setState(new TankStateAppearing(tank));
+      tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
+      expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
+    });
+  });
 });
 
 describe("Tank", function () {
@@ -230,7 +223,10 @@ describe("Tank", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var tank = new Tank(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(tank,
-      [Bullet.Event.DESTROYED, CollisionDetector.Event.COLLISION, CollisionDetector.Event.OUT_OF_BOUNDS]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(tank, [
+      Bullet.Event.DESTROYED,
+      CollisionDetector.Event.COLLISION,
+      CollisionDetector.Event.OUT_OF_BOUNDS,
+      TankStateAppearing.Event.END]);
   });
 });
