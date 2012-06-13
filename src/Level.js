@@ -2,7 +2,7 @@ function Level(eventManager) {
   Gamefield.call(this, eventManager);
 
   var tank = new Tank(eventManager);
-  tank.setPosition(new Point(this._x, this._y));
+  tank.setPosition(new Point(this._x + 4 * Globals.UNIT_SIZE, this._y + 12 * Globals.UNIT_SIZE));
   tank.setState(new TankStateAppearing(tank));
 
   new TankController(eventManager, tank);
