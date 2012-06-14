@@ -10,21 +10,13 @@ describe("TankStateAppearing", function () {
   it("animation", function () {
     spyOn(eventManager, 'fireEvent');
     state.setFrames([1,2]);
-    expect(state.getFrame()).toEqual(1);
     expect(state.getImage()).toEqual('appear_1');
-    state.updateFrame();
-    expect(state.getFrame()).toEqual(2);
+    state.update();
     expect(state.getImage()).toEqual('appear_2');
     var EVENT = {'name': TankStateAppearing.Event.END, 'tank': tank};
     expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
-    state.updateFrame();
-    expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
-  });
-  
-  it("#update", function () {
-    spyOn(state, 'updateFrame');
     state.update();
-    expect(state.updateFrame).toHaveBeenCalled();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
   });
   
   it("#canMove", function () {
