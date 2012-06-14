@@ -5,6 +5,13 @@ describe("AITankController", function () {
     var controller = new AITankController(new Tank(eventManager), new Random());
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': AITankController.Event.CREATED, 'controller': controller});
   });
+  
+  it("should subscribe", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'addSubscriber');
+    var controller = new AITankController(new Tank(eventManager), new Random());
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(controller, [Tank.Event.DESTROYED]);
+  });
 });
 
 describe("AITankController", function () {

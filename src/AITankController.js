@@ -3,6 +3,8 @@ function AITankController(tank, random) {
   this._random = random;
   this._eventManager = this._tank.getEventManager();
   
+  this._eventManager.addSubscriber(this, [Tank.Event.DESTROYED]);
+  
   this._shootInterval = 30;
   this._shootTimer = 0;
   this._shootProbability = 0.5;
