@@ -1,4 +1,13 @@
 describe("AITankController", function () {
+  it("should fire event on creation", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    var controller = new AITankController(new Tank(eventManager), new Random());
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': AITankController.Event.CREATED, 'controller': controller});
+  });
+});
+
+describe("AITankController", function () {
   var eventManager, tank, random, controller;
   
   beforeEach(function () {
