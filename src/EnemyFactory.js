@@ -10,6 +10,8 @@ function EnemyFactory(eventManager) {
   
   this._enemies = [];
   this._enemy = 0;
+  this._enemyCount = 0;
+  this._enemyCountLimit = 4;
 }
 
 EnemyFactory.prototype.setEnemies = function (enemies) {
@@ -40,7 +42,7 @@ EnemyFactory.prototype.nextPosition = function () {
 };
 
 EnemyFactory.prototype.create = function () {
-  if (this._noMoreEnemies()) {
+  if (this._noMoreEnemies() || this._enemyCountLimitReached()) {
     return;
   }
   this.createEnemy(this.getNextEnemy(), this.getNextPosition());
@@ -59,6 +61,9 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
   tank.setType(enemy.type);
   tank.setPosition(position);
   tank.setState(new TankStateAppearing(tank));
+  
+  this._enemyCount++;
+  
   return tank;
 };
 
@@ -70,6 +75,25 @@ EnemyFactory.prototype.nextEnemy = function () {
   this._enemy++;
 };
 
+EnemyFactory.prototype.getEnemyCount = function () {
+  return this._enemyCount;
+};
+
+EnemyFactory.prototype.notify = function (event) {
+  if (event.name == Tank.Event.ENEMY_DESTROYED) {
+    this._enemyCount--;
+    this.create();
+  }
+};
+
+EnemyFactory.prototype.setEnemyCountLimit = function (limit) {
+  this._enemyCountLimit = limit;
+};
+
 EnemyFactory.prototype._noMoreEnemies = function () {
   return this._enemy >= this._enemies.length;
+};
+
+EnemyFactory.prototype._enemyCountLimitReached = function () {
+  return this._enemyCount >= this._enemyCountLimit;
 };
