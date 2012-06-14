@@ -53,37 +53,37 @@ describe("AITankController", function () {
       controller.updateShoot();
       expect(tank.shoot).toHaveBeenCalled();
     });
-  });
-  
-  describe("interval - 1, probability - 0.5", function () {
-    beforeEach(function () {
-      spyOn(tank, 'shoot');
-      controller.setShootInterval(1);
-      controller.setShootProbability(0.5);
-    });
     
-    it("random - 0.6", function () {
-      spyOn(random, 'getNumber').andReturn(0.6);
-      controller.updateShoot();
-      expect(tank.shoot).not.toHaveBeenCalled();
-    });
-    
-    it("random - 0.5", function () {
-      spyOn(random, 'getNumber').andReturn(0.5);
-      controller.updateShoot();
-      expect(tank.shoot).not.toHaveBeenCalled();
-    });
-    
-    it("random - 0.4", function () {
-      spyOn(random, 'getNumber').andReturn(0.4);
-      controller.updateShoot();
-      expect(tank.shoot).toHaveBeenCalled();
-    });
-    
-    it("random - 0.3", function () {
-      spyOn(random, 'getNumber').andReturn(0.3);
-      controller.updateShoot();
-      expect(tank.shoot).toHaveBeenCalled();
+    describe("interval - 1, probability - 0.5", function () {
+      beforeEach(function () {
+        spyOn(tank, 'shoot');
+        controller.setShootInterval(1);
+        controller.setShootProbability(0.5);
+      });
+
+      it("random - 0.6", function () {
+        spyOn(random, 'getNumber').andReturn(0.6);
+        controller.updateShoot();
+        expect(tank.shoot).not.toHaveBeenCalled();
+      });
+
+      it("random - 0.5", function () {
+        spyOn(random, 'getNumber').andReturn(0.5);
+        controller.updateShoot();
+        expect(tank.shoot).not.toHaveBeenCalled();
+      });
+
+      it("random - 0.4", function () {
+        spyOn(random, 'getNumber').andReturn(0.4);
+        controller.updateShoot();
+        expect(tank.shoot).toHaveBeenCalled();
+      });
+
+      it("random - 0.3", function () {
+        spyOn(random, 'getNumber').andReturn(0.3);
+        controller.updateShoot();
+        expect(tank.shoot).toHaveBeenCalled();
+      });
     });
   });
   
