@@ -40,6 +40,9 @@ EnemyFactory.prototype.nextPosition = function () {
 };
 
 EnemyFactory.prototype.create = function () {
+  if (this._noMoreEnemies()) {
+    return;
+  }
   this.createEnemy(this.getNextEnemy(), this.getNextPosition());
   this.nextEnemy();
   this.nextPosition();
@@ -54,6 +57,7 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
   var tank = new Tank(this._eventManager);
   tank.setType(enemy.type);
   tank.setPosition(position);
+  tank.setState(new TankStateAppearing(tank));
   return tank;
 };
 
@@ -63,4 +67,8 @@ EnemyFactory.prototype.getNextEnemy = function () {
 
 EnemyFactory.prototype.nextEnemy = function () {
   this._enemy++;
+};
+
+EnemyFactory.prototype._noMoreEnemies = function () {
+  return this._enemy >= this._enemies.length;
 };

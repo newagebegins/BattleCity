@@ -79,14 +79,25 @@ describe("EnemyFactory", function () {
     var POSITION_2 = new Point(10, 20);
     var POSITION_3 = new Point(40, 100);
     factory.setPositions([POSITION_1, POSITION_2, POSITION_3]);
+    
     factory.create();
     expect(factory.createEnemy).toHaveBeenCalledWith(ENEMY_1, POSITION_1);
+    factory.createEnemy.reset();
+    
     factory.create();
     expect(factory.createEnemy).toHaveBeenCalledWith(ENEMY_2, POSITION_2);
+    factory.createEnemy.reset();
+    
     factory.create();
     expect(factory.createEnemy).toHaveBeenCalledWith(ENEMY_3, POSITION_3);
+    factory.createEnemy.reset();
+    
     factory.create();
     expect(factory.createEnemy).toHaveBeenCalledWith(ENEMY_4, POSITION_1);
+    factory.createEnemy.reset();
+    
+    factory.create();
+    expect(factory.createEnemy).not.toHaveBeenCalled();
   });
   
   it("#createEnemy", function () {
@@ -98,5 +109,6 @@ describe("EnemyFactory", function () {
     expect(tank instanceof Tank).toBeTruthy();
     expect(tank.getType()).toEqual(enemy.type);
     expect(tank.getPosition()).toEqual(position);
+    expect(tank.getState() instanceof TankStateAppearing).toBeTruthy();
   });
 });
