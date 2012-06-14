@@ -28,3 +28,9 @@ AITankControllerContainer.prototype.notify = function (event) {
     this.removeController(event.controller);
   }
 };
+
+AITankControllerContainer.prototype.update = function () {
+  this._controllers.forEach(function (controller) {
+    controller.update();
+  });
+};
