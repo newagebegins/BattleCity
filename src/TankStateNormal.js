@@ -1,21 +1,17 @@
 function TankStateNormal(tank) {
   this._tank = tank;
-  this._trackFrame = 1;
+  this._trackAnimation = new Animation([1,2], 1, true);
 }
 
 TankStateNormal.prototype.getImage = function () {
-  return 'tank_' + this._tank.getType() + '_' + this._tank.getDirection() + '_' + this._trackFrame;
+  return 'tank_' + this._tank.getType() + '_' + this._tank.getDirection() + '_' + this._trackAnimation.getFrame();
 };
 
 TankStateNormal.prototype.update = function () {
-  this.updateTrackFrame();
-};
-
-TankStateNormal.prototype.updateTrackFrame = function () {
   if (this._tank.getSpeed() == 0) {
     return;
   }
-  this._trackFrame = this._trackFrame == 1 ? 2 : 1;
+  this._trackAnimation.update()
 };
 
 TankStateNormal.prototype.draw = function (ctx) {
@@ -31,9 +27,5 @@ TankStateNormal.prototype.canShoot = function () {
 };
 
 TankStateNormal.prototype.getTrackFrame = function () {
-  return this._trackFrame;
-};
-
-TankStateNormal.prototype.setTrackFrame = function (frame) {
-  this._trackFrame = frame;
+  return this._trackAnimation.getFrame();
 };

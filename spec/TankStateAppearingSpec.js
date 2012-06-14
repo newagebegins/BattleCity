@@ -10,6 +10,7 @@ describe("TankStateAppearing", function () {
   it("animation", function () {
     spyOn(eventManager, 'fireEvent');
     state.setFrames([1,2]);
+    state.setFrameDuration(1);
     expect(state.getImage()).toEqual('appear_1');
     state.update();
     expect(state.getImage()).toEqual('appear_2');

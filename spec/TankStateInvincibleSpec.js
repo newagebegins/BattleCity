@@ -7,25 +7,6 @@ describe("TankStateInvincible", function () {
     state = new TankStateInvincible(tank);
   });
   
-  it("shield animation", function () {
-    state.setShieldFrameDuration(2);
-    expect(state.getShieldImage()).toEqual('shield_1');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_1');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_2');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_2');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_1');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_1');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_2');
-    state.updateShieldFrame();
-    expect(state.getShieldImage()).toEqual('shield_2');
-  });
-  
   it("state duration", function () {
     spyOn(eventManager, 'fireEvent');
     state.setStateDuration(3);
@@ -41,10 +22,8 @@ describe("TankStateInvincible", function () {
   });
   
   it("#update", function () {
-    spyOn(state, 'updateShieldFrame');
     spyOn(state, 'updateStateTimer');
     state.update();
-    expect(state.updateShieldFrame).toHaveBeenCalled();
     expect(state.updateStateTimer).toHaveBeenCalled();
   });
 });

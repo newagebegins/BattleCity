@@ -1,7 +1,7 @@
 function TankStateAppearing(tank) {
   this._tank = tank;
   this._eventManager = this._tank.getEventManager();
-  this._animation = new Animation([1,1,1,2,2,2,3,3,3,4,4,4,3,3,3,2,2,2,1,1,1,2,2,2,3,3,3,4,4,4,3,3,3,2,2,2,1,1,1]);
+  this._animation = new Animation([1,2,3,4,3,2,1,2,3,4,3,2,1], 3);
 }
 
 TankStateAppearing.Event = {};
@@ -32,4 +32,8 @@ TankStateAppearing.prototype.canShoot = function () {
 
 TankStateAppearing.prototype.setFrames = function (frames) {
   this._animation.setFrames(frames);
+};
+
+TankStateAppearing.prototype.setFrameDuration = function (duration) {
+  this._animation.setFrameDuration(duration);
 };
