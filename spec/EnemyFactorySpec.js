@@ -110,5 +110,6 @@ describe("EnemyFactory", function () {
     expect(tank.getType()).toEqual(enemy.type);
     expect(tank.getPosition()).toEqual(position);
     expect(tank.getState() instanceof TankStateAppearing).toBeTruthy();
+    expect(tank.isPlayer()).toBeFalsy();
   });
 });

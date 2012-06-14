@@ -55,6 +55,7 @@ EnemyFactory.prototype.setInterval = function (interval) {
 
 EnemyFactory.prototype.createEnemy = function (enemy, position) {
   var tank = new Tank(this._eventManager);
+  tank.makeEnemy();
   tank.setType(enemy.type);
   tank.setPosition(position);
   tank.setState(new TankStateAppearing(tank));

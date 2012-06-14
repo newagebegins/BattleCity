@@ -13,6 +13,7 @@ function Tank(eventManager) {
   
   this._type = Tank.Type.PLAYER_1;
   this._state = new TankStateNormal(this);
+  this._player = true;
   
   this._normalSpeed = 2;
   this._bulletSize = Globals.TILE_SIZE / 2;
@@ -51,6 +52,14 @@ Tank.prototype.getType = function () {
 
 Tank.prototype.setType = function (type) {
   this._type = type;
+};
+
+Tank.prototype.isPlayer = function () {
+  return this._player;
+};
+
+Tank.prototype.makeEnemy = function () {
+  this._player = false;
 };
 
 Tank.prototype.setBulletSize = function (size) {
@@ -95,11 +104,21 @@ Tank.prototype.notify = function (event) {
     this.resolveOutOfBounds(event.bounds);
   }
   else if (event.name == TankStateAppearing.Event.END && event.tank === this) {
-    this._state = new TankStateInvincible(this);
-    this._direction = Sprite.Direction.UP;
+    this.stateAppearingEnd();
   }
   else if (event.name == TankStateInvincible.Event.END && event.tank === this) {
     this._state = new TankStateNormal(this);
+  }
+};
+
+Tank.prototype.stateAppearingEnd = function () {
+  if (this._player) {
+    this._state = new TankStateInvincible(this);
+    this._direction = Sprite.Direction.UP;
+  }
+  else {
+    this._state = new TankStateNormal(this);
+    this._direction = Sprite.Direction.DOWN;
   }
 };
 

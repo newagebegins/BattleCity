@@ -20,6 +20,7 @@ describe("Tank", function () {
     
     expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
     expect(tank.getType()).toEqual(Tank.Type.PLAYER_1);
+    expect(tank.isPlayer()).toBeTruthy();
   });
   
   describe("#shoot", function () {
@@ -203,27 +204,52 @@ describe("Tank", function () {
   });
   
   describe("#notify", function () {
-    describe("TankStateAppearing.Event.END", function () {
-      beforeEach(function () {
-        tank.setState(new TankStateAppearing(tank));
-      });
-      
-      it("state", function () {
-        tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
-        expect(tank.getState() instanceof TankStateInvincible).toBeTruthy();
-      });
-      
-      it("direction", function () {
-        tank.setDirection(Sprite.Direction.DOWN);
-        tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
-        expect(tank.getDirection()).toEqual(Sprite.Direction.UP);
-      });
+    it("TankStateAppearing.Event.END", function () {
+      spyOn(tank, 'stateAppearingEnd');
+      tank.notify({'name': TankStateAppearing.Event.END, 'tank': tank});
+      expect(tank.stateAppearingEnd).toHaveBeenCalled();
     });
     
     it("TankStateInvincible.Event.END", function () {
       tank.setState(new TankStateInvincible(tank));
       tank.notify({'name': TankStateInvincible.Event.END, 'tank': tank});
       expect((tank.getState() instanceof TankStateNormal) && !(tank.getState() instanceof TankStateInvincible)).toBeTruthy();
+    });
+  });
+  
+  describe("#stateAppearingEnd", function () {
+    beforeEach(function () {
+      tank.setState(new TankStateAppearing(tank));
+    });
+    
+    describe("player", function () {
+      it("state", function () {
+        tank.stateAppearingEnd();
+        expect(tank.getState() instanceof TankStateInvincible).toBeTruthy();
+      });
+
+      it("direction", function () {
+        tank.setDirection(Sprite.Direction.DOWN);
+        tank.stateAppearingEnd();
+        expect(tank.getDirection()).toEqual(Sprite.Direction.UP);
+      });
+    });
+    
+    describe("enemy", function () {
+      beforeEach(function () {
+        tank.makeEnemy();
+      });
+      
+      it("state", function () {
+        tank.stateAppearingEnd();
+        expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
+      });
+
+      it("direction", function () {
+        tank.setDirection(Sprite.Direction.UP);
+        tank.stateAppearingEnd();
+        expect(tank.getDirection()).toEqual(Sprite.Direction.DOWN);
+      });
     });
   });
   
