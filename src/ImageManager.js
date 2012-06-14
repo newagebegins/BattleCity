@@ -9,6 +9,15 @@ var ImageManager = (function() {
     tank_player1_up_1: null,
     tank_player1_up_2: null,
     
+    tank_basic_down_1: null,
+    tank_basic_down_2: null,
+    tank_basic_left_1: null,
+    tank_basic_left_2: null,
+    tank_basic_right_1: null,
+    tank_basic_right_2: null,
+    tank_basic_up_1: null,
+    tank_basic_up_2: null,
+    
     appear_1: null,
     appear_2: null,
     appear_3: null,
