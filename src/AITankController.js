@@ -65,6 +65,11 @@ AITankController.prototype.update = function () {
 
 AITankController.prototype.notify = function (event) {
   if (event.name == Tank.Event.DESTROYED && event.tank === this._tank) {
-    this._eventManager.fireEvent({'name': AITankController.Event.DESTROYED, 'controller': this});
+    this.destroy();
   }
+};
+
+AITankController.prototype.destroy = function () {
+  this._eventManager.removeSubscriber(this);
+  this._eventManager.fireEvent({'name': AITankController.Event.DESTROYED, 'controller': this});
 };

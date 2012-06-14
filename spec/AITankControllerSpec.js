@@ -168,9 +168,17 @@ describe("AITankController", function () {
   
   describe("#notify", function () {
     it("Tank.Event.DESTROYED", function () {
-      spyOn(eventManager, 'fireEvent');
+      spyOn(controller, 'destroy');
       controller.notify({'name': Tank.Event.DESTROYED, 'tank': tank});
-      expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': AITankController.Event.DESTROYED, 'controller': controller});
+      expect(controller.destroy).toHaveBeenCalled();
     });
+  });
+  
+  it("#destroy", function () {
+    spyOn(eventManager, 'fireEvent');
+    spyOn(eventManager, 'removeSubscriber');
+    controller.destroy();
+    expect(eventManager.removeSubscriber).toHaveBeenCalledWith(controller);
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': AITankController.Event.DESTROYED, 'controller': controller});
   });
 });
