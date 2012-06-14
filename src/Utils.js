@@ -21,3 +21,7 @@ function arrayRemove(arr, obj) {
     }
   }
 }
+
+function arrayRandomElement(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
