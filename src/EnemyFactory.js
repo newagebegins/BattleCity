@@ -1,6 +1,6 @@
 function EnemyFactory(eventManager) {
   this._eventManager = eventManager;
-  this._eventManager.addSubscriber(this, [Tank.Event.DESTROYED]);
+  this._eventManager.addSubscriber(this, [Tank.Event.ENEMY_DESTROYED]);
   
   this._positions = [];
   this._position = 0;

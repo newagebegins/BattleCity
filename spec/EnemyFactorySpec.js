@@ -3,7 +3,7 @@ describe("EnemyFactory", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var factory = new EnemyFactory(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [Tank.Event.DESTROYED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [Tank.Event.ENEMY_DESTROYED]);
   });
   
   it("#nextPosition", function () {

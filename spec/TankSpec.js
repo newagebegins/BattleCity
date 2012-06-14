@@ -253,10 +253,26 @@ describe("Tank", function () {
     });
   });
   
-  it('#destroyHook', function () {
-    spyOn(eventManager, 'fireEvent');
-    tank.destroyHook();
-    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.DESTROYED, 'tank': tank});
+  describe("#destroyHook", function () {
+    beforeEach(function () {
+      spyOn(eventManager, 'fireEvent');
+    });
+    
+    it('common', function () {
+      tank.destroyHook();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.DESTROYED, 'tank': tank});
+    });
+    
+    it('player', function () {
+      tank.destroyHook();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.PLAYER_DESTROYED, 'tank': tank});
+    });
+    
+    it('enemy', function () {
+      tank.makeEnemy();
+      tank.destroyHook();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.ENEMY_DESTROYED, 'tank': tank});
+    });
   });
 });
 
