@@ -20,12 +20,16 @@ function Tank(eventManager) {
   // turn smoothing sensitivity
   this._turnSmoothSens = Globals.TILE_SIZE - 6;
   this._turnRoundTo = Globals.TILE_SIZE;
+  
+  this._eventManager.fireEvent({'name': Tank.Event.CREATED, 'tank': this});
 }
 
 Tank.subclass(Sprite);
 
 Tank.Event = {};
 Tank.Event.SHOOT = 'Tank.Event.SHOOT';
+Tank.Event.CREATED = 'Tank.Event.CREATED';
+Tank.Event.DESTROYED = 'Tank.Event.DESTROYED';
 
 Tank.prototype.getState = function () {
   return this._state;
@@ -113,6 +117,10 @@ Tank.prototype.move = function () {
 
 Tank.prototype.getEventManager = function () {
   return this._eventManager;
+};
+
+Tank.prototype.destroyHook = function () {
+  this._eventManager.fireEvent({'name': Tank.Event.DESTROYED, 'tank': this});
 };
 
 Tank.prototype._smoothTurn = function () {

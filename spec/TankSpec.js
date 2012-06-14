@@ -225,6 +225,12 @@ describe("Tank", function () {
       expect((tank.getState() instanceof TankStateNormal) && !(tank.getState() instanceof TankStateInvincible)).toBeTruthy();
     });
   });
+  
+  it('#destroyHook', function () {
+    spyOn(eventManager, 'fireEvent');
+    tank.destroyHook();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.DESTROYED, 'tank': tank});
+  });
 });
 
 describe("Tank", function () {
@@ -238,5 +244,12 @@ describe("Tank", function () {
       CollisionDetector.Event.OUT_OF_BOUNDS,
       TankStateAppearing.Event.END,
       TankStateInvincible.Event.END]);
+  });
+  
+  it("should fire an event when created", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    var tank = new Tank(eventManager);
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.CREATED, 'tank': tank});
   });
 });
