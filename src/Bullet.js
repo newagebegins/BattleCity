@@ -14,7 +14,7 @@ Bullet.Event.DESTROYED = 'Bullet.Event.DESTROYED';
 
 Bullet.prototype.notify = function (event) {
   if ((event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) ||
-      (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall)) {
+      (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && (event.sprite instanceof Wall || (event.sprite instanceof Tank && event.sprite !== this._tank)))) {
     this.destroy();
   }
 };

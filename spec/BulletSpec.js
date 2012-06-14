@@ -19,14 +19,37 @@ describe("Bullet", function () {
     expect(bullet.destroy).toHaveBeenCalled();
   });
   
-  it("should be destroyed when collides with a wall", function () {
-    var wall = new Wall(eventManager);
-    spyOn(bullet, 'destroy');
-    bullet.notify({
-      'name': CollisionDetector.Event.COLLISION,
-      'initiator': bullet,
-      'sprite': wall});
-    expect(bullet.destroy).toHaveBeenCalled();
+  describe("CollisionDetector.Event.COLLISION", function () {
+    it("wall", function () {
+      var wall = new Wall(eventManager);
+      spyOn(bullet, 'destroy');
+      bullet.notify({
+        'name': CollisionDetector.Event.COLLISION,
+        'initiator': bullet,
+        'sprite': wall});
+      expect(bullet.destroy).toHaveBeenCalled();
+    });
+    
+    describe("tank", function () {
+      it("other tank", function () {
+        var otherTank = new Tank(eventManager);
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': otherTank});
+        expect(bullet.destroy).toHaveBeenCalled();
+      });
+      
+      it("bullet's tank", function () {
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': tank});
+        expect(bullet.destroy).not.toHaveBeenCalled();
+      });
+    });
   });
 });
 
