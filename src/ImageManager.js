@@ -40,9 +40,9 @@ var ImageManager = (function() {
     bullet_left: null,
     bullet_right: null,
     
-    explosion_1: null,
-    explosion_2: null,
-    explosion_3: null,
+    bullet_explosion_1: null,
+    bullet_explosion_2: null,
+    bullet_explosion_3: null,
     
     wall_brick: null,
     wall_steel: null,

@@ -1,26 +1,26 @@
-function ExplosionFactory(eventManager) {
+function BulletExplosionFactory(eventManager) {
   this._eventManager = eventManager;
   this._eventManager.addSubscriber(this, [Bullet.Event.DESTROYED]);
   
   this._explosionSize = Globals.UNIT_SIZE;
 }
 
-ExplosionFactory.prototype.setExplosionSize = function (size) {
+BulletExplosionFactory.prototype.setBulletExplosionSize = function (size) {
   this._explosionSize = size;
 };
 
-ExplosionFactory.prototype.getExplosionSize = function () {
+BulletExplosionFactory.prototype.getBulletExplosionSize = function () {
   return this._explosionSize;
 };
 
-ExplosionFactory.prototype.notify = function (event) {
+BulletExplosionFactory.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED) {
-    this.createExplosion(event.bullet);
+    this.createBulletExplosion(event.bullet);
   }
 };
 
-ExplosionFactory.prototype.createExplosion = function (bullet) {
-  var explosion = new Explosion(this._eventManager);
+BulletExplosionFactory.prototype.createBulletExplosion = function (bullet) {
+  var explosion = new BulletExplosion(this._eventManager);
   var bulletCenter = bullet.getCenter();
   explosion.setRect(new Rect(
     bulletCenter.getX() - this._explosionSize / 2,
