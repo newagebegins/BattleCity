@@ -4,7 +4,7 @@ function TankStateNormal(tank) {
 }
 
 TankStateNormal.prototype.getImage = function () {
-  return 'tank_' + this._tank.getDirection() + '_' + this._trackFrame;
+  return 'tank_' + this._tank.getType() + '_' + this._tank.getDirection() + '_' + this._trackFrame;
 };
 
 TankStateNormal.prototype.update = function () {

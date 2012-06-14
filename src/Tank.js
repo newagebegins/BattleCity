@@ -11,6 +11,7 @@ function Tank(eventManager) {
   this._w = Globals.UNIT_SIZE;
   this._h = Globals.UNIT_SIZE;
   
+  this._type = Tank.Type.PLAYER_1;
   this._state = new TankStateNormal(this);
   
   this._normalSpeed = 2;
@@ -26,6 +27,9 @@ function Tank(eventManager) {
 
 Tank.subclass(Sprite);
 
+Tank.Type = {};
+Tank.Type.PLAYER_1 = 'player1';
+
 Tank.Event = {};
 Tank.Event.SHOOT = 'Tank.Event.SHOOT';
 Tank.Event.CREATED = 'Tank.Event.CREATED';
@@ -37,6 +41,10 @@ Tank.prototype.getState = function () {
 
 Tank.prototype.setState = function (state) {
   this._state = state;
+};
+
+Tank.prototype.getType = function () {
+  return this._type;
 };
 
 Tank.prototype.setBulletSize = function (size) {

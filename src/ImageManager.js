@@ -1,13 +1,13 @@
 var ImageManager = (function() {
   var images = {
-    tank_down_1: null,
-    tank_down_2: null,
-    tank_left_1: null,
-    tank_left_2: null,
-    tank_right_1: null,
-    tank_right_2: null,
-    tank_up_1: null,
-    tank_up_2: null,
+    tank_player1_down_1: null,
+    tank_player1_down_2: null,
+    tank_player1_left_1: null,
+    tank_player1_left_2: null,
+    tank_player1_right_1: null,
+    tank_player1_right_2: null,
+    tank_player1_up_1: null,
+    tank_player1_up_2: null,
     
     appear_1: null,
     appear_2: null,
