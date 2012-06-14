@@ -108,14 +108,20 @@ Sprite.prototype.updateHook = function () {
   
 };
 
+Sprite.prototype.destroy = function () {
+  this._destroyed = true;
+};
+
+Sprite.prototype.isDestroyed = function () {
+  return this._destroyed;
+};
+
 /**
  * Should not be overriden by subclasses. Instead override destroyHook().
  */
-Sprite.prototype.destroy = function () {
-  if (this._destroyed) {
-    return;
-  }
-  this._destroyed = true;
+Sprite.prototype.doDestroy = function () {
+  this._eventManager.removeSubscriber(this);
+  this._eventManager.fireEvent({'name': Sprite.Event.DESTROYED, 'sprite': this});
   this.destroyHook();
 };
 
@@ -125,15 +131,6 @@ Sprite.prototype.destroy = function () {
  */
 Sprite.prototype.destroyHook = function () {
   
-};
-  
-Sprite.prototype.isDestroyed = function () {
-  return this._destroyed;
-};
-
-Sprite.prototype.doDestroy = function () {
-  this._eventManager.removeSubscriber(this);
-  this._eventManager.fireEvent({'name': Sprite.Event.DESTROYED, 'sprite': this});
 };
 
 Sprite.prototype.resolveOutOfBounds = function (bounds) {
