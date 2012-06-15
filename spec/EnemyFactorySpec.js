@@ -42,28 +42,32 @@ describe("EnemyFactory", function () {
   it("#update", function () {
     var eventManager = new EventManager();
     var factory = new EnemyFactory(eventManager);
-    spyOn(factory, 'create');
+    factory.setEnemies([{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC}]);
+    factory.setPositions([new Point(0,0)]);
+    factory.setEnemyCountLimit(2);
     factory.setInterval(3);
     factory.update();
-    expect(factory.create).toHaveBeenCalled();
-    factory.create.reset();
+    expect(factory.getEnemyCount()).toEqual(1);
     factory.update();
-    expect(factory.create).not.toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(1);
     factory.update();
-    expect(factory.create).not.toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(1);
     factory.update();
-    expect(factory.create).not.toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(1);
     factory.update();
-    expect(factory.create).toHaveBeenCalled();
-    factory.create.reset();
+    expect(factory.getEnemyCount()).toEqual(2);
     factory.update();
-    expect(factory.create).not.toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(2);
     factory.update();
-    expect(factory.create).not.toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(2);
     factory.update();
-    expect(factory.create).not.toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(2);
     factory.update();
-    expect(factory.create).toHaveBeenCalled();
+    expect(factory.getEnemyCount()).toEqual(2);
+    var tank = new Tank(eventManager);
+    factory.notify({'name': Tank.Event.ENEMY_DESTROYED, 'tank': tank});
+    factory.update();
+    expect(factory.getEnemyCount()).toEqual(2);
   });
   
   describe("#create", function () {
@@ -149,7 +153,6 @@ describe("EnemyFactory", function () {
     it("Tank.Event.ENEMY_DESTROYED", function () {
       var eventManager = new EventManager();
       var factory = new EnemyFactory(eventManager);
-      spyOn(factory, 'create');
       var enemy = {type: Tank.Type.BASIC};
       var position = new Point(1, 2);
       var tank = factory.createEnemy(enemy, position);
@@ -159,7 +162,6 @@ describe("EnemyFactory", function () {
       factory.notify({'name': Tank.Event.ENEMY_DESTROYED, 'tank': tank});
       
       expect(factory.getEnemyCount()).toEqual(0);
-      expect(factory.create).toHaveBeenCalled();
     });
   });
 });
