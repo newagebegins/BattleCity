@@ -19,7 +19,7 @@ TankExplosionFactory.prototype.notify = function (event) {
 };
 
 TankExplosionFactory.prototype.create = function (tank) {
-  var explosion = new TankExplosion(this._eventManager);
+  var explosion = new TankExplosion(this._eventManager, tank);
   var tankCenter = tank.getCenter();
   explosion.setRect(new Rect(
     tankCenter.getX() - this._explosionSize / 2,

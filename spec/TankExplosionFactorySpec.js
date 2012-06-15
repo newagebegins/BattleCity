@@ -33,5 +33,6 @@ describe("TankExplosionFactory", function () {
     var explosion = factory.create(tank);
     expect(explosion instanceof TankExplosion).toBeTruthy();
     expect(explosion.getRect()).toEqual(new Rect(4, 5, EXPLOSION_SIZE, EXPLOSION_SIZE));
+    expect(explosion.getTank()).toBe(tank);
   });
 });
