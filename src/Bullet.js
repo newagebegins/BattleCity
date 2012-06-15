@@ -13,7 +13,7 @@ Bullet.Event = {};
 Bullet.Event.DESTROYED = 'Bullet.Event.DESTROYED';
 
 Bullet.prototype.notify = function (event) {
-  if (this._outOfBounds(event) || this._wallCollision(event) || this._tankCollision(event)) {
+  if (this._outOfBounds(event) || this._wallCollision(event) || this._tankCollision(event) || this._bulletCollision(event)) {
     this.destroy();
   }
 };
@@ -66,6 +66,20 @@ Bullet.prototype._tankCollision = function (event) {
     return false;
   }
   if (otherTank.isEnemy() && this._tank.isEnemy()) {
+    return false;
+  }
+  return true;
+};
+
+Bullet.prototype._bulletCollision = function (event) {
+  if (event.name != CollisionDetector.Event.COLLISION) {
+    return false;
+  }
+  if (!(event.sprite instanceof Bullet && event.initiator instanceof Bullet)) {
+    return false;
+  }
+  var otherTank = event.sprite.getTank();
+  if (this._tank.isEnemy() && otherTank.isEnemy()) {
     return false;
   }
   return true;

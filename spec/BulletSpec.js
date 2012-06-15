@@ -62,6 +62,45 @@ describe("Bullet", function () {
         expect(bullet.destroy).not.toHaveBeenCalled();
       });
     });
+    
+    describe("bullet", function () {
+      it("player hits enemy bullet", function () {
+        var otherTank = new Tank(eventManager);
+        otherTank.makeEnemy();
+        var otherBullet = new Bullet(eventManager, otherTank);
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': otherBullet});
+        expect(bullet.destroy).toHaveBeenCalled();
+      });
+      
+      it("enemy hits player bullet", function () {
+        var otherTank = new Tank(eventManager);
+        otherTank.makeEnemy();
+        var otherBullet = new Bullet(eventManager, otherTank);
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': otherBullet,
+          'sprite': bullet});
+        expect(bullet.destroy).toHaveBeenCalled();
+      });
+      
+      it("enemy hits enemy bullet", function () {
+        tank.makeEnemy();
+        var otherTank = new Tank(eventManager);
+        otherTank.makeEnemy();
+        var otherBullet = new Bullet(eventManager, otherTank);
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': otherBullet});
+        expect(bullet.destroy).not.toHaveBeenCalled();
+      });
+    });
   });
 });
 
