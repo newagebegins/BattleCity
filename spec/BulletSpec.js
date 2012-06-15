@@ -49,6 +49,18 @@ describe("Bullet", function () {
           'sprite': tank});
         expect(bullet.destroy).not.toHaveBeenCalled();
       });
+      
+      it("enemy shot enemy", function () {
+        spyOn(bullet, 'destroy');
+        tank.makeEnemy();
+        var otherTank = new Tank(eventManager);
+        otherTank.makeEnemy();
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': otherTank});
+        expect(bullet.destroy).not.toHaveBeenCalled();
+      });
     });
   });
 });

@@ -215,6 +215,44 @@ describe("Tank", function () {
       tank.notify({'name': TankStateInvincible.Event.END, 'tank': tank});
       expect((tank.getState() instanceof TankStateNormal) && !(tank.getState() instanceof TankStateInvincible)).toBeTruthy();
     });
+    
+    describe("CollisionDetector.Event.COLLISION", function () {
+      describe("bullet", function () {
+        it("other's bullet", function () {
+          spyOn(tank, 'destroy');
+          var otherTank = new Tank(eventManager);
+          var bullet = new Bullet(eventManager, otherTank);
+          tank.notify({
+            'name': CollisionDetector.Event.COLLISION,
+            'initiator': bullet,
+            'sprite': tank});
+          expect(tank.destroy).toHaveBeenCalled();
+        });
+        
+        it("own bullet", function () {
+          spyOn(tank, 'destroy');
+          var bullet = new Bullet(eventManager, tank);
+          tank.notify({
+            'name': CollisionDetector.Event.COLLISION,
+            'initiator': bullet,
+            'sprite': tank});
+          expect(tank.destroy).not.toHaveBeenCalled();
+        });
+        
+        it("enemy shot enemy", function () {
+          spyOn(tank, 'destroy');
+          tank.makeEnemy();
+          var otherTank = new Tank(eventManager);
+          otherTank.makeEnemy();
+          var bullet = new Bullet(eventManager, otherTank);
+          tank.notify({
+            'name': CollisionDetector.Event.COLLISION,
+            'initiator': bullet,
+            'sprite': tank});
+          expect(tank.destroy).not.toHaveBeenCalled();
+        });
+      });
+    });
   });
   
   describe("#stateAppearingEnd", function () {
