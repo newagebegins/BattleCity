@@ -3,7 +3,7 @@ describe("EnemyFactory", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var factory = new EnemyFactory(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [Tank.Event.ENEMY_DESTROYED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [Points.Event.DESTROYED]);
   });
   
   it("#nextPosition", function () {
@@ -64,8 +64,8 @@ describe("EnemyFactory", function () {
     expect(factory.getEnemyCount()).toEqual(2);
     factory.update();
     expect(factory.getEnemyCount()).toEqual(2);
-    var tank = new Tank(eventManager);
-    factory.notify({'name': Tank.Event.ENEMY_DESTROYED, 'tank': tank});
+    var points = new Points(eventManager);
+    factory.notify({'name': Points.Event.DESTROYED, 'points': points});
     factory.update();
     expect(factory.getEnemyCount()).toEqual(2);
   });
@@ -150,7 +150,7 @@ describe("EnemyFactory", function () {
   });
   
   describe("#notify", function () {
-    it("Tank.Event.ENEMY_DESTROYED", function () {
+    it("Points.Event.DESTROYED", function () {
       var eventManager = new EventManager();
       var factory = new EnemyFactory(eventManager);
       var enemy = {type: Tank.Type.BASIC};
@@ -159,7 +159,8 @@ describe("EnemyFactory", function () {
       
       expect(factory.getEnemyCount()).toEqual(1);
       
-      factory.notify({'name': Tank.Event.ENEMY_DESTROYED, 'tank': tank});
+      var points = new Points(eventManager);
+      factory.notify({'name': Points.Event.DESTROYED, 'points': points});
       
       expect(factory.getEnemyCount()).toEqual(0);
     });

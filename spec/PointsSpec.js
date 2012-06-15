@@ -21,4 +21,12 @@ describe("Points", function () {
     points.updateHook();
     expect(points.updateTimer).toHaveBeenCalled();
   });
+  
+  it("#destroyHook", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    var points = new Points(eventManager);
+    points.destroyHook();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Points.Event.DESTROYED, 'points': points});
+  });
 });
