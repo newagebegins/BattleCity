@@ -5,21 +5,21 @@ function BulletExplosionFactory(eventManager) {
   this._explosionSize = Globals.UNIT_SIZE;
 }
 
-BulletExplosionFactory.prototype.setBulletExplosionSize = function (size) {
+BulletExplosionFactory.prototype.setExplosionSize = function (size) {
   this._explosionSize = size;
 };
 
-BulletExplosionFactory.prototype.getBulletExplosionSize = function () {
+BulletExplosionFactory.prototype.getExplosionSize = function () {
   return this._explosionSize;
 };
 
 BulletExplosionFactory.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED) {
-    this.createBulletExplosion(event.bullet);
+    this.create(event.bullet);
   }
 };
 
-BulletExplosionFactory.prototype.createBulletExplosion = function (bullet) {
+BulletExplosionFactory.prototype.create = function (bullet) {
   var explosion = new BulletExplosion(this._eventManager);
   var bulletCenter = bullet.getCenter();
   explosion.setRect(new Rect(

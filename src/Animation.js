@@ -1,5 +1,5 @@
 function Animation(frames, frameDuration, loop) {
-  this._frames = frames;
+  this._frames = frames !== undefined ? frames : [];
   this._frameDuration = frameDuration !== undefined ? frameDuration : 1;
   this._loop = loop !== undefined ? loop : false;
   this._frame = 0;

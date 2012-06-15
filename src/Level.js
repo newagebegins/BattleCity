@@ -8,6 +8,7 @@ function Level(eventManager) {
   new TankController(eventManager, tank);
   new BulletFactory(eventManager);
   new BulletExplosionFactory(eventManager);
+  new TankExplosionFactory(eventManager);
   
   this._aiControllersContainer = new AITankControllerContainer(eventManager);
   new AITankControllerFactory(eventManager);

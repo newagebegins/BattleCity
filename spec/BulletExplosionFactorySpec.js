@@ -10,29 +10,29 @@ describe("BulletExplosionFactory", function () {
   it("default state", function () {
     var eventManager = new EventManager();
     var explosionFactory = new BulletExplosionFactory(eventManager);
-    expect(explosionFactory.getBulletExplosionSize()).toEqual(32);
+    expect(explosionFactory.getExplosionSize()).toEqual(32);
   });
   
   it("should place explosions correctly", function () {
     var EXPLOSION_SIZE = 32;
     var eventManager = new EventManager();
     var explosionFactory = new BulletExplosionFactory(eventManager);
-    explosionFactory.setBulletExplosionSize(EXPLOSION_SIZE);
+    explosionFactory.setExplosionSize(EXPLOSION_SIZE);
     var tank = new Tank(eventManager);
     var bullet = new Bullet(eventManager, tank);
     bullet.setRect(new Rect(0, 0, 8, 8));
-    var explosion = explosionFactory.createBulletExplosion(bullet);
-    
+    var explosion = explosionFactory.create(bullet);
+    expect(explosion instanceof BulletExplosion).toBeTruthy();
     expect(explosion.getRect()).toEqual(new Rect(-12, -12, EXPLOSION_SIZE, EXPLOSION_SIZE));
   });
   
   it("should create explosions when notified about destroyed bullet", function () {
     var eventManager = new EventManager();
     var explosionFactory = new BulletExplosionFactory(eventManager);
-    spyOn(explosionFactory, 'createBulletExplosion');
+    spyOn(explosionFactory, 'create');
     var tank = new Tank(eventManager);
     var bullet = new Bullet(eventManager, tank);
     explosionFactory.notify({'name': Bullet.Event.DESTROYED, 'bullet': bullet, 'tank': tank});
-    expect(explosionFactory.createBulletExplosion).toHaveBeenCalledWith(bullet);
+    expect(explosionFactory.create).toHaveBeenCalledWith(bullet);
   });
 });
