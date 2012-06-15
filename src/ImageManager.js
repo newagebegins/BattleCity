@@ -54,6 +54,8 @@ var ImageManager = (function() {
     wall_steel: null,
     
     base: null,
+    
+    points_100: null,
   };
   
   for (var i in images) {

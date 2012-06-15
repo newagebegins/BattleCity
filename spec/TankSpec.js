@@ -21,6 +21,7 @@ describe("Tank", function () {
     expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
     expect(tank.getType()).toEqual(Tank.Type.PLAYER_1);
     expect(tank.isPlayer()).toBeTruthy();
+    expect(tank.getValue()).toEqual(100);
   });
   
   describe("#shoot", function () {
