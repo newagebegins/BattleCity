@@ -185,6 +185,10 @@ Tank.prototype.canBeDestroyed = function () {
   return this._state.canBeDestroyed();
 };
 
+Tank.prototype.isCollidable = function () {
+  return this._state.isCollidable();
+};
+
 Tank.prototype._smoothTurn = function () {
   var val;
   

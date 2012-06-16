@@ -34,6 +34,10 @@ TankStateAppearing.prototype.canBeDestroyed = function () {
   return false;
 };
 
+TankStateAppearing.prototype.isCollidable = function () {
+  return false;
+};
+
 TankStateAppearing.prototype.setFrames = function (frames) {
   this._animation.setFrames(frames);
 };

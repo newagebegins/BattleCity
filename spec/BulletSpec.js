@@ -72,6 +72,17 @@ describe("Bullet", function () {
           'sprite': otherTank});
         expect(bullet.shouldExplode()).toBeFalsy();
       });
+      
+      it("collide with appearing tank", function () {
+        var otherTank = new Tank(eventManager);
+        otherTank.setState(new TankStateAppearing(otherTank));
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': otherTank});
+        expect(bullet.destroy).not.toHaveBeenCalled();
+      });
     });
     
     describe("bullet", function () {

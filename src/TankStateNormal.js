@@ -30,6 +30,10 @@ TankStateNormal.prototype.canBeDestroyed = function () {
   return true;
 };
 
+TankStateNormal.prototype.isCollidable = function () {
+  return true;
+};
+
 TankStateNormal.prototype.getTrackFrame = function () {
   return this._trackAnimation.getFrame();
 };
