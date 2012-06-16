@@ -26,13 +26,27 @@ describe("BulletExplosionFactory", function () {
     expect(explosion.getRect()).toEqual(new Rect(-12, -12, EXPLOSION_SIZE, EXPLOSION_SIZE));
   });
   
-  it("should create explosions when notified about destroyed bullet", function () {
-    var eventManager = new EventManager();
-    var explosionFactory = new BulletExplosionFactory(eventManager);
-    spyOn(explosionFactory, 'create');
-    var tank = new Tank(eventManager);
-    var bullet = new Bullet(eventManager, tank);
-    explosionFactory.notify({'name': Bullet.Event.DESTROYED, 'bullet': bullet, 'tank': tank});
-    expect(explosionFactory.create).toHaveBeenCalledWith(bullet);
+  describe("#notify", function () {
+    var eventManager, explosionFactory, tank, bullet;
+    
+    beforeEach(function () {
+      eventManager = new EventManager();
+      explosionFactory = new BulletExplosionFactory(eventManager);
+      spyOn(explosionFactory, 'create');
+      tank = new Tank(eventManager);
+      bullet = new Bullet(eventManager, tank);
+    });
+    
+    it("explode", function () {
+      explosionFactory.notify({'name': Bullet.Event.DESTROYED, 'bullet': bullet, 'tank': tank});
+      expect(explosionFactory.create).toHaveBeenCalledWith(bullet);
+    });
+    
+    it("don't explode", function () {
+      bullet.setExplode(false);
+      explosionFactory.notify({'name': Bullet.Event.DESTROYED, 'bullet': bullet, 'tank': tank});
+      expect(explosionFactory.create).not.toHaveBeenCalled();
+    });
   });
+  
 });
