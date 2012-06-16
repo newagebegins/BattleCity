@@ -115,7 +115,7 @@ Tank.prototype.notify = function (event) {
   else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
     this.resolveCollisionWithWall(event.sprite);
   }
-  else if (this._bulletCollision(event)) {
+  else if (this._bulletCollision(event) && this._state.canBeDestroyed()) {
     this.destroy();
   }
   else if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {

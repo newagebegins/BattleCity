@@ -43,3 +43,7 @@ TankStateInvincible.prototype.setStateDuration = function (duration) {
 TankStateInvincible.prototype.setShieldFrameDuration = function (duration) {
   this._shieldAnimation.setFrameDuration(duration);
 };
+
+TankStateInvincible.prototype.canBeDestroyed = function () {
+  return false;
+};
