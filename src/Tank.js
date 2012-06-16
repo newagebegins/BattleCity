@@ -115,7 +115,7 @@ Tank.prototype.notify = function (event) {
   else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
     this.resolveCollisionWithWall(event.sprite);
   }
-  else if (this._bulletCollision(event) && this._state.canBeDestroyed()) {
+  else if (this._bulletCollision(event) && this.canBeDestroyed()) {
     this.destroy();
   }
   else if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {
@@ -179,6 +179,10 @@ Tank.prototype.destroyHook = function () {
   else {
     this._eventManager.fireEvent({'name': Tank.Event.ENEMY_DESTROYED, 'tank': this});
   }
+};
+
+Tank.prototype.canBeDestroyed = function () {
+  return this._state.canBeDestroyed();
 };
 
 Tank.prototype._smoothTurn = function () {
