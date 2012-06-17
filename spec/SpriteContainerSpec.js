@@ -56,4 +56,21 @@ describe("SpriteContainer", function () {
     
     expect(spriteContainer.getSprites()).toEqual([spriteOne, spriteTwo, spriteThree, spriteFour, spriteFive]);
   });
+  
+  it("#getEnemyTanks", function () {
+    var eventManager = new EventManager();
+    var spriteContainer = new SpriteContainer(eventManager);
+    
+    var enemyTankOne = new Tank(eventManager);
+    enemyTankOne.makeEnemy();
+    
+    var enemyTankTwo = new Tank(eventManager);
+    enemyTankTwo.makeEnemy();
+    
+    var brickWall = new BrickWall(eventManager);
+    var player = new Tank(eventManager);
+    
+    expect(spriteContainer.getEnemyTanks().length).toEqual(2);
+    expect(spriteContainer.getEnemyTanks()).toEqual([enemyTankOne, enemyTankTwo]);
+  });
 });

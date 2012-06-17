@@ -21,6 +21,12 @@ SpriteContainer.prototype.getSprites = function () {
   return this._sprites;
 };
 
+SpriteContainer.prototype.getEnemyTanks = function () {
+  return this._sprites.filter(function (sprite) {
+    return sprite instanceof Tank && sprite.isEnemy();
+  });
+};
+
 SpriteContainer.prototype.notify = function (event) {
   if (event.name == Sprite.Event.CREATED) {
     this.addSprite(event.sprite);
