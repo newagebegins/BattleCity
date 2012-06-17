@@ -15,6 +15,7 @@ function Tank(eventManager) {
   this._state = new TankStateNormal(this);
   this._player = true;
   this._value = 100;
+  this._flashing = false;
   
   this._normalSpeed = 2;
   this._bulletSize = Globals.TILE_SIZE / 2;
@@ -187,6 +188,14 @@ Tank.prototype.canBeDestroyed = function () {
 
 Tank.prototype.isCollidable = function () {
   return this._state.isCollidable();
+};
+
+Tank.prototype.isFlashing = function () {
+  return this._flashing;
+};
+
+Tank.prototype.startFlashing = function () {
+  this._flashing = true;
 };
 
 Tank.prototype._smoothTurn = function () {

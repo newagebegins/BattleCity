@@ -65,6 +65,10 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
   tank.setPosition(position);
   tank.setState(new TankStateAppearing(tank));
   
+  if (enemy.flashing) {
+    tank.startFlashing();
+  }
+  
   this._eventManager.fireEvent({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': tank});
   this._enemyCount++;
   

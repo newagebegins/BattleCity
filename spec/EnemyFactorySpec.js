@@ -130,26 +130,38 @@ describe("EnemyFactory", function () {
     });
   });
   
-  it("#createEnemy", function () {
-    var eventManager = new EventManager();
-    spyOn(eventManager, 'fireEvent');
-    var factory = new EnemyFactory(eventManager);
-    var enemy = {type: Tank.Type.BASIC};
-    var position = new Point(1, 2);
+  describe("#createEnemy", function () {
+    it("main test", function () {
+      var eventManager = new EventManager();
+      spyOn(eventManager, 'fireEvent');
+      var factory = new EnemyFactory(eventManager);
+      var enemy = {type: Tank.Type.BASIC};
+      var position = new Point(1, 2);
+
+      expect(factory.getEnemyCount()).toEqual(0);
+
+      var tank = factory.createEnemy(enemy, position);
+
+      expect(factory.getEnemyCount()).toEqual(1);
+
+      expect(tank instanceof Tank).toBeTruthy();
+      expect(tank.getType()).toEqual(enemy.type);
+      expect(tank.getPosition()).toEqual(position);
+      expect(tank.getState() instanceof TankStateAppearing).toBeTruthy();
+      expect(tank.isPlayer()).toBeFalsy();
+      expect(tank.isFlashing()).toBeFalsy();
+
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': tank});
+    });
     
-    expect(factory.getEnemyCount()).toEqual(0);
-    
-    var tank = factory.createEnemy(enemy, position);
-    
-    expect(factory.getEnemyCount()).toEqual(1);
-    
-    expect(tank instanceof Tank).toBeTruthy();
-    expect(tank.getType()).toEqual(enemy.type);
-    expect(tank.getPosition()).toEqual(position);
-    expect(tank.getState() instanceof TankStateAppearing).toBeTruthy();
-    expect(tank.isPlayer()).toBeFalsy();
-    
-    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': tank});
+    it("flashing", function () {
+      var eventManager = new EventManager();
+      spyOn(eventManager, 'fireEvent');
+      var factory = new EnemyFactory(eventManager);
+      var enemy = {type: Tank.Type.BASIC, flashing: true};
+      var tank = factory.createEnemy(enemy, new Point(0,0));
+      expect(tank.isFlashing()).toBeTruthy();
+    });
   });
   
   describe("#notify", function () {

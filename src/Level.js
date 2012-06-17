@@ -22,7 +22,7 @@ function Level(eventManager) {
     new Point(this._x + 12 * Globals.UNIT_SIZE, this._y),
   ]);
   this._enemyFactory.setEnemies([
-    {type: Tank.Type.BASIC},
+    {type: Tank.Type.BASIC, flashing: true},
     {type: Tank.Type.FAST},
     {type: Tank.Type.BASIC},
     {type: Tank.Type.FAST},
