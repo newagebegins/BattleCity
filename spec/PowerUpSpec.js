@@ -18,6 +18,7 @@ describe("PowerUp", function () {
           'initiator': player,
           'sprite': powerUp});
         expect(powerUp.destroy).toHaveBeenCalled();
+        expect(powerUp.getPlayerTank()).toEqual(player);
       });
     });
   });

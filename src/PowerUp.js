@@ -8,6 +8,7 @@ function PowerUp(eventManager) {
   this._type = PowerUp.Type.GRENADE;
   this._blinkTimer = new BlinkTimer(7);
   this._value = 500;
+  this._playerTank = null;
 }
 
 PowerUp.subclass(Sprite);
@@ -55,12 +56,21 @@ PowerUp.prototype.getImage = function () {
 
 PowerUp.prototype.notify = function (event) {
   if (this._collidedWithPlayer(event)) {
+    this._playerTank = event.initiator;
     this.destroy();
   }
 };
 
 PowerUp.prototype.destroyHook = function () {
   this._eventManager.fireEvent({'name': PowerUp.Event.DESTROYED, 'powerUp': this});
+};
+
+PowerUp.prototype.setPlayerTank = function (tank) {
+  this._playerTank = tank;
+};
+
+PowerUp.prototype.getPlayerTank = function () {
+  return this._playerTank;
 };
 
 PowerUp.prototype._collidedWithPlayer = function (event) {
