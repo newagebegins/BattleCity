@@ -65,6 +65,7 @@ var ImageManager = (function() {
     base: null,
     
     points_100: null,
+    points_500: null,
     
     powerup_grenade: null,
     powerup_helmet: null,

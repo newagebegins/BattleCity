@@ -7,6 +7,7 @@ function PowerUp(eventManager) {
   
   this._type = PowerUp.Type.GRENADE;
   this._blinkTimer = new BlinkTimer(7);
+  this._value = 500;
 }
 
 PowerUp.subclass(Sprite);
@@ -28,6 +29,14 @@ PowerUp.prototype.setType = function (type) {
 
 PowerUp.prototype.getType = function () {
   return this._type;
+};
+
+PowerUp.prototype.setValue = function (value) {
+  this._value = value;
+};
+
+PowerUp.prototype.getValue = function () {
+  return this._value;
 };
 
 PowerUp.prototype.draw = function (ctx) {

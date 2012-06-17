@@ -3,7 +3,8 @@ describe("PointsFactory", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var factory = new PointsFactory(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [TankExplosion.Event.DESTROYED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory,
+      [TankExplosion.Event.DESTROYED, PowerUp.Event.DESTROYED]);
   });
   
   describe("#notify", function () {
@@ -17,7 +18,7 @@ describe("PointsFactory", function () {
         tank.setValue(100);
         var explosion = new TankExplosion(eventManager, tank);
         factory.notify({'name': TankExplosion.Event.DESTROYED, 'explosion': explosion});
-        expect(factory.create).toHaveBeenCalledWith(explosion);
+        expect(factory.create).toHaveBeenCalledWith(explosion.getCenter(), tank.getValue());
       });
       
       it("enemy tank - 0 points", function () {
@@ -41,6 +42,17 @@ describe("PointsFactory", function () {
         factory.notify({'name': TankExplosion.Event.DESTROYED, 'explosion': explosion});
         expect(factory.create).not.toHaveBeenCalled();
       });
+      
+      it("power-up", function () {
+        var eventManager = new EventManager();
+        var factory = new PointsFactory(eventManager);
+        spyOn(factory, 'create');
+        var powerUp = new PowerUp(eventManager);
+        powerUp.setPosition(new Point(1, 2));
+        powerUp.setValue(200);
+        factory.notify({'name': PowerUp.Event.DESTROYED, 'powerUp': powerUp});
+        expect(factory.create).toHaveBeenCalledWith(powerUp.getCenter(), powerUp.getValue());
+      });
     });
   });
   
@@ -53,7 +65,7 @@ describe("PointsFactory", function () {
     tank.setValue(300);
     var explosion = new TankExplosion(eventManager, tank);
     explosion.setRect(new Rect(2, 1, 10, 10));
-    var points = factory.create(explosion);
+    var points = factory.create(explosion.getCenter(), tank.getValue());
     expect(points instanceof Points).toBeTruthy();
     expect(points.getRect()).toEqual(new Rect(5, 4, 4, 4));
     expect(points.getValue()).toEqual(tank.getValue());

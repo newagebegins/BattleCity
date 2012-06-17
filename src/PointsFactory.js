@@ -1,6 +1,6 @@
 function PointsFactory(eventManager) {
   this._eventManager = eventManager;
-  this._eventManager.addSubscriber(this, [TankExplosion.Event.DESTROYED]);
+  this._eventManager.addSubscriber(this, [TankExplosion.Event.DESTROYED, PowerUp.Event.DESTROYED]);
   this._pointsSize = Globals.UNIT_SIZE;
 }
 
@@ -9,18 +9,22 @@ PointsFactory.Event.POINTS_CREATED = 'PointsFactory.Event.POINTS_CREATED';
 
 PointsFactory.prototype.notify = function (event) {
   if (this._enemyTankExplosionEnd(event)) {
-    this.create(event.explosion);
+    var explosion = event.explosion;
+    var tank = explosion.getTank();
+    this.create(explosion.getCenter(), tank.getValue());
+  }
+  else if (event.name == PowerUp.Event.DESTROYED) {
+    var powerUp = event.powerUp;
+    this.create(powerUp.getCenter(), powerUp.getValue());
   }
 };
 
-PointsFactory.prototype.create = function (explosion) {
-  var tank = explosion.getTank();
+PointsFactory.prototype.create = function (center, value) {
   var points = new Points(this._eventManager);
-  points.setValue(tank.getValue());
-  var explosionCenter = explosion.getCenter();
+  points.setValue(value);
   points.setRect(new Rect(
-    explosionCenter.getX() - this._pointsSize / 2,
-    explosionCenter.getY() - this._pointsSize / 2,
+    center.getX() - this._pointsSize / 2,
+    center.getY() - this._pointsSize / 2,
     this._pointsSize,
     this._pointsSize));
   this._eventManager.fireEvent({'name': PointsFactory.Event.POINTS_CREATED, 'points': points});
