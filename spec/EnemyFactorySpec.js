@@ -132,6 +132,7 @@ describe("EnemyFactory", function () {
   
   it("#createEnemy", function () {
     var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
     var factory = new EnemyFactory(eventManager);
     var enemy = {type: Tank.Type.BASIC};
     var position = new Point(1, 2);
@@ -147,6 +148,8 @@ describe("EnemyFactory", function () {
     expect(tank.getPosition()).toEqual(position);
     expect(tank.getState() instanceof TankStateAppearing).toBeTruthy();
     expect(tank.isPlayer()).toBeFalsy();
+    
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': tank});
   });
   
   describe("#notify", function () {

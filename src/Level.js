@@ -1,11 +1,12 @@
 function Level(eventManager) {
   Gamefield.call(this, eventManager);
+  
+  new PlayerTankControllerFactory(eventManager);
+  
+  var playerTankFactory = new PlayerTankFactory(eventManager);
+  playerTankFactory.setAppearPosition(new Point(this._x + 4 * Globals.UNIT_SIZE, this._y + 12 * Globals.UNIT_SIZE));
+  playerTankFactory.create();
 
-  var tank = new Tank(eventManager);
-  tank.setPosition(new Point(this._x + 4 * Globals.UNIT_SIZE, this._y + 12 * Globals.UNIT_SIZE));
-  tank.setState(new TankStateAppearing(tank));
-
-  new TankController(eventManager, tank);
   new BulletFactory(eventManager);
   new BulletExplosionFactory(eventManager);
   new TankExplosionFactory(eventManager);
@@ -13,7 +14,7 @@ function Level(eventManager) {
   
   this._aiControllersContainer = new AITankControllerContainer(eventManager);
   new AITankControllerFactory(eventManager);
-  
+
   this._enemyFactory = new EnemyFactory(eventManager);
   this._enemyFactory.setPositions([
     new Point(this._x + 6 * Globals.UNIT_SIZE, this._y),

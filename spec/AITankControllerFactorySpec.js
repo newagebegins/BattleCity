@@ -3,15 +3,16 @@ describe("AITankControllerFactory", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var factory = new AITankControllerFactory(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [Tank.Event.CREATED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [EnemyFactory.Event.ENEMY_CREATED]);
   });
   
   describe("#notify", function () {
-    it("Tank.Event.CREATED", function () {
+    it("EnemyFactory.Event.ENEMY_CREATED", function () {
       var eventManager = new EventManager();
       var factory = new AITankControllerFactory(eventManager);
       spyOn(factory, 'createController');
       var tank = new Tank(eventManager);
+      factory.notify({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': tank});
       expect(factory.createController).toHaveBeenCalledWith(tank);
     });
   });
