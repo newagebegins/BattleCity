@@ -3,18 +3,14 @@ function PowerUpHandler(eventManager) {
   eventManager.addSubscriber(this, [PowerUp.Event.DESTROYED]);
   
   this._spriteContainer = null;
-  this._baseWallBuilder = null;
 }
 
 PowerUpHandler.Event = {};
 PowerUpHandler.Event.FREEZE = 'PowerUpHandler.Event.FREEZE';
+PowerUpHandler.Event.SHOVEL_START = 'PowerUpHandler.Event.SHOVEL_START';
 
 PowerUpHandler.prototype.setSpriteContainer = function (container) {
   this._spriteContainer = container;
-};
-
-PowerUpHandler.prototype.setBaseWallBuilder = function (builder) {
-  this._baseWallBuilder = builder;
 };
 
 PowerUpHandler.prototype.notify = function (event) {
@@ -56,7 +52,5 @@ PowerUpHandler.prototype.handleTimer = function () {
 };
 
 PowerUpHandler.prototype.handleShovel = function () {
-  this._baseWallBuilder.destroyWall();
-  this._baseWallBuilder.setWallFactory(new SteelWallFactory(this._eventManager));
-  this._baseWallBuilder.buildWall();
+  this._eventManager.fireEvent({'name': PowerUpHandler.Event.SHOVEL_START});
 };

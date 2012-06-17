@@ -1,7 +1,7 @@
 function Points(eventManager) {
   Sprite.call(this, eventManager);
   this._value = 0;
-  this._duration = 10;
+  this._duration = 20;
   this._timer = 0;
 }
 
