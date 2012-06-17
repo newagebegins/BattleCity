@@ -6,25 +6,6 @@ describe("Tank", function () {
     tank = new Tank(eventManager);
   });
   
-  it("initial state", function () {
-    expect(tank.getNormalSpeed()).toEqual(2);
-    
-    expect(tank.getBulletSize()).toEqual(8);
-    expect(tank.getBulletSpeed()).toEqual(4);
-    
-    expect(tank.getWidth()).toEqual(32);
-    expect(tank.getHeight()).toEqual(32);
-    
-    expect(tank.getTurnSmoothSens()).toEqual(10);
-    expect(tank.getTurnRoundTo()).toEqual(16);
-    
-    expect(tank.getState() instanceof TankStateNormal).toBeTruthy();
-    expect(tank.getType()).toEqual(Tank.Type.PLAYER_1);
-    expect(tank.isPlayer()).toBeTruthy();
-    expect(tank.getValue()).toEqual(100);
-    expect(tank.isFlashing()).toBeFalsy();
-  });
-  
   describe("#shoot", function () {
     it("should fire event", function () {
       spyOn(eventManager, "fireEvent");

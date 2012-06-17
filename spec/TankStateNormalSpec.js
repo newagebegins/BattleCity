@@ -4,6 +4,7 @@ describe("TankStateNormal", function () {
   beforeEach(function () {
     eventManager = new EventManager();
     tank = new Tank(eventManager);
+    tank.setTrackAnimationDuration(1);
     state = new TankStateNormal(tank);
   });
   
