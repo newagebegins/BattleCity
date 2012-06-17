@@ -73,4 +73,18 @@ describe("SpriteContainer", function () {
     expect(spriteContainer.getEnemyTanks().length).toEqual(2);
     expect(spriteContainer.getEnemyTanks()).toEqual([enemyTankOne, enemyTankTwo]);
   });
+  
+  it("#getWalls", function () {
+    var eventManager = new EventManager();
+    var spriteContainer = new SpriteContainer(eventManager);
+    
+    var enemyTank = new Tank(eventManager);
+    enemyTank.makeEnemy();
+    var brickWallOne = new BrickWall(eventManager);
+    var brickWallTwo = new BrickWall(eventManager);
+    var player = new Tank(eventManager);
+    
+    expect(spriteContainer.getWalls().length).toEqual(2);
+    expect(spriteContainer.getWalls()).toEqual([brickWallOne, brickWallTwo]);
+  });
 });

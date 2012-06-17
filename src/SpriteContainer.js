@@ -27,6 +27,12 @@ SpriteContainer.prototype.getEnemyTanks = function () {
   });
 };
 
+SpriteContainer.prototype.getWalls = function () {
+  return this._sprites.filter(function (sprite) {
+    return sprite instanceof Wall;
+  });
+};
+
 SpriteContainer.prototype.notify = function (event) {
   if (event.name == Sprite.Event.CREATED) {
     this.addSprite(event.sprite);

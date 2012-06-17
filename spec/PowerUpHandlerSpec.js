@@ -48,6 +48,13 @@ describe("PowerUpHandler", function () {
       handler.handle(powerUp);
       expect(handler.handleTimer).toHaveBeenCalled();
     });
+    
+    it("shovel", function () {
+      spyOn(handler, 'handleShovel');
+      powerUp.setType(PowerUp.Type.SHOVEL);
+      handler.handle(powerUp);
+      expect(handler.handleShovel).toHaveBeenCalled();
+    });
   });
   
   it("#handleGrenade", function () {
@@ -93,5 +100,30 @@ describe("PowerUpHandler", function () {
     var handler = new PowerUpHandler(eventManager);
     handler.handleTimer();
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': PowerUpHandler.Event.FREEZE});
+  });
+  
+  it("#handleShovel", function () {
+    var eventManager = new EventManager();
+    
+    var container = new SpriteContainer(eventManager);
+    
+    var baseWallBuilder = new BaseWallBuilder();
+    baseWallBuilder.setWallFactory(new BrickWallFactory(eventManager));
+    baseWallBuilder.setWallPositions([new Point(0,0), new Point(10, 20)]);
+    baseWallBuilder.buildWall();
+    
+    var handler = new PowerUpHandler(eventManager);
+    handler.setSpriteContainer(container);
+    handler.setBaseWallBuilder(baseWallBuilder);
+    
+    spyOn(baseWallBuilder, 'destroyWall');
+    spyOn(baseWallBuilder, 'setWallFactory');
+    spyOn(baseWallBuilder, 'buildWall');
+    
+    handler.handleShovel();
+    
+    expect(baseWallBuilder.destroyWall).toHaveBeenCalled();
+    expect(baseWallBuilder.setWallFactory).toHaveBeenCalledWith(new SteelWallFactory(eventManager));
+    expect(baseWallBuilder.buildWall).toHaveBeenCalled();
   });
 });
