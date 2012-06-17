@@ -3,7 +3,8 @@ describe("AITankControllerFactory", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var factory = new AITankControllerFactory(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory, [EnemyFactory.Event.ENEMY_CREATED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory,
+      [EnemyFactory.Event.ENEMY_CREATED, PowerUpHandler.Event.FREEZE, FreezeTimer.Event.UNFREEZE]);
   });
   
   describe("#notify", function () {
@@ -15,13 +16,39 @@ describe("AITankControllerFactory", function () {
       factory.notify({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': tank});
       expect(factory.createController).toHaveBeenCalledWith(tank);
     });
+    
+    it("PowerUpHandler.Event.FREEZE", function () {
+      var eventManager = new EventManager();
+      var factory = new AITankControllerFactory(eventManager);
+      factory.notify({'name': PowerUpHandler.Event.FREEZE});
+      expect(factory.isFreezed()).toBeTruthy();
+    });
+    
+    it("FreezeTimer.Event.UNFREEZE", function () {
+      var eventManager = new EventManager();
+      var factory = new AITankControllerFactory(eventManager);
+      factory.freeze();
+      factory.notify({'name': FreezeTimer.Event.UNFREEZE});
+      expect(factory.isFreezed()).toBeFalsy();
+    });
   });
   
-  it("#createController", function () {
-    var eventManager = new EventManager();
-    var factory = new AITankControllerFactory(eventManager);
-    var tank = new Tank(eventManager);
-    var controller = factory.createController(tank);
-    expect(controller instanceof AITankController).toBeTruthy();
+  describe("#createController", function () {
+    it("normal", function () {
+      var eventManager = new EventManager();
+      var factory = new AITankControllerFactory(eventManager);
+      var tank = new Tank(eventManager);
+      var controller = factory.createController(tank);
+      expect(controller instanceof AITankController).toBeTruthy();
+    });
+    
+    it("freezed", function () {
+      var eventManager = new EventManager();
+      var factory = new AITankControllerFactory(eventManager);
+      factory.freeze();
+      var tank = new Tank(eventManager);
+      var controller = factory.createController(tank);
+      expect(controller.isFreezed()).toBeTruthy();
+    });
   });
 });

@@ -41,6 +41,13 @@ describe("PowerUpHandler", function () {
       handler.handle(powerUp);
       expect(handler.handleHelmet).toHaveBeenCalledWith(player);
     });
+    
+    it("timer", function () {
+      spyOn(handler, 'handleTimer');
+      powerUp.setType(PowerUp.Type.TIMER);
+      handler.handle(powerUp);
+      expect(handler.handleTimer).toHaveBeenCalled();
+    });
   });
   
   it("#handleGrenade", function () {
@@ -78,5 +85,13 @@ describe("PowerUpHandler", function () {
     var state = player.getState();
     expect(state instanceof TankStateInvincible).toBeTruthy();
     expect(state.getStateDuration()).toEqual(Globals.HELMET_DURATION);
+  });
+  
+  it("#handleTimer", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    var handler = new PowerUpHandler(eventManager);
+    handler.handleTimer();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': PowerUpHandler.Event.FREEZE});
   });
 });

@@ -3,7 +3,8 @@ function AITankController(tank, random) {
   this._random = random;
   this._eventManager = this._tank.getEventManager();
   
-  this._eventManager.addSubscriber(this, [Tank.Event.DESTROYED]);
+  this._eventManager.addSubscriber(this,
+    [Tank.Event.DESTROYED, PowerUpHandler.Event.FREEZE, FreezeTimer.Event.UNFREEZE]);
   
   this._tank.toNormalSpeed();
   
@@ -16,6 +17,8 @@ function AITankController(tank, random) {
   this._directionUpdateProbability = 0.5;
   
   this._eventManager.fireEvent({'name': AITankController.Event.CREATED, 'controller': this});
+  
+  this._freezed = false;
 }
 
 AITankController.Event = {};
@@ -59,6 +62,9 @@ AITankController.prototype.updateDirection = function () {
 };
 
 AITankController.prototype.update = function () {
+  if (this._freezed) {
+    return;
+  }
   this.updateShoot();
   this.updateDirection();
 };
@@ -67,9 +73,29 @@ AITankController.prototype.notify = function (event) {
   if (event.name == Tank.Event.DESTROYED && event.tank === this._tank) {
     this.destroy();
   }
+  else if (event.name == PowerUpHandler.Event.FREEZE) {
+    this.freeze();
+  }
+  else if (event.name == FreezeTimer.Event.UNFREEZE) {
+    this.unfreeze();
+  }
 };
 
 AITankController.prototype.destroy = function () {
   this._eventManager.removeSubscriber(this);
   this._eventManager.fireEvent({'name': AITankController.Event.DESTROYED, 'controller': this});
+};
+
+AITankController.prototype.isFreezed = function () {
+  return this._freezed;
+};
+
+AITankController.prototype.freeze = function () {
+  this._freezed = true;
+  this._tank.stop();
+};
+
+AITankController.prototype.unfreeze = function () {
+  this._freezed = false;
+  this._tank.toNormalSpeed();
 };

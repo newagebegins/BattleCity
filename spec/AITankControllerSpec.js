@@ -10,7 +10,8 @@ describe("AITankController", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var controller = new AITankController(new Tank(eventManager), new Random());
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(controller, [Tank.Event.DESTROYED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(controller,
+      [Tank.Event.DESTROYED, PowerUpHandler.Event.FREEZE, FreezeTimer.Event.UNFREEZE]);
   });
   
   it("should set tank's speed", function () {
@@ -171,6 +172,19 @@ describe("AITankController", function () {
       spyOn(controller, 'destroy');
       controller.notify({'name': Tank.Event.DESTROYED, 'tank': tank});
       expect(controller.destroy).toHaveBeenCalled();
+    });
+    
+    it("PowerUpHandler.Event.FREEZE", function () {
+      controller.notify({'name': PowerUpHandler.Event.FREEZE});
+      expect(controller.isFreezed()).toBeTruthy();
+      expect(tank.getSpeed()).toEqual(0);
+    });
+    
+    it("FreezeTimer.Event.UNFREEZE", function () {
+      controller.freeze();
+      controller.notify({'name': FreezeTimer.Event.UNFREEZE});
+      expect(controller.isFreezed()).toBeFalsy();
+      expect(tank.getSpeed()).toEqual(tank.getNormalSpeed());
     });
   });
   
