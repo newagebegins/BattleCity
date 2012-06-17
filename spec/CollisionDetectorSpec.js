@@ -21,9 +21,10 @@ describe("CollisionDetector", function () {
     wall.setRect(new Rect(1, 0, 1, 1));
     
     var bounds = new Rect(0, 0, 100, 100);
-    var collisionDetector = new CollisionDetector(eventManager, bounds);
-    collisionDetector.addSprite(tank);
-    collisionDetector.addSprite(wall);
+    var spriteContainer = new SpriteContainer(eventManager);
+    var collisionDetector = new CollisionDetector(eventManager, bounds, spriteContainer);
+    spriteContainer.addSprite(tank);
+    spriteContainer.addSprite(wall);
     
     tank.move();
     
@@ -43,8 +44,9 @@ describe("CollisionDetector", function () {
     tank.setDirection(Sprite.Direction.LEFT);
     
     var bounds = new Rect(0, 0, 10, 5);
-    var collisionDetector = new CollisionDetector(eventManager, bounds);
-    collisionDetector.addSprite(tank);
+    var spriteContainer = new SpriteContainer(eventManager);
+    var collisionDetector = new CollisionDetector(eventManager, bounds, spriteContainer);
+    spriteContainer.addSprite(tank);
     
     tank.move();
     

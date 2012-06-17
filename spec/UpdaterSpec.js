@@ -5,10 +5,12 @@ describe("Updater", function () {
     spyOn(tank, 'update');
     var wall = new Wall(eventManager);
     spyOn(wall, 'update');
-    var updater = new Updater(eventManager);
-    updater.addSprite(tank);
-    updater.addSprite(wall);
     
+    var spriteContainer = new SpriteContainer(eventManager);
+    spriteContainer.addSprite(tank);
+    spriteContainer.addSprite(wall);
+    
+    var updater = new Updater(spriteContainer);
     updater.update();
     
     expect(tank.update).toHaveBeenCalled();

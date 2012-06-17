@@ -28,4 +28,32 @@ describe("SpriteContainer", function () {
     spriteContainer.notify({'name': Sprite.Event.CREATED, 'sprite': sprite});
     expect(spriteContainer.containsSprite(sprite)).toBeTruthy();
   });
+  
+  it("should sort sprites by their z-index", function () {
+    var eventManager = new EventManager();
+    
+    var spriteOne = new Sprite(eventManager);
+    spriteOne.setZIndex(1);
+    
+    var spriteTwo = new Sprite(eventManager);
+    spriteTwo.setZIndex(2);
+    
+    var spriteThree = new Sprite(eventManager);
+    spriteThree.setZIndex(3);
+    
+    var spriteFour = new Sprite(eventManager);
+    spriteFour.setZIndex(4);
+    
+    var spriteFive = new Sprite(eventManager);
+    spriteFive.setZIndex(5);
+    
+    var spriteContainer = new SpriteContainer(eventManager);
+    spriteContainer.addSprite(spriteFour);
+    spriteContainer.addSprite(spriteOne);
+    spriteContainer.addSprite(spriteThree);
+    spriteContainer.addSprite(spriteFive);
+    spriteContainer.addSprite(spriteTwo);
+    
+    expect(spriteContainer.getSprites()).toEqual([spriteOne, spriteTwo, spriteThree, spriteFour, spriteFive]);
+  });
 });

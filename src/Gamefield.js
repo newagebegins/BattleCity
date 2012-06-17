@@ -8,11 +8,12 @@ function Gamefield(eventManager) {
   this._w = 13 * Globals.UNIT_SIZE;
   this._h = 13 * Globals.UNIT_SIZE;
   
-  this._painter = new Painter(eventManager);
-  this._updater = new Updater(eventManager);
+  this._spriteContainer = new SpriteContainer(eventManager);
+  this._painter = new Painter(this._spriteContainer);
+  this._updater = new Updater(this._spriteContainer);
   
   var bounds = new Rect(this._x, this._y, this._w, this._h);
-  new CollisionDetector(eventManager, bounds);
+  new CollisionDetector(eventManager, bounds, this._spriteContainer);
 }
 
 Gamefield.subclass(Rect);

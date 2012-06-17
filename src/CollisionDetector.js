@@ -1,11 +1,9 @@
-function CollisionDetector(eventManager, bounds) {
-  SpriteContainer.call(this, eventManager);
-  
-  eventManager.addSubscriber(this, [Sprite.Event.MOVED]);
+function CollisionDetector(eventManager, bounds, spriteContainer) {
+  this._eventManager = eventManager;
+  this._eventManager.addSubscriber(this, [Sprite.Event.MOVED]);
   this._bounds = bounds;
+  this._spriteContainer = spriteContainer;
 }
-
-CollisionDetector.subclass(SpriteContainer);
 
 CollisionDetector.Event = {};
 CollisionDetector.Event.COLLISION = 'CollisionDetector.Event.COLLISION';
@@ -21,7 +19,8 @@ CollisionDetector.prototype.notify = function (event) {
 };
 
 CollisionDetector.prototype._detectCollisionsForSprite = function (sprite) {
-  this._sprites.forEach(function (other) {
+  var sprites = this._spriteContainer.getSprites();
+  sprites.forEach(function (other) {
     if (sprite === other) {
       return;
     }

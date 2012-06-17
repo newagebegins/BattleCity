@@ -1,11 +1,10 @@
-function Updater(eventManager) {
-  SpriteContainer.call(this, eventManager);
+function Updater(spriteContainer) {
+  this._spriteContainer = spriteContainer;
 }
 
-Updater.subclass(SpriteContainer);
-
 Updater.prototype.update = function () {
-  this._sprites.forEach(function (sprite) {
+  var sprites = this._spriteContainer.getSprites();
+  sprites.forEach(function (sprite) {
     sprite.update();
   });
 };

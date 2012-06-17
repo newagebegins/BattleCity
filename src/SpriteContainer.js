@@ -6,6 +6,7 @@ function SpriteContainer(eventManager) {
 
 SpriteContainer.prototype.addSprite = function (sprite) {
   this._sprites.push(sprite);
+  this._sortSpritesByZIndex();
 };
 
 SpriteContainer.prototype.removeSprite = function (sprite) {
@@ -27,4 +28,16 @@ SpriteContainer.prototype.notify = function (event) {
   else if (event.name == Sprite.Event.DESTROYED) {
     this.removeSprite(event.sprite);
   }
+};
+
+SpriteContainer.prototype._sortSpritesByZIndex = function () {
+  this._sprites.sort(function (a, b) {
+    if (a.getZIndex() < b.getZIndex()) {
+      return -1;
+    }
+    if (a.getZIndex() > b.getZIndex()) {
+      return 1;
+    }
+    return 0;
+  });
 };
