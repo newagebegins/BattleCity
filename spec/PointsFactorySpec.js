@@ -8,15 +8,28 @@ describe("PointsFactory", function () {
   
   describe("#notify", function () {
     describe("TankExplosion.Event.DESTROYED", function () {
-      it("enemy tank", function () {
+      it("enemy tank - 100 points", function () {
         var eventManager = new EventManager();
         var factory = new PointsFactory(eventManager);
         spyOn(factory, 'create');
         var tank = new Tank(eventManager);
         tank.makeEnemy();
+        tank.setValue(100);
         var explosion = new TankExplosion(eventManager, tank);
         factory.notify({'name': TankExplosion.Event.DESTROYED, 'explosion': explosion});
         expect(factory.create).toHaveBeenCalledWith(explosion);
+      });
+      
+      it("enemy tank - 0 points", function () {
+        var eventManager = new EventManager();
+        var factory = new PointsFactory(eventManager);
+        spyOn(factory, 'create');
+        var tank = new Tank(eventManager);
+        tank.makeEnemy();
+        tank.setValue(0);
+        var explosion = new TankExplosion(eventManager, tank);
+        factory.notify({'name': TankExplosion.Event.DESTROYED, 'explosion': explosion});
+        expect(factory.create).not.toHaveBeenCalled();
       });
       
       it("player tank", function () {

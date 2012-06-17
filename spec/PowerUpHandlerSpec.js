@@ -39,16 +39,20 @@ describe("PowerUpHandler", function () {
     var enemyOne = new Tank(eventManager);
     spyOn(enemyOne, 'destroy');
     enemyOne.makeEnemy();
+    enemyOne.setValue(100);
     container.addSprite(enemyOne);
     
     var enemyTwo = new Tank(eventManager);
     spyOn(enemyTwo, 'destroy');
     enemyTwo.makeEnemy();
+    enemyTwo.setValue(200);
     container.addSprite(enemyTwo);
     
     handler.handleGrenade();
     
     expect(enemyOne.destroy).toHaveBeenCalled();
+    expect(enemyOne.getValue()).toEqual(0);
     expect(enemyTwo.destroy).toHaveBeenCalled();
+    expect(enemyTwo.getValue()).toEqual(0);
   });
 });

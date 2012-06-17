@@ -22,6 +22,7 @@ PowerUpHandler.prototype.handle = function (powerUp) {
 
 PowerUpHandler.prototype.handleGrenade = function () {
   this._spriteContainer.getEnemyTanks().forEach(function (tank) {
+    tank.setValue(0);
     tank.destroy();
   });
 };

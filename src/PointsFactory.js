@@ -39,5 +39,8 @@ PointsFactory.prototype._enemyTankExplosionEnd = function (event) {
   if (!tank.isEnemy()) {
     return false;
   }
+  if (tank.getValue() <= 0) {
+    return false;
+  }
   return true;
 };
