@@ -4,6 +4,9 @@ function PointsFactory(eventManager) {
   this._pointsSize = Globals.UNIT_SIZE;
 }
 
+PointsFactory.Event = {};
+PointsFactory.Event.POINTS_CREATED = 'PointsFactory.Event.POINTS_CREATED';
+
 PointsFactory.prototype.notify = function (event) {
   if (this._enemyTankExplosionEnd(event)) {
     this.create(event.explosion);
@@ -20,6 +23,7 @@ PointsFactory.prototype.create = function (explosion) {
     explosionCenter.getY() - this._pointsSize / 2,
     this._pointsSize,
     this._pointsSize));
+  this._eventManager.fireEvent({'name': PointsFactory.Event.POINTS_CREATED, 'points': points});
   return points;
 };
 

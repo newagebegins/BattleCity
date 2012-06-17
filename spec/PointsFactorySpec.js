@@ -33,6 +33,7 @@ describe("PointsFactory", function () {
   
   it("#create", function () {
     var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
     var factory = new PointsFactory(eventManager);
     factory.setPointsSize(4);
     var tank = new Tank(eventManager);
@@ -43,5 +44,6 @@ describe("PointsFactory", function () {
     expect(points instanceof Points).toBeTruthy();
     expect(points.getRect()).toEqual(new Rect(5, 4, 4, 4));
     expect(points.getValue()).toEqual(tank.getValue());
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': PointsFactory.Event.POINTS_CREATED, 'points': points});
   });
 });
