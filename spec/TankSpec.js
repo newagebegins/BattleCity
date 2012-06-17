@@ -325,6 +325,12 @@ describe("Tank", function () {
       tank.destroyHook();
       expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.ENEMY_DESTROYED, 'tank': tank});
     });
+    
+    it("flashing", function () {
+      tank.startFlashing();
+      tank.destroyHook();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.FLASHING_TANK_DESTROYED, 'tank': tank});
+    });
   });
 });
 

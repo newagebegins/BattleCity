@@ -65,6 +65,13 @@ var ImageManager = (function() {
     base: null,
     
     points_100: null,
+    
+    powerup_grenade: null,
+    powerup_helmet: null,
+    powerup_shovel: null,
+    powerup_star: null,
+    powerup_tank: null,
+    powerup_timer: null,
   };
   
   for (var i in images) {

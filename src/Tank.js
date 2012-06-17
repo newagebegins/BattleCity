@@ -41,6 +41,7 @@ Tank.Event.CREATED = 'Tank.Event.CREATED';
 Tank.Event.DESTROYED = 'Tank.Event.DESTROYED';
 Tank.Event.PLAYER_DESTROYED = 'Tank.Event.PLAYER_DESTROYED';
 Tank.Event.ENEMY_DESTROYED = 'Tank.Event.ENEMY_DESTROYED';
+Tank.Event.FLASHING_TANK_DESTROYED = 'Tank.Event.FLASHING_TANK_DESTROYED';
 
 Tank.prototype.getState = function () {
   return this._state;
@@ -179,6 +180,10 @@ Tank.prototype.destroyHook = function () {
   }
   else {
     this._eventManager.fireEvent({'name': Tank.Event.ENEMY_DESTROYED, 'tank': this});
+  }
+  
+  if (this._flashing) {
+    this._eventManager.fireEvent({'name': Tank.Event.FLASHING_TANK_DESTROYED, 'tank': this});
   }
 };
 
