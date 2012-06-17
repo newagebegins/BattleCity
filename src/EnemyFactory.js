@@ -65,6 +65,14 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
   tank.setPosition(position);
   tank.setState(new TankStateAppearing(tank));
   
+  if (enemy.type == Tank.Type.BASIC) {
+    tank.setNormalSpeed(1.5);
+    tank.setTrackAnimationDuration(4);
+  }
+  else if (enemy.type == Tank.Type.FAST) {
+    tank.setNormalSpeed(3);
+  }
+  
   if (enemy.flashing) {
     tank.startFlashing();
   }

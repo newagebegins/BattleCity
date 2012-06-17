@@ -1,6 +1,6 @@
 function TankStateNormal(tank) {
   this._tank = tank;
-  this._trackAnimation = new Animation([1,2], 1, true);
+  this._trackAnimation = new Animation([1,2], this._tank.getTrackAnimationDuration(), true);
   
   this._flashDuration = 7;
   this._flashTimer = 0;
