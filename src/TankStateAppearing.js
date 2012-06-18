@@ -12,6 +12,10 @@ TankStateAppearing.prototype.getImage = function () {
 };
 
 TankStateAppearing.prototype.update = function () {
+  if (this._tank.isPaused()) {
+    return;
+  }
+  
   this._animation.update();
   if (this._animation.isCompleted()) {
     this._eventManager.fireEvent({'name': TankStateAppearing.Event.END, 'tank': this._tank});

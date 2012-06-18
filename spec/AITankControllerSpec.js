@@ -159,12 +159,32 @@ describe("AITankController", function () {
     });
   });
   
-  it("#update", function () {
-    spyOn(controller, 'updateShoot');
-    spyOn(controller, 'updateDirection');
-    controller.update();
-    expect(controller.updateShoot).toHaveBeenCalled();
-    expect(controller.updateDirection).toHaveBeenCalled();
+  describe("#update", function () {
+    it("normal", function () {
+      spyOn(controller, 'updateShoot');
+      spyOn(controller, 'updateDirection');
+      controller.update();
+      expect(controller.updateShoot).toHaveBeenCalled();
+      expect(controller.updateDirection).toHaveBeenCalled();
+    });
+    
+    it("pause", function () {
+      spyOn(controller, 'updateShoot');
+      spyOn(controller, 'updateDirection');
+      eventManager.fireEvent({'name': Pause.Event.START});
+      controller.update();
+      expect(controller.updateShoot).not.toHaveBeenCalled();
+      expect(controller.updateDirection).not.toHaveBeenCalled();
+    });
+    
+    it("freeze", function () {
+      spyOn(controller, 'updateShoot');
+      spyOn(controller, 'updateDirection');
+      controller.freeze();
+      controller.update();
+      expect(controller.updateShoot).not.toHaveBeenCalled();
+      expect(controller.updateDirection).not.toHaveBeenCalled();
+    });
   });
   
   describe("#notify", function () {
@@ -191,8 +211,12 @@ describe("AITankController", function () {
   it("#destroy", function () {
     spyOn(eventManager, 'fireEvent');
     spyOn(eventManager, 'removeSubscriber');
+    var pauseListener = new PauseListener(eventManager);
+    spyOn(pauseListener, 'destroy');
+    controller.setPauseListener(pauseListener);
     controller.destroy();
     expect(eventManager.removeSubscriber).toHaveBeenCalledWith(controller);
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': AITankController.Event.DESTROYED, 'controller': controller});
+    expect(pauseListener.destroy).toHaveBeenCalled();
   });
 });

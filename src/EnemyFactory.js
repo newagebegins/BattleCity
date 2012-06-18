@@ -2,6 +2,8 @@ function EnemyFactory(eventManager) {
   this._eventManager = eventManager;
   this._eventManager.addSubscriber(this, [Points.Event.DESTROYED]);
   
+  this._pauseListener = new PauseListener(this._eventManager);
+  
   this._positions = [];
   this._position = 0;
   
@@ -26,6 +28,10 @@ EnemyFactory.prototype.setPositions = function (positions) {
 };
 
 EnemyFactory.prototype.update = function () {
+  if (this._pauseListener.isPaused()) {
+    return;
+  }
+  
   this._timer++;
   if (this._timer > this._interval) {
     this.create();

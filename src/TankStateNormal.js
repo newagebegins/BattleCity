@@ -16,7 +16,9 @@ TankStateNormal.prototype.getImage = function () {
 };
 
 TankStateNormal.prototype.update = function () {
-  this.updateTrackAnimation();
+  if (!this._tank.isPaused()) {
+    this.updateTrackAnimation();
+  }
   this.updateFlash();
 };
 

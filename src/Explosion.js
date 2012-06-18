@@ -10,6 +10,9 @@ Explosion.prototype.setFrames = function (frames) {
 };
 
 Explosion.prototype.updateHook = function () {
+  if (this._pauseListener.isPaused()) {
+    return;
+  }
   if (this._animation.isCompleted()) {
     this.destroy();
     return;

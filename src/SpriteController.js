@@ -2,10 +2,11 @@ function SpriteController(eventManager, sprite) {
   this._eventManager = eventManager;
   this._eventManager.addSubscriber(this, [Keyboard.Event.KEY_PRESSED, Keyboard.Event.KEY_RELEASED]);
   this._sprite = sprite;
+  this._pauseListener = new PauseListener(this._eventManager);
 }
 
 SpriteController.prototype.notify = function (event) {
-  if (event.name == Keyboard.Event.KEY_PRESSED) {
+  if (event.name == Keyboard.Event.KEY_PRESSED && !this._pauseListener.isPaused()) {
     this.keyPressed(event.key);
   }
   else if (event.name == Keyboard.Event.KEY_RELEASED) {

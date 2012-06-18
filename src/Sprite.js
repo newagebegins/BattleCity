@@ -9,6 +9,7 @@ function Sprite(eventManager) {
   this._destroyed = false;
   this._turn = false;
   this._zIndex = 0;
+  this._pauseListener = new PauseListener(this._eventManager);
   
   this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': this});
 }
@@ -96,7 +97,10 @@ Sprite.prototype.update = function () {
     return;
   }
   
-  this.move();
+  if (!this.isPaused()) {
+    this.move();
+  }
+  
   this.updateHook();
 };
 
@@ -120,6 +124,7 @@ Sprite.prototype.isDestroyed = function () {
  * Should not be overriden by subclasses. Instead override destroyHook().
  */
 Sprite.prototype.doDestroy = function () {
+  this._pauseListener.destroy();
   this._eventManager.removeSubscriber(this);
   this._eventManager.fireEvent({'name': Sprite.Event.DESTROYED, 'sprite': this});
   this.destroyHook();
@@ -154,6 +159,15 @@ Sprite.prototype.setZIndex = function (zIndex) {
 
 Sprite.prototype.getZIndex = function () {
   return this._zIndex;
+};
+
+Sprite.prototype.isPaused = function () {
+  return this._pauseListener.isPaused();
+};
+
+Sprite.prototype.setPauseListener = function (listener) {
+  this._pauseListener.destroy();
+  this._pauseListener = listener;
 };
 
 Sprite.prototype._getNewX = function () {

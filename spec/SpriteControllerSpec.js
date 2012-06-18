@@ -68,4 +68,16 @@ describe("SpriteController", function () {
       expect(sprite.getSpeed()).toEqual(expectedSpeed);
     }
   });
+  
+  describe("#notify", function () {
+    it("pause", function () {
+      var eventManager = new EventManager();
+      var sprite = new Sprite(eventManager);
+      var controller = new SpriteController(eventManager, sprite);
+      eventManager.fireEvent({'name': Pause.Event.START});
+      spyOn(controller, 'keyPressed');
+      controller.notify({name: Keyboard.Event.KEY_PRESSED, key: Keyboard.Key.RIGHT});
+      expect(controller.keyPressed).not.toHaveBeenCalled();
+    });
+  });
 });

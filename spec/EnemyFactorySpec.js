@@ -39,35 +39,51 @@ describe("EnemyFactory", function () {
     expect(factory.getNextEnemy()).toEqual(ENEMY_4);
   });
   
-  it("#update", function () {
-    var eventManager = new EventManager();
-    var factory = new EnemyFactory(eventManager);
-    factory.setEnemies([{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC}]);
-    factory.setPositions([new Point(0,0)]);
-    factory.setEnemyCountLimit(2);
-    factory.setInterval(3);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(1);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(1);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(1);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(1);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(2);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(2);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(2);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(2);
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(2);
-    var points = new Points(eventManager);
-    factory.notify({'name': Points.Event.DESTROYED, 'points': points});
-    factory.update();
-    expect(factory.getEnemyCount()).toEqual(2);
+  describe("#update", function () {
+    it("normal", function () {
+      var eventManager = new EventManager();
+      var factory = new EnemyFactory(eventManager);
+      factory.setEnemies([{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC}]);
+      factory.setPositions([new Point(0,0)]);
+      factory.setEnemyCountLimit(2);
+      factory.setInterval(3);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(1);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(1);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(1);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(1);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(2);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(2);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(2);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(2);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(2);
+      var points = new Points(eventManager);
+      factory.notify({'name': Points.Event.DESTROYED, 'points': points});
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(2);
+    });
+    
+    it("pause", function () {
+      var eventManager = new EventManager();
+      var factory = new EnemyFactory(eventManager);
+      factory.setEnemies([{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC},{type: Tank.Type.BASIC}]);
+      factory.setPositions([new Point(0,0)]);
+      eventManager.fireEvent({'name': Pause.Event.START});
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(0);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(0);
+      factory.update();
+      expect(factory.getEnemyCount()).toEqual(0);
+    });
   });
   
   describe("#create", function () {

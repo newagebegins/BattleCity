@@ -17,7 +17,9 @@ TankStateInvincible.Event.END = 'TankStateInvincible.Event.END';
 TankStateInvincible.prototype.update = function () {
   TankStateNormal.prototype.update.call(this);
   this._shieldAnimation.update();
-  this.updateStateTimer();
+  if (!this._tank.isPaused()) {
+    this.updateStateTimer();
+  }
 };
 
 TankStateInvincible.prototype.draw = function (ctx) {

@@ -7,17 +7,30 @@ describe("TankStateAppearing", function () {
     state = new TankStateAppearing(tank);
   });
   
-  it("animation", function () {
-    spyOn(eventManager, 'fireEvent');
-    state.setFrames([1,2]);
-    state.setFrameDuration(1);
-    expect(state.getImage()).toEqual('appear_1');
-    state.update();
-    expect(state.getImage()).toEqual('appear_2');
-    var EVENT = {'name': TankStateAppearing.Event.END, 'tank': tank};
-    expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
-    state.update();
-    expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
+  
+  describe("animation", function () {
+    it("normal", function () {
+      spyOn(eventManager, 'fireEvent');
+      state.setFrames([1,2]);
+      state.setFrameDuration(1);
+      expect(state.getImage()).toEqual('appear_1');
+      state.update();
+      expect(state.getImage()).toEqual('appear_2');
+      var EVENT = {'name': TankStateAppearing.Event.END, 'tank': tank};
+      expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
+      state.update();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
+    });
+    
+    it("pause", function () {
+      eventManager.fireEvent({'name': Pause.Event.START});
+      spyOn(eventManager, 'fireEvent');
+      state.setFrames([1,2]);
+      state.setFrameDuration(1);
+      expect(state.getImage()).toEqual('appear_1');
+      state.update();
+      expect(state.getImage()).toEqual('appear_1');
+    });
   });
   
   it("#canMove", function () {

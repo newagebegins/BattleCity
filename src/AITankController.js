@@ -2,6 +2,7 @@ function AITankController(tank, random) {
   this._tank = tank;
   this._random = random;
   this._eventManager = this._tank.getEventManager();
+  this._pauseListener = new PauseListener(this._eventManager);
   
   this._eventManager.addSubscriber(this,
     [Tank.Event.DESTROYED, PowerUpHandler.Event.FREEZE, FreezeTimer.Event.UNFREEZE]);
@@ -62,7 +63,7 @@ AITankController.prototype.updateDirection = function () {
 };
 
 AITankController.prototype.update = function () {
-  if (this._freezed) {
+  if (this._freezed || this._pauseListener.isPaused()) {
     return;
   }
   this.updateShoot();
@@ -82,6 +83,7 @@ AITankController.prototype.notify = function (event) {
 };
 
 AITankController.prototype.destroy = function () {
+  this._pauseListener.destroy();
   this._eventManager.removeSubscriber(this);
   this._eventManager.fireEvent({'name': AITankController.Event.DESTROYED, 'controller': this});
 };
@@ -98,4 +100,9 @@ AITankController.prototype.freeze = function () {
 AITankController.prototype.unfreeze = function () {
   this._freezed = false;
   this._tank.toNormalSpeed();
+};
+
+AITankController.prototype.setPauseListener = function (listener) {
+  this._pauseListener.destroy();
+  this._pauseListener = listener;
 };

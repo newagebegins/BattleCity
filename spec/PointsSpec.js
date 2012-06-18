@@ -14,12 +14,23 @@ describe("Points", function () {
     expect(points.destroy).toHaveBeenCalled();
   });
   
-  it("#updateHook", function () {
-    var eventManager = new EventManager();
-    var points = new Points(eventManager);
-    spyOn(points, 'updateTimer');
-    points.updateHook();
-    expect(points.updateTimer).toHaveBeenCalled();
+  describe("#updateHook", function () {
+    it("normal", function () {
+      var eventManager = new EventManager();
+      var points = new Points(eventManager);
+      spyOn(points, 'updateTimer');
+      points.updateHook();
+      expect(points.updateTimer).toHaveBeenCalled();
+    });
+    
+    it("pause", function () {
+      var eventManager = new EventManager();
+      var points = new Points(eventManager);
+      eventManager.fireEvent({'name': Pause.Event.START});
+      spyOn(points, 'updateTimer');
+      points.updateHook();
+      expect(points.updateTimer).not.toHaveBeenCalled();
+    });
   });
   
   it("#destroyHook", function () {

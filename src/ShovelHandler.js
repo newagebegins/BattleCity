@@ -3,6 +3,7 @@ function ShovelHandler(eventManager) {
   this._eventManager.addSubscriber(this, [PowerUpHandler.Event.SHOVEL_START]);
   
   this._baseWallBuilder = null;
+  this._pauseListener = new PauseListener(this._eventManager);
   
   this._duration = 300;
   this._timer = 0;
@@ -40,6 +41,13 @@ ShovelHandler.prototype.rebuildWall = function (wallFactory) {
 };
 
 ShovelHandler.prototype.update = function () {
+  if (this._pauseListener.isPaused()) {
+    return;
+  }
+  this.updateTimer();
+};
+
+ShovelHandler.prototype.updateTimer = function () {
   if (!this._active) {
     return;
   }

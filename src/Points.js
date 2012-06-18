@@ -30,6 +30,9 @@ Points.prototype.updateTimer = function () {
 };
 
 Points.prototype.updateHook = function () {
+  if (this._pauseListener.isPaused()) {
+    return;
+  }
   this.updateTimer();
 };
 

@@ -63,7 +63,27 @@ describe("ShovelHandler", function () {
     expect(baseWallBuilder.buildWall).toHaveBeenCalled();
   });
   
-  it("#update", function () {
+  
+  describe("#update", function () {
+    it("normal", function () {
+      var eventManager = new EventManager();
+      var handler = new ShovelHandler(eventManager);
+      spyOn(handler, 'updateTimer');
+      handler.update();
+      expect(handler.updateTimer).toHaveBeenCalled();
+    });
+    
+    it("pause", function () {
+      var eventManager = new EventManager();
+      var handler = new ShovelHandler(eventManager);
+      eventManager.fireEvent({'name': Pause.Event.START});
+      spyOn(handler, 'updateTimer');
+      handler.update();
+      expect(handler.updateTimer).not.toHaveBeenCalled();
+    });
+  });
+  
+  it("#updateTimer", function () {
     var eventManager = new EventManager();
     var baseWallBuilder = new BaseWallBuilder();
     baseWallBuilder.setSpriteContainer(new SpriteContainer(eventManager));
@@ -72,25 +92,25 @@ describe("ShovelHandler", function () {
     spyOn(handler, 'end');
     handler.setDuration(2);
     handler.start();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).toHaveBeenCalled();
     handler.end.reset();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
     handler.start();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).not.toHaveBeenCalled();
-    handler.update();
+    handler.updateTimer();
     expect(handler.end).toHaveBeenCalled();
   });
 });

@@ -21,9 +21,18 @@ describe("TankStateInvincible", function () {
     expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
   });
   
-  it("#update", function () {
-    spyOn(state, 'updateStateTimer');
-    state.update();
-    expect(state.updateStateTimer).toHaveBeenCalled();
+  describe("#update", function () {
+    it("normal", function () {
+      spyOn(state, 'updateStateTimer');
+      state.update();
+      expect(state.updateStateTimer).toHaveBeenCalled();
+    });
+    
+    it("pause", function () {
+      eventManager.fireEvent({'name': Pause.Event.START});
+      spyOn(state, 'updateStateTimer');
+      state.update();
+      expect(state.updateStateTimer).not.toHaveBeenCalled();
+    });
   });
 });

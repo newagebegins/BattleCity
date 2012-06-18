@@ -4,6 +4,7 @@ function FreezeTimer(eventManager) {
   this._duration = 300;
   this._timer = 0;
   this._active = false;
+  this._pauseListener = new PauseListener(this._eventManager);
 }
 
 FreezeTimer.Event = {};
@@ -29,6 +30,9 @@ FreezeTimer.prototype.setDuration = function (duration) {
 };
 
 FreezeTimer.prototype.update = function () {
+  if (this._pauseListener.isPaused()) {
+    return;
+  }
   if (!this._active) {
     return;
   }

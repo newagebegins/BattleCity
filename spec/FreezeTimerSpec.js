@@ -16,32 +16,49 @@ describe("FreezeTimer", function () {
     });
   });
   
-  it("#update", function () {
-    var eventManager = new EventManager();
-    var timer = new FreezeTimer(eventManager);
-    spyOn(timer, 'unfreeze');
-    timer.setDuration(2);
-    timer.start();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.update();
-    expect(timer.unfreeze).toHaveBeenCalled();
-    timer.unfreeze.reset();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.start();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.update();
-    expect(timer.unfreeze).not.toHaveBeenCalled();
-    timer.update();
-    expect(timer.unfreeze).toHaveBeenCalled();
+  describe("#update", function () {
+    it("normal", function () {
+      var eventManager = new EventManager();
+      var timer = new FreezeTimer(eventManager);
+      spyOn(timer, 'unfreeze');
+      timer.setDuration(2);
+      timer.start();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).toHaveBeenCalled();
+      timer.unfreeze.reset();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.start();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).toHaveBeenCalled();
+    });
+    
+    it("pause", function () {
+      var eventManager = new EventManager();
+      var timer = new FreezeTimer(eventManager);
+      eventManager.fireEvent({'name': Pause.Event.START});
+      spyOn(timer, 'unfreeze');
+      timer.setDuration(2);
+      timer.start();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+      timer.update();
+      expect(timer.unfreeze).not.toHaveBeenCalled();
+    });
   });
   
   it("#unfreeze", function () {
