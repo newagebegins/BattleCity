@@ -37,7 +37,7 @@ describe("Tank", function () {
     expect(state.update).toHaveBeenCalled();
   });
   
-  describe("#resolveCollisionWithWall", function () {
+  describe("#resolveCollisionWithSprite", function () {
     it("tank moves right", function () {
       checkDirection(new Rect(1, 1, 2, 2), new Rect(2, 1, 2, 2), Sprite.Direction.RIGHT, new Point(0, 1));
     });
@@ -59,19 +59,62 @@ describe("Tank", function () {
       tank.setDirection(direction);
       var wall = new Wall(eventManager);
       wall.setRect(wallRect);
-      tank.resolveCollisionWithWall(wall);
+      tank.resolveCollisionWithSprite(wall);
       expect(tank.getPosition()).toEqual(resolvedTankPosition);
     }
   });
   
+  describe("#resolveCollisionWithSprite", function () {
+    it("resolving move is too big - don't resolve", function () {
+      checkMove(1, new Point(0, 0));
+    });
+    
+    it("normal resolving move - resolve", function () {
+      checkMove(2, new Point(-2, 0));
+    });
+    
+    function checkMove(limit, expectedPos) {
+      tank.setCollisionResolvingMoveLimit(limit);
+      tank.setRect(new Rect(0, 0, 3, 3));
+      tank.setDirection(Sprite.Direction.RIGHT);
+      var otherTank = new Wall(eventManager);
+      otherTank.setRect(new Rect(1, 0, 3, 3));
+      tank.resolveCollisionWithSprite(otherTank);
+      expect(tank.getPosition()).toEqual(expectedPos);
+    }
+  });
+  
   it("should resolve collision when collides with a wall", function () {
-    spyOn(tank, 'resolveCollisionWithWall');
+    spyOn(tank, 'resolveCollisionWithSprite');
     var wall = new Wall(eventManager);
     tank.notify({
       'name': CollisionDetector.Event.COLLISION,
       'initiator': tank,
       'sprite': wall});
-    expect(tank.resolveCollisionWithWall).toHaveBeenCalledWith(wall);
+    expect(tank.resolveCollisionWithSprite).toHaveBeenCalledWith(wall);
+  });
+  
+  describe("collision with a tank", function () {
+    it("normal tank", function () {
+      spyOn(tank, 'resolveCollisionWithSprite');
+      var otherTank = new Tank(eventManager);
+      tank.notify({
+        'name': CollisionDetector.Event.COLLISION,
+        'initiator': tank,
+        'sprite': otherTank});
+      expect(tank.resolveCollisionWithSprite).toHaveBeenCalledWith(otherTank);
+    });
+    
+    it("appearing tank", function () {
+      spyOn(tank, 'resolveCollisionWithSprite');
+      var otherTank = new Tank(eventManager);
+      otherTank.setState(new TankStateAppearing(otherTank));
+      tank.notify({
+        'name': CollisionDetector.Event.COLLISION,
+        'initiator': tank,
+        'sprite': otherTank});
+      expect(tank.resolveCollisionWithSprite).not.toHaveBeenCalled();
+    });
   });
   
   it("should resolve collision when goes out of bounds", function () {

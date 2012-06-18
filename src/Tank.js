@@ -16,6 +16,7 @@ function Tank(eventManager) {
   this._player = true;
   this._value = 100;
   this._flashing = false;
+  this._collisionResolvingMoveLimit = 10;
   
   this._normalSpeed = 2;
   this._bulletSize = 10;
@@ -115,8 +116,8 @@ Tank.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED && event.tank == this) {
     this._bulletShot = false;
   }
-  else if (event.name == CollisionDetector.Event.COLLISION && event.initiator === this && event.sprite instanceof Wall) {
-    this.resolveCollisionWithWall(event.sprite);
+  else if (this._wallCollision(event) || this._tankCollision(event)) {
+    this.resolveCollisionWithSprite(event.sprite);
   }
   else if (this._bulletCollision(event) && this.canBeDestroyed()) {
     this.destroy();
@@ -249,7 +250,7 @@ Tank.prototype.draw = function (ctx) {
   this._state.draw(ctx);
 };
 
-Tank.prototype.resolveCollisionWithWall = function (wall) {
+Tank.prototype.resolveCollisionWithSprite = function (wall) {
   var moveX = 0;
   var moveY = 0;
   if (this._direction == Sprite.Direction.RIGHT) {
@@ -264,8 +265,16 @@ Tank.prototype.resolveCollisionWithWall = function (wall) {
   else if (this._direction == Sprite.Direction.DOWN) {
     moveY = this.getBottom() - wall.getTop() + 1;
   }
+  if (Math.abs(moveX) > this._collisionResolvingMoveLimit ||
+      Math.abs(moveY) > this._collisionResolvingMoveLimit) {
+    return;
+  }
   this._x -= moveX;
   this._y -= moveY;
+};
+
+Tank.prototype.setCollisionResolvingMoveLimit = function (limit) {
+  this._collisionResolvingMoveLimit = limit;
 };
 
 Tank.prototype._bulletCollision = function (event) {
@@ -286,4 +295,17 @@ Tank.prototype._bulletCollision = function (event) {
     return false;
   }
   return true;
+};
+
+Tank.prototype._wallCollision = function (event) {
+  return event.name == CollisionDetector.Event.COLLISION &&
+    event.initiator === this &&
+    event.sprite instanceof Wall;
+};
+
+Tank.prototype._tankCollision = function (event) {
+  return event.name == CollisionDetector.Event.COLLISION &&
+    event.initiator === this &&
+    event.sprite instanceof Tank &&
+    event.sprite.isCollidable();
 };
