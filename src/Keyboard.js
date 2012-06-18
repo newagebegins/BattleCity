@@ -10,6 +10,7 @@ Keyboard.Key.LEFT = 37;
 Keyboard.Key.UP = 38;
 Keyboard.Key.RIGHT = 39;
 Keyboard.Key.DOWN = 40;
+Keyboard.Key.P = 80;
 Keyboard.Key.S = 83;
 
 Keyboard.Event = {};
