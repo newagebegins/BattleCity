@@ -32,6 +32,8 @@ function Level(eventManager) {
     {type: Tank.Type.BASIC},
   ]);
   
+  this._enemyFactoryView = new EnemyFactoryView(this._enemyFactory);
+  
   this._createPowerUpFactory();
   
   var baseWallBuilder = new BaseWallBuilder();
@@ -66,6 +68,11 @@ Level.prototype.update = function () {
   this._aiControllersContainer.update();
   this._freezeTimer.update();
   this._shovelHandler.update();
+};
+
+Level.prototype.draw = function (ctx) {
+  Gamefield.prototype.draw.call(this, ctx);
+  this._enemyFactoryView.draw(ctx);
 };
 
 Level.prototype._createPowerUpFactory = function () {

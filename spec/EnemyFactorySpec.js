@@ -180,4 +180,22 @@ describe("EnemyFactory", function () {
       expect(factory.getEnemyCount()).toEqual(0);
     });
   });
+  
+  it("#getEnemiesToCreateCount", function () {
+    var eventManager = new EventManager();
+      var factory = new EnemyFactory(eventManager);
+      factory.setEnemies([{type: Tank.Type.BASIC}, {type: Tank.Type.BASIC}, {type: Tank.Type.BASIC}]);
+      factory.setPositions([new Point(0, 0)]);
+      
+      expect(factory.getEnemiesToCreateCount()).toEqual(3);
+
+      factory.create();
+      expect(factory.getEnemiesToCreateCount()).toEqual(2);
+
+      factory.create();
+      expect(factory.getEnemiesToCreateCount()).toEqual(1);
+
+      factory.create();
+      expect(factory.getEnemiesToCreateCount()).toEqual(0);
+  });
 });

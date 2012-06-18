@@ -63,6 +63,7 @@ var ImageManager = (function() {
     wall_steel: null,
     
     base: null,
+    enemy: null,
     
     points_100: null,
     points_500: null,
