@@ -91,6 +91,8 @@ var ImageManager = (function() {
     
     base: null,
     enemy: null,
+    lives: null,
+    roman_one: null,
     
     points_100: null,
     points_500: null,
