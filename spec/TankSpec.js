@@ -402,6 +402,31 @@ describe("Tank", function () {
       expect(tank.getUpgradeLevel()).toEqual(2);
       expect(tank.getBulletsLimit()).toEqual(2);
     });
+    
+    it("third", function () {
+      tank.upgrade();
+      tank.upgrade();
+      
+      expect(tank.getUpgradeLevel()).toEqual(2);
+      expect(tank.getBulletType()).toEqual(Bullet.Type.NORMAL);
+
+      tank.upgrade();
+
+      expect(tank.getUpgradeLevel()).toEqual(3);
+      expect(tank.getBulletType()).toEqual(Bullet.Type.ENHANCED);
+    });
+    
+    it("fourth", function () {
+      tank.upgrade();
+      tank.upgrade();
+      tank.upgrade();
+      
+      expect(tank.getUpgradeLevel()).toEqual(3);
+
+      tank.upgrade();
+
+      expect(tank.getUpgradeLevel()).toEqual(3);
+    });
   });
 });
 

@@ -27,6 +27,8 @@ function Tank(eventManager) {
   this._bulletsLimit = 1;
   this._bullets = 0;
   
+  this._bulletType = Bullet.Type.NORMAL;
+  
   // turn smoothing sensitivity
   this._turnSmoothSens = Globals.TILE_SIZE - 1;
   this._turnRoundTo = Globals.TILE_SIZE;
@@ -107,6 +109,14 @@ Tank.prototype.setBulletsLimit = function (limit) {
 
 Tank.prototype.getBulletsLimit = function () {
   return this._bulletsLimit;
+};
+
+Tank.prototype.getBulletType = function () {
+  return this._bulletType;
+};
+
+Tank.prototype.setBulletType = function (type) {
+  this._bulletType = type;
 };
   
 Tank.prototype.shoot = function () {
@@ -292,11 +302,19 @@ Tank.prototype.setCollisionResolvingMoveLimit = function (limit) {
 Tank.prototype.upgrade = function () {
   this._upgradeLevel++;
   
+  if (this._upgradeLevel > 3) {
+    this._upgradeLevel = 3;
+    return;
+  }
+  
   if (this._upgradeLevel == 1) {
     this._bulletSpeed = Bullet.Speed.FAST;
   }
   else if (this._upgradeLevel == 2) {
     this._bulletsLimit = 2;
+  }
+  else if (this._upgradeLevel == 3) {
+    this._bulletType = Bullet.Type.ENHANCED;
   }
 };
 

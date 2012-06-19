@@ -6,6 +6,7 @@ function Bullet(eventManager, tank) {
   ]);
   this._tank = tank;
   this._explode = true;
+  this._type = Bullet.Type.NORMAL;
 }
 
 Bullet.subclass(Sprite);
@@ -16,6 +17,10 @@ Bullet.Event.DESTROYED = 'Bullet.Event.DESTROYED';
 Bullet.Speed = {};
 Bullet.Speed.NORMAL = 5;
 Bullet.Speed.FAST = 8;
+
+Bullet.Type = {};
+Bullet.Type.NORMAL = 'Bullet.Type.NORMAL';
+Bullet.Type.ENHANCED = 'Bullet.Type.ENHANCED';
 
 Bullet.prototype.notify = function (event) {
   if (this._outOfBounds(event) || this._wallCollision(event)) {
@@ -53,6 +58,14 @@ Bullet.prototype.setExplode = function (value) {
 
 Bullet.prototype.shouldExplode = function () {
   return this._explode;
+};
+
+Bullet.prototype.getType = function () {
+  return this._type;
+};
+
+Bullet.prototype.setType = function (type) {
+  this._type = type;
 };
 
 Bullet.prototype._outOfBounds = function (event) {

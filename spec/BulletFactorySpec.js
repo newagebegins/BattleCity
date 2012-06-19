@@ -49,6 +49,25 @@ describe("BulletFactory", function () {
     }
   });
   
+  describe("#createBullet", function () {
+    it("normal", function () {
+      checkType(Bullet.Type.NORMAL);
+    });
+    
+    it("enhanced", function () {
+      checkType(Bullet.Type.ENHANCED);
+    });
+    
+    function checkType(type) {
+      var eventManager = new EventManager();
+      var factory = new BulletFactory(eventManager);
+      var tank = new Tank(eventManager);
+      tank.setBulletType(type);
+      var bullet = factory.createBullet(tank)
+      expect(bullet.getType()).toEqual(type);
+    }
+  });
+  
   it("should create a bullet when tank shoots", function () {
     var eventManager = new EventManager();
     var factory = new BulletFactory(eventManager);

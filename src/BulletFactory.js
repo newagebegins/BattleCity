@@ -15,6 +15,7 @@ BulletFactory.prototype.createBullet = function (tank) {
   bullet.setDimensions(tank.getBulletSize(), tank.getBulletSize());
   bullet.setDirection(tank.getDirection());
   bullet.setSpeed(tank.getBulletSpeed());
+  bullet.setType(tank.getBulletType());
   
   return bullet;
 };
