@@ -38,6 +38,9 @@ Base.prototype.notify = function (event) {
 };
 
 Base.prototype.hit = function () {
+  if (this._hit) {
+    return;
+  }
   this._hit = true;
   this._eventManager.fireEvent({'name': Base.Event.HIT, 'base': this});
 };

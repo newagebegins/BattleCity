@@ -39,6 +39,10 @@ describe("Base", function () {
     var base = new Base(eventManager);
     spyOn(eventManager, 'fireEvent');
     base.hit();
-    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Base.Event.HIT, 'base': base});
+    var EVENT = {'name': Base.Event.HIT, 'base': base};
+    expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
+    eventManager.fireEvent.reset();
+    base.hit();
+    expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
   });
 });
