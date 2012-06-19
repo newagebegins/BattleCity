@@ -45,6 +45,10 @@ Base.prototype.hit = function () {
   this._eventManager.fireEvent({'name': Base.Event.HIT, 'base': this});
 };
 
+Base.prototype.isHit = function () {
+  return this._hit;
+};
+
 Base.prototype._isHitByBullet = function (event) {
   return event.name == CollisionDetector.Event.COLLISION &&
          event.initiator instanceof Bullet &&

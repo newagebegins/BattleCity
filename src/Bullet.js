@@ -95,6 +95,9 @@ Bullet.prototype._baseCollision = function (event) {
   if (!(event.sprite instanceof Base)) {
     return false
   }
+  if (event.sprite.isHit()) {
+    return false
+  }
   return true
 };
 

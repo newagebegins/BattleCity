@@ -124,14 +124,27 @@ describe("Bullet", function () {
       });
     });
     
-    it("base", function () {
-      var base = new Base(eventManager);
-      spyOn(bullet, 'destroy');
-      bullet.notify({
-        'name': CollisionDetector.Event.COLLISION,
-        'initiator': bullet,
-        'sprite': base});
-      expect(bullet.destroy).toHaveBeenCalled();
+    describe("base", function () {
+      it("normal", function () {
+        var base = new Base(eventManager);
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': base});
+        expect(bullet.destroy).toHaveBeenCalled();
+      });
+      
+      it("hit", function () {
+        var base = new Base(eventManager);
+        base.hit();
+        spyOn(bullet, 'destroy');
+        bullet.notify({
+          'name': CollisionDetector.Event.COLLISION,
+          'initiator': bullet,
+          'sprite': base});
+        expect(bullet.destroy).not.toHaveBeenCalled();
+      });
     });
   });
 });
