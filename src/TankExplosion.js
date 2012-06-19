@@ -10,7 +10,7 @@ TankExplosion.Event = {};
 TankExplosion.Event.DESTROYED = 'TankExplosion.Event.DESTROYED';
 
 TankExplosion.prototype.getImage = function () {
-  return 'tank_explosion_' + this._animation.getFrame();
+  return 'big_explosion_' + this._animation.getFrame();
 };
 
 TankExplosion.prototype.destroyHook = function () {

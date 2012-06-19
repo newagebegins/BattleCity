@@ -10,6 +10,7 @@ function Level(eventManager) {
   new BulletFactory(eventManager);
   new BulletExplosionFactory(eventManager);
   new TankExplosionFactory(eventManager);
+  new BaseExplosionFactory(eventManager);
   new PointsFactory(eventManager);
   new Score(eventManager);
   this._freezeTimer = new FreezeTimer(eventManager);

@@ -68,11 +68,11 @@ var ImageManager = (function() {
     appear_3: null,
     appear_4: null,
     
-    tank_explosion_1: null,
-    tank_explosion_2: null,
-    tank_explosion_3: null,
-    tank_explosion_4: null,
-    tank_explosion_5: null,
+    big_explosion_1: null,
+    big_explosion_2: null,
+    big_explosion_3: null,
+    big_explosion_4: null,
+    big_explosion_5: null,
     
     shield_1: null,
     shield_2: null,

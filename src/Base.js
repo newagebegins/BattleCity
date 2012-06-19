@@ -39,7 +39,7 @@ Base.prototype.notify = function (event) {
 
 Base.prototype.hit = function () {
   this._hit = true;
-  this._eventManager.fireEvent({'name': Base.Event.HIT});
+  this._eventManager.fireEvent({'name': Base.Event.HIT, 'base': this});
 };
 
 Base.prototype._isHitByBullet = function (event) {
