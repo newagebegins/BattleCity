@@ -15,8 +15,9 @@ describe("Tank", function () {
         'tank': tank});
     });
     
-    it("only one bullet can be shot at once", function () {
+    it("one bullet", function () {
       spyOn(eventManager, "fireEvent");
+      tank.setBulletsLimit(1);
       tank.shoot();
       eventManager.fireEvent.reset();
       tank.shoot();
@@ -26,6 +27,28 @@ describe("Tank", function () {
       expect(eventManager.fireEvent).toHaveBeenCalledWith({
         'name': Tank.Event.SHOOT,
         'tank': tank});
+    });
+    
+    it("two bullets", function () {
+      spyOn(eventManager, "fireEvent");
+      tank.setBulletsLimit(2);
+      tank.shoot();
+      eventManager.fireEvent.reset();
+      tank.shoot();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Tank.Event.SHOOT,
+        'tank': tank});
+      eventManager.fireEvent.reset();
+      tank.shoot();
+      expect(eventManager.fireEvent).not.toHaveBeenCalled();
+      tank.notify({'name': Bullet.Event.DESTROYED, 'tank': tank});
+      tank.shoot();
+      expect(eventManager.fireEvent).toHaveBeenCalledWith({
+        'name': Tank.Event.SHOOT,
+        'tank': tank});
+      eventManager.fireEvent.reset();
+      tank.shoot();
+      expect(eventManager.fireEvent).not.toHaveBeenCalled();
     });
   });
   
@@ -357,14 +380,28 @@ describe("Tank", function () {
     });
   });
   
-  it("#upgrade", function () {
-    expect(tank.getUpgradeLevel()).toEqual(0);
-    expect(tank.getBulletSpeed()).toEqual(Bullet.Speed.NORMAL);
+  describe("#upgrade", function () {
+    it("first", function () {
+      expect(tank.getUpgradeLevel()).toEqual(0);
+      expect(tank.getBulletSpeed()).toEqual(Bullet.Speed.NORMAL);
+
+      tank.upgrade();
+
+      expect(tank.getUpgradeLevel()).toEqual(1);
+      expect(tank.getBulletSpeed()).toEqual(Bullet.Speed.FAST);
+    });
     
-    tank.upgrade();
-    
-    expect(tank.getUpgradeLevel()).toEqual(1);
-    expect(tank.getBulletSpeed()).toEqual(Bullet.Speed.FAST);
+    it("second", function () {
+      tank.upgrade();
+      
+      expect(tank.getUpgradeLevel()).toEqual(1);
+      expect(tank.getBulletsLimit()).toEqual(1);
+
+      tank.upgrade();
+
+      expect(tank.getUpgradeLevel()).toEqual(2);
+      expect(tank.getBulletsLimit()).toEqual(2);
+    });
   });
 });
 

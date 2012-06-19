@@ -18,6 +18,15 @@ var ImageManager = (function() {
     tank_player1_up_1_s1: null,
     tank_player1_up_2_s1: null,
     
+    tank_player1_down_1_s2: null,
+    tank_player1_down_2_s2: null,
+    tank_player1_left_1_s2: null,
+    tank_player1_left_2_s2: null,
+    tank_player1_right_1_s2: null,
+    tank_player1_right_2_s2: null,
+    tank_player1_up_1_s2: null,
+    tank_player1_up_2_s2: null,
+    
     tank_basic_down_1: null,
     tank_basic_down_2: null,
     tank_basic_left_1: null,

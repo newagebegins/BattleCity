@@ -24,6 +24,9 @@ function Tank(eventManager) {
   this._bulletSpeed = Bullet.Speed.NORMAL;
   this._trackAnimationDuration = 2;
   
+  this._bulletsLimit = 1;
+  this._bullets = 0;
+  
   // turn smoothing sensitivity
   this._turnSmoothSens = Globals.TILE_SIZE - 1;
   this._turnRoundTo = Globals.TILE_SIZE;
@@ -97,15 +100,23 @@ Tank.prototype.setBulletSpeed = function (speed) {
 Tank.prototype.getBulletSpeed = function () {
   return this._bulletSpeed;
 };
+
+Tank.prototype.setBulletsLimit = function (limit) {
+  this._bulletsLimit = limit;
+};
+
+Tank.prototype.getBulletsLimit = function () {
+  return this._bulletsLimit;
+};
   
 Tank.prototype.shoot = function () {
   if (!this._state.canShoot()) {
     return;
   }
-  if (this._bulletShot) {
+  if (this._bullets >= this._bulletsLimit) {
     return;
   }
-  this._bulletShot = true;
+  this._bullets++;
   this._eventManager.fireEvent({'name': Tank.Event.SHOOT, 'tank': this});
 };
 
@@ -115,7 +126,7 @@ Tank.prototype.updateHook = function () {
 
 Tank.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED && event.tank == this) {
-    this._bulletShot = false;
+    this._bullets--;
   }
   else if (this._wallCollision(event) || this._tankCollision(event)) {
     this.resolveCollisionWithSprite(event.sprite);
@@ -283,6 +294,9 @@ Tank.prototype.upgrade = function () {
   
   if (this._upgradeLevel == 1) {
     this._bulletSpeed = Bullet.Speed.FAST;
+  }
+  else if (this._upgradeLevel == 2) {
+    this._bulletsLimit = 2;
   }
 };
 
