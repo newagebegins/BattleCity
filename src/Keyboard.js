@@ -2,6 +2,7 @@ function Keyboard(eventManager) {
   this._eventManager = eventManager;
   this._events = [];
   this._listen();
+  this._keys = {};
 }
 
 Keyboard.Key = {};
@@ -20,11 +21,17 @@ Keyboard.Event.KEY_RELEASED = 'Keyboard.Event.KEY_RELEASED';
 Keyboard.prototype._listen = function () {
   var self = this;
   $(document).keydown(function (event) {
-    self._events.push({name: Keyboard.Event.KEY_PRESSED, key: event.which});
+    if (!self._keys[event.which]) {
+      self._keys[event.which] = true;
+      self._events.push({name: Keyboard.Event.KEY_PRESSED, key: event.which});
+    }
     event.preventDefault();
   });
   $(document).keyup(function (event) {
-    self._events.push({name: Keyboard.Event.KEY_RELEASED, key: event.which});
+    if (self._keys[event.which]) {
+      self._keys[event.which] = false;
+      self._events.push({name: Keyboard.Event.KEY_RELEASED, key: event.which});
+    }
     event.preventDefault();
   });
 };
