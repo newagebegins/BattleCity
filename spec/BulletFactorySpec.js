@@ -8,19 +8,19 @@ describe("BulletFactory", function () {
   
   describe("#createBullet", function () {
     it("RIGHT", function () {
-      checkDirection(new Point(0, 0), new Point(32, 14), Sprite.Direction.RIGHT);
+      checkDirection(new Point(0, 0), new Point(30, 14), Sprite.Direction.RIGHT);
     });
     
     it("LEFT", function () {
-      checkDirection(new Point(32, 0), new Point(31, 14), Sprite.Direction.LEFT);
+      checkDirection(new Point(32, 0), new Point(33, 14), Sprite.Direction.LEFT);
     });
     
     it("UP", function () {
-      checkDirection(new Point(0, 32), new Point(14, 31), Sprite.Direction.UP);
+      checkDirection(new Point(0, 32), new Point(14, 33), Sprite.Direction.UP);
     });
     
     it("DOWN", function () {
-      checkDirection(new Point(0, 0), new Point(14, 32), Sprite.Direction.DOWN);
+      checkDirection(new Point(0, 0), new Point(14, 30), Sprite.Direction.DOWN);
     });
     
     function checkDirection(tankPosition, bulletPosition, direction) {

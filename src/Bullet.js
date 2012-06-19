@@ -13,6 +13,10 @@ Bullet.subclass(Sprite);
 Bullet.Event = {};
 Bullet.Event.DESTROYED = 'Bullet.Event.DESTROYED';
 
+Bullet.Speed = {};
+Bullet.Speed.NORMAL = 5;
+Bullet.Speed.FAST = 8;
+
 Bullet.prototype.notify = function (event) {
   if (this._outOfBounds(event) || this._wallCollision(event)) {
     this.destroy();

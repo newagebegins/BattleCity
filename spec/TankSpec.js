@@ -356,6 +356,16 @@ describe("Tank", function () {
       expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Tank.Event.FLASHING_TANK_DESTROYED, 'tank': tank});
     });
   });
+  
+  it("#upgrade", function () {
+    expect(tank.getUpgradeLevel()).toEqual(0);
+    expect(tank.getBulletSpeed()).toEqual(Bullet.Speed.NORMAL);
+    
+    tank.upgrade();
+    
+    expect(tank.getUpgradeLevel()).toEqual(1);
+    expect(tank.getBulletSpeed()).toEqual(Bullet.Speed.FAST);
+  });
 });
 
 describe("Tank", function () {

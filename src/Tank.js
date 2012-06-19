@@ -17,10 +17,11 @@ function Tank(eventManager) {
   this._value = 100;
   this._flashing = false;
   this._collisionResolvingMoveLimit = 10;
+  this._upgradeLevel = 0;
   
   this._normalSpeed = 2;
   this._bulletSize = 10;
-  this._bulletSpeed = 5;
+  this._bulletSpeed = Bullet.Speed.NORMAL;
   this._trackAnimationDuration = 2;
   
   // turn smoothing sensitivity
@@ -275,6 +276,18 @@ Tank.prototype.resolveCollisionWithSprite = function (wall) {
 
 Tank.prototype.setCollisionResolvingMoveLimit = function (limit) {
   this._collisionResolvingMoveLimit = limit;
+};
+
+Tank.prototype.upgrade = function () {
+  this._upgradeLevel++;
+  
+  if (this._upgradeLevel == 1) {
+    this._bulletSpeed = Bullet.Speed.FAST;
+  }
+};
+
+Tank.prototype.getUpgradeLevel = function () {
+  return this._upgradeLevel;
 };
 
 Tank.prototype._bulletCollision = function (event) {

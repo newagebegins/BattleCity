@@ -24,20 +24,20 @@ BulletFactory.prototype._getBulletPosition = function (tank) {
   var direction = tank.getDirection();
   
   if (direction == Sprite.Direction.RIGHT) {
-    x = tank.getRight() + 1;
+    x = tank.getRight() - 1;
     y = tank.getTop() + tank.getHeight() / 2 - tank.getBulletSize() / 2;
   }
   else if (direction == Sprite.Direction.LEFT) {
-    x = tank.getLeft() - 1;
+    x = tank.getLeft() + 1;
     y = tank.getTop() + tank.getHeight() / 2 - tank.getBulletSize() / 2;
   }
   else if (direction == Sprite.Direction.UP) {
     x = tank.getLeft() + tank.getWidth() / 2 - tank.getBulletSize() / 2;
-    y = tank.getTop() - 1;
+    y = tank.getTop() + 1;
   }
   else if (direction == Sprite.Direction.DOWN) {
     x = tank.getLeft() + tank.getWidth() / 2 - tank.getBulletSize() / 2;
-    y = tank.getBottom() + 1;
+    y = tank.getBottom() - 1;
   }
   
   return new Point(x, y);

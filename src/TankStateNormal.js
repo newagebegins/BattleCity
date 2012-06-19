@@ -12,6 +12,9 @@ TankStateNormal.prototype.getImage = function () {
   if (this._tank.isFlashing() && this._flashed) {
     image += '_f';
   }
+  if (this._tank.getUpgradeLevel()) {
+    image += '_s' + this._tank.getUpgradeLevel();
+  }
   return image;
 };
 

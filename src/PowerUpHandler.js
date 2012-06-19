@@ -9,6 +9,8 @@ PowerUpHandler.Event = {};
 PowerUpHandler.Event.FREEZE = 'PowerUpHandler.Event.FREEZE';
 PowerUpHandler.Event.SHOVEL_START = 'PowerUpHandler.Event.SHOVEL_START';
 
+PowerUpHandler.HELMET_DURATION = 345;
+
 PowerUpHandler.prototype.setSpriteContainer = function (container) {
   this._spriteContainer = container;
 };
@@ -32,6 +34,9 @@ PowerUpHandler.prototype.handle = function (powerUp) {
   else if (powerUp.getType() == PowerUp.Type.SHOVEL) {
     this.handleShovel();
   }
+  else if (powerUp.getType() == PowerUp.Type.STAR) {
+    this.handleStar(powerUp.getPlayerTank());
+  }
 };
 
 PowerUpHandler.prototype.handleGrenade = function () {
@@ -43,7 +48,7 @@ PowerUpHandler.prototype.handleGrenade = function () {
 
 PowerUpHandler.prototype.handleHelmet = function (playerTank) {
   var state = new TankStateInvincible(playerTank);
-  state.setStateDuration(Globals.HELMET_DURATION);
+  state.setStateDuration(PowerUpHandler.HELMET_DURATION);
   playerTank.setState(state);
 };
 
@@ -53,4 +58,8 @@ PowerUpHandler.prototype.handleTimer = function () {
 
 PowerUpHandler.prototype.handleShovel = function () {
   this._eventManager.fireEvent({'name': PowerUpHandler.Event.SHOVEL_START});
+};
+
+PowerUpHandler.prototype.handleStar = function (playerTank) {
+  playerTank.upgrade();
 };

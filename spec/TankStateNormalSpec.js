@@ -63,6 +63,11 @@ describe("TankStateNormal", function () {
       state.setFlashed(true);
       expect(state.getImage()).toEqual('tank_player1_right_1_f');
     });
+    it("upgrade 1", function () {
+      tank.setDirection(Sprite.Direction.RIGHT);
+      tank.upgrade();
+      expect(state.getImage()).toEqual('tank_player1_right_1_s1');
+    });
   });
   
   describe("#update", function () {

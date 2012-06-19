@@ -55,6 +55,15 @@ describe("PowerUpHandler", function () {
       handler.handle(powerUp);
       expect(handler.handleShovel).toHaveBeenCalled();
     });
+    
+    it("star", function () {
+      spyOn(handler, 'handleStar');
+      var player = new Tank(eventManager);
+      powerUp.setType(PowerUp.Type.STAR);
+      powerUp.setPlayerTank(player);
+      handler.handle(powerUp);
+      expect(handler.handleStar).toHaveBeenCalledWith(player);
+    });
   });
   
   it("#handleGrenade", function () {
@@ -91,7 +100,7 @@ describe("PowerUpHandler", function () {
     handler.handleHelmet(player);
     var state = player.getState();
     expect(state instanceof TankStateInvincible).toBeTruthy();
-    expect(state.getStateDuration()).toEqual(Globals.HELMET_DURATION);
+    expect(state.getStateDuration()).toEqual(PowerUpHandler.HELMET_DURATION);
   });
   
   it("#handleTimer", function () {
@@ -108,5 +117,14 @@ describe("PowerUpHandler", function () {
     var handler = new PowerUpHandler(eventManager);
     handler.handleShovel();
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': PowerUpHandler.Event.SHOVEL_START});
+  });
+  
+  it("#handleStar", function () {
+    var eventManager = new EventManager();
+    var handler = new PowerUpHandler(eventManager);
+    var player = new Tank(eventManager);
+    spyOn(player, 'upgrade');
+    handler.handleStar(player);
+    expect(player.upgrade).toHaveBeenCalled();
   });
 });
