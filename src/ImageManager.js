@@ -90,6 +90,8 @@ var ImageManager = (function() {
     wall_steel: null,
     
     base: null,
+    base_destroyed: null,
+    
     enemy: null,
     lives: null,
     roman_one: null,

@@ -23,7 +23,7 @@ Bullet.Type.NORMAL = 'Bullet.Type.NORMAL';
 Bullet.Type.ENHANCED = 'Bullet.Type.ENHANCED';
 
 Bullet.prototype.notify = function (event) {
-  if (this._outOfBounds(event) || this._wallCollision(event)) {
+  if (this._outOfBounds(event) || this._wallCollision(event) || this._baseCollision(event)) {
     this.destroy();
   }
   else if (this._tankCollision(event) && event.sprite.isCollidable()) {
@@ -80,6 +80,19 @@ Bullet.prototype._wallCollision = function (event) {
     return false;
   }
   if (!(event.sprite instanceof Wall)) {
+    return false
+  }
+  return true
+};
+
+Bullet.prototype._baseCollision = function (event) {
+  if (event.name != CollisionDetector.Event.COLLISION) {
+    return false;
+  }
+  if (event.initiator !== this) {
+    return false;
+  }
+  if (!(event.sprite instanceof Base)) {
     return false
   }
   return true

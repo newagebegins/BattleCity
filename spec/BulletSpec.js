@@ -123,6 +123,16 @@ describe("Bullet", function () {
         expect(bullet.destroy).not.toHaveBeenCalled();
       });
     });
+    
+    it("base", function () {
+      var base = new Base(eventManager);
+      spyOn(bullet, 'destroy');
+      bullet.notify({
+        'name': CollisionDetector.Event.COLLISION,
+        'initiator': bullet,
+        'sprite': base});
+      expect(bullet.destroy).toHaveBeenCalled();
+    });
   });
 });
 
