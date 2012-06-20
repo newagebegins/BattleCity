@@ -19,6 +19,9 @@ function Tank(eventManager) {
   this._collisionResolvingMoveLimit = 10;
   this._upgradeLevel = 0;
   
+  this._hitLimit = 1;
+  this._hit = 0;
+  
   this._normalSpeed = 2;
   this._bulletSize = 10;
   this._bulletSpeed = Bullet.Speed.NORMAL;
@@ -142,7 +145,7 @@ Tank.prototype.notify = function (event) {
     this.resolveCollisionWithSprite(event.sprite);
   }
   else if (this._bulletCollision(event) && this.canBeDestroyed()) {
-    this.destroy();
+    this.hit();
   }
   else if (event.name == CollisionDetector.Event.OUT_OF_BOUNDS && event.sprite === this) {
     this.resolveOutOfBounds(event.bounds);
@@ -194,6 +197,17 @@ Tank.prototype.move = function () {
 
 Tank.prototype.getEventManager = function () {
   return this._eventManager;
+};
+
+Tank.prototype.hit = function () {
+  this._hit++;
+  if (this._hit == this._hitLimit) {
+    this.destroy();
+  }
+};
+
+Tank.prototype.setHitLimit = function (limit) {
+  this._hitLimit = limit;
 };
 
 Tank.prototype.destroyHook = function () {
