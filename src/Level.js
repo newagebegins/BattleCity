@@ -1,5 +1,5 @@
-function Level(eventManager) {
-  Gamefield.call(this, eventManager);
+function Level(sceneManager, eventManager) {
+  Gamefield.call(this, sceneManager, eventManager);
   
   new PlayerTankControllerFactory(eventManager);
   

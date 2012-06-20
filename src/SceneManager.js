@@ -23,6 +23,7 @@ SceneManager.prototype.toMainMenuScene = function (arrived) {
 
 SceneManager.prototype.toLevelScene = function () {
   this._eventManager.removeAllSubscribers();
+  this._scene = new Level(this, this._eventManager);
 };
 
 SceneManager.prototype.toConstructionScene = function () {
