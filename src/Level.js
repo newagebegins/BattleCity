@@ -26,7 +26,8 @@ function Level(eventManager) {
   ]);
   this._enemyFactory.setEnemies([
     {type: Tank.Type.BASIC, flashing: true},
-    {type: Tank.Type.ARMOR},
+    {type: Tank.Type.POWER},
+    {type: Tank.Type.POWER},
     {type: Tank.Type.ARMOR},
     {type: Tank.Type.ARMOR},
     {type: Tank.Type.BASIC},

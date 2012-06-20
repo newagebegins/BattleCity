@@ -78,6 +78,9 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
   else if (enemy.type == Tank.Type.FAST) {
     tank.setNormalSpeed(3);
   }
+  else if (enemy.type == Tank.Type.POWER) {
+    tank.setBulletSpeed(Bullet.Speed.FAST);
+  }
   else if (enemy.type == Tank.Type.ARMOR) {
     tank.setMoveFrequency(2);
     tank.setTrackAnimationDuration(4);
