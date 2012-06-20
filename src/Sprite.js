@@ -10,6 +10,8 @@ function Sprite(eventManager) {
   this._turn = false;
   this._zIndex = 0;
   this._pauseListener = new PauseListener(this._eventManager);
+  this._moveFrequency = 1;
+  this._moveTimer = 0;
   
   this._eventManager.fireEvent({'name': Sprite.Event.CREATED, 'sprite': this});
 }
@@ -69,14 +71,24 @@ Sprite.prototype.toNormalSpeed = function () {
   this._speed = this._normalSpeed;
 };
 
+Sprite.prototype.setMoveFrequency = function (moveFrequencty) {
+  this._moveFrequency = moveFrequencty;
+};
+
 Sprite.prototype.stop = function () {
   this._speed = 0;
 };
   
 Sprite.prototype.move = function () {
-  if (this._speed == 0) {
+  this._moveTimer++;
+  if (this._moveTimer < this._moveFrequency || this._speed == 0) {
     return;
   }
+  this._moveTimer = 0;
+  this.doMove();
+};
+
+Sprite.prototype.doMove = function () {
   this._x = this._getNewX();
   this._y = this._getNewY();
   this._turn = false;

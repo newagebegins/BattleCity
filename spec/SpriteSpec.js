@@ -17,19 +17,42 @@ describe("Sprite", function () {
   });
   
   describe("#move", function () {
-    it("should fire event when moved", function () {
-      spyOn(eventManager, 'fireEvent');
+    it("speed not zero", function () {
       sprite.setSpeed(1);
+      spyOn(sprite, 'doMove');
       sprite.move();
+      expect(sprite.doMove).toHaveBeenCalled();
+    });
+    
+    it("speed is zero", function () {
+      spyOn(sprite, 'doMove');
+      sprite.move();
+      expect(sprite.doMove).not.toHaveBeenCalled();
+    });
+    
+    it("frequency - 2", function () {
+      sprite.setMoveFrequency(2);
+      sprite.setSpeed(1);
+      spyOn(sprite, 'doMove');
+      sprite.move();
+      expect(sprite.doMove).not.toHaveBeenCalled();
+      sprite.move();
+      expect(sprite.doMove).toHaveBeenCalled();
+      sprite.doMove.reset();
+      sprite.move();
+      expect(sprite.doMove).not.toHaveBeenCalled();
+      sprite.move();
+      expect(sprite.doMove).toHaveBeenCalled();
+    });
+  });
+  
+  describe("#doMove", function () {
+    it("should fire event", function () {
+      spyOn(eventManager, 'fireEvent');
+      sprite.doMove();
       expect(eventManager.fireEvent).toHaveBeenCalledWith({
         'name': Sprite.Event.MOVED,
         'sprite': sprite});
-    });
-    
-    it("shouldn't fire event if not moved", function () {
-      spyOn(eventManager, 'fireEvent');
-      sprite.move();
-      expect(eventManager.fireEvent).not.toHaveBeenCalled();
     });
   });
   
