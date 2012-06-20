@@ -2,7 +2,7 @@ describe("MainMenuScene", function () {
   it("subscribe", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
-    var scene = new MainMenuScene(new SceneManager(), eventManager);
+    var scene = new MainMenuScene(new SceneManager(eventManager));
     expect(eventManager.addSubscriber).toHaveBeenCalledWith(scene, [Keyboard.Event.KEY_PRESSED]);
   });
   
@@ -10,7 +10,7 @@ describe("MainMenuScene", function () {
     describe("Keyboard.Event.KEY_PRESSED", function () {
       it("Keyboard.Key.START", function () {
         var eventManager = new EventManager();
-        var scene = new MainMenuScene(new SceneManager(), eventManager);
+        var scene = new MainMenuScene(new SceneManager(eventManager), eventManager);
         spyOn(scene, 'keyPressed');
         scene.notify({'name': Keyboard.Event.KEY_PRESSED, 'key': Keyboard.Key.START});
         expect(scene.keyPressed).toHaveBeenCalledWith(Keyboard.Key.START);
@@ -28,7 +28,7 @@ describe("MainMenuScene", function () {
     });
     
     function checkKey(key) {
-      var scene = new MainMenuScene(new SceneManager(), new EventManager());
+      var scene = new MainMenuScene(new SceneManager(new EventManager()));
       spyOn(scene, 'arrived');
       scene.keyPressed(key);
       expect(scene.arrived).toHaveBeenCalled();
@@ -37,7 +37,7 @@ describe("MainMenuScene", function () {
   
   describe("#updatePosition", function () {
     it("speed - 1", function () {
-      var scene = new MainMenuScene(new SceneManager(), new EventManager());
+      var scene = new MainMenuScene(new SceneManager(new EventManager()));
       scene.setSpeed(1);
       scene.setY(2);
       expect(scene.getY()).toEqual(2);
@@ -50,7 +50,7 @@ describe("MainMenuScene", function () {
     });
     
     it("speed - 2", function () {
-      var scene = new MainMenuScene(new SceneManager(), new EventManager());
+      var scene = new MainMenuScene(new SceneManager(new EventManager()));
       scene.setSpeed(2);
       scene.setY(6);
       expect(scene.getY()).toEqual(6);
@@ -61,7 +61,7 @@ describe("MainMenuScene", function () {
     });
     
     it("arrived", function () {
-      var scene = new MainMenuScene(new SceneManager(), new EventManager());
+      var scene = new MainMenuScene(new SceneManager(new EventManager()));
       spyOn(scene, 'arrived');
       scene.setSpeed(1);
       scene.setY(2);
@@ -76,7 +76,7 @@ describe("MainMenuScene", function () {
     
     it("main menu controller activate", function () {
       var eventManager = new EventManager();
-      var scene = new MainMenuScene(new SceneManager(), eventManager);
+      var scene = new MainMenuScene(new SceneManager(eventManager));
       
       var mainMenu = new MainMenu();
       var mainMenuController = new MainMenuController(eventManager, mainMenu);
@@ -94,7 +94,7 @@ describe("MainMenuScene", function () {
   
   it("#arrived", function () {
     var eventManager = new EventManager();
-    var scene = new MainMenuScene(new SceneManager(), eventManager);
+    var scene = new MainMenuScene(new SceneManager(eventManager));
     scene.setY(1);
     
     var cursor = new MainMenuCursor();
@@ -108,7 +108,7 @@ describe("MainMenuScene", function () {
   });
   
   it("#update", function () {
-    var scene = new MainMenuScene(new SceneManager(), new EventManager());
+    var scene = new MainMenuScene(new SceneManager(new EventManager()));
     var cursor = new MainMenuCursor();
     spyOn(cursor, 'update');
     scene.setCursor(cursor);

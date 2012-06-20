@@ -1,17 +1,17 @@
-function Construction(sceneManager, eventManager) {
-  Gamefield.call(this, sceneManager, eventManager);
+function Construction(sceneManager) {
+  Gamefield.call(this, sceneManager);
   
   this._eventManager.addSubscriber(this, [Keyboard.Event.KEY_PRESSED]);
   
-  new Builder(eventManager);
-  this._structureManager = new StructureManager(eventManager);
+  new Builder(this._eventManager);
+  this._structureManager = new StructureManager(this._eventManager);
   
-  this._cursor = new Cursor(eventManager);
+  this._cursor = new Cursor(this._eventManager);
   this._cursor.setZIndex(100);
   this._cursor.setPosition(new Point(this._x, this._y));
-  new CursorController(eventManager, this._cursor);
+  new CursorController(this._eventManager, this._cursor);
   
-  this._spriteSerializerController = new SpriteSerializerController(eventManager, this._structureManager);
+  this._spriteSerializerController = new SpriteSerializerController(this._eventManager, this._structureManager);
   
   this._createBase();
 }

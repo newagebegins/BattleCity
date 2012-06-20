@@ -2,7 +2,7 @@ describe("SceneManager", function () {
   it("#update", function () {
     var eventManager = new EventManager();
     var manager = new SceneManager(eventManager);
-    var scene = new MainMenuScene(new SceneManager(), eventManager);
+    var scene = new MainMenuScene(manager);
     spyOn(scene, 'update');
     manager.setScene(scene);
     manager.update();

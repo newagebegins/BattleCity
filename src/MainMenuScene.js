@@ -1,6 +1,6 @@
-function MainMenuScene(sceneManager, eventManager) {
+function MainMenuScene(sceneManager) {
   this._sceneManager = sceneManager;
-  this._eventManager = eventManager;
+  this._eventManager = this._sceneManager.getEventManager();
   this._eventManager.addSubscriber(this, [Keyboard.Event.KEY_PRESSED]);
   
   this._y = Globals.CANVAS_HEIGHT;
