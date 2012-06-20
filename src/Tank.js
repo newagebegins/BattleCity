@@ -46,6 +46,7 @@ Tank.Type = {};
 Tank.Type.PLAYER_1 = 'player1';
 Tank.Type.BASIC = 'basic';
 Tank.Type.FAST = 'fast';
+Tank.Type.ARMOR = 'armor';
 
 Tank.Event = {};
 Tank.Event.SHOOT = 'Tank.Event.SHOOT';
@@ -144,6 +145,10 @@ Tank.prototype.updateColor = function () {
 
 Tank.prototype.setColor = function (color) {
   this._color = color;
+};
+
+Tank.prototype.setColorValues = function (values) {
+  this._color.setColors(values);
 };
 
 Tank.prototype.getColorValue = function () {
