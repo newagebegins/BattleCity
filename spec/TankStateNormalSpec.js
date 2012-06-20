@@ -49,24 +49,24 @@ describe("TankStateNormal", function () {
   describe("#getImage", function () {
     it("RIGHT", function () {
       tank.setDirection(Sprite.Direction.RIGHT);
-      expect(state.getImage()).toEqual('tank_player1_right_1');
+      expect(state.getImage()).toEqual('tank_player1_right_c0_t1');
     });
     it("LEFT", function () {
       tank.toNormalSpeed();
       tank.setDirection(Sprite.Direction.LEFT);
       state.update();
-      expect(state.getImage()).toEqual('tank_player1_left_2');
+      expect(state.getImage()).toEqual('tank_player1_left_c0_t2');
     });
     it("flashed", function () {
       tank.setDirection(Sprite.Direction.RIGHT);
       tank.startFlashing();
       state.setFlashed(true);
-      expect(state.getImage()).toEqual('tank_player1_right_1_f');
+      expect(state.getImage()).toEqual('tank_player1_right_c0_t1_f');
     });
     it("upgrade 1", function () {
       tank.setDirection(Sprite.Direction.RIGHT);
       tank.upgrade();
-      expect(state.getImage()).toEqual('tank_player1_right_1_s1');
+      expect(state.getImage()).toEqual('tank_player1_right_c0_t1_s1');
     });
   });
   
@@ -86,6 +86,12 @@ describe("TankStateNormal", function () {
       state.update();
       expect(state.updateTrackAnimation).not.toHaveBeenCalled();
       expect(state.updateFlash).toHaveBeenCalled();
+    });
+    
+    it("normal - with color", function () {
+      spyOn(tank, 'updateColor');
+      state.update();
+      expect(tank.updateColor).toHaveBeenCalled();
     });
   });
   

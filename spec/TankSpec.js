@@ -346,6 +346,14 @@ describe("Tank", function () {
       tank.hit();
       expect(tank.destroy).toHaveBeenCalled();
     });
+    
+    it("color", function () {
+      var color = new TankColor();
+      tank.setColor(color);
+      spyOn(color, 'hit');
+      tank.hit();
+      expect(color.hit).toHaveBeenCalled();
+    });
   });
   
   describe("#stateAppearingEnd", function () {
@@ -459,6 +467,14 @@ describe("Tank", function () {
 
       expect(tank.getUpgradeLevel()).toEqual(3);
     });
+  });
+  
+  it("#updateColor", function () {
+    var color = new TankColor();
+    tank.setColor(color);
+    spyOn(color, 'update');
+    tank.updateColor();
+    expect(color.update).toHaveBeenCalled();
   });
 });
 

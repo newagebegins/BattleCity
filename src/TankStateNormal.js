@@ -8,7 +8,7 @@ function TankStateNormal(tank) {
 }
 
 TankStateNormal.prototype.getImage = function () {
-  var image = 'tank_' + this._tank.getType() + '_' + this._tank.getDirection() + '_' + this._trackAnimation.getFrame();
+  var image = 'tank_' + this._tank.getType() + '_'  + this._tank.getDirection() + '_c' + this._tank.getColorValue() + '_t' + this._trackAnimation.getFrame();
   if (this._tank.isFlashing() && this._flashed) {
     image += '_f';
   }
@@ -23,6 +23,7 @@ TankStateNormal.prototype.update = function () {
     this.updateTrackAnimation();
   }
   this.updateFlash();
+  this._tank.updateColor();
 };
 
 TankStateNormal.prototype.updateTrackAnimation = function () {
