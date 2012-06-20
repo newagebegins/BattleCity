@@ -131,6 +131,9 @@ var ImageManager = (function() {
     roman_one: null,
     
     points_100: null,
+    points_200: null,
+    points_300: null,
+    points_400: null,
     points_500: null,
     
     powerup_grenade: null,

@@ -74,18 +74,22 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
   if (enemy.type == Tank.Type.BASIC) {
     tank.setMoveFrequency(2);
     tank.setTrackAnimationDuration(4);
+    tank.setValue(100);
   }
   else if (enemy.type == Tank.Type.FAST) {
     tank.setNormalSpeed(3);
+    tank.setValue(200);
   }
   else if (enemy.type == Tank.Type.POWER) {
     tank.setBulletSpeed(Bullet.Speed.FAST);
+    tank.setValue(300);
   }
   else if (enemy.type == Tank.Type.ARMOR) {
     tank.setMoveFrequency(2);
     tank.setTrackAnimationDuration(4);
     tank.setHitLimit(4);
-    tank.setColorValues([[0,1],[0,2],[1,2],[0,0]])
+    tank.setColorValues([[0,1],[0,2],[1,2],[0,0]]);
+    tank.setValue(400);
   }
   
   if (enemy.flashing) {

@@ -14,7 +14,7 @@ function Tank(eventManager) {
   this._type = Tank.Type.PLAYER_1;
   this._state = new TankStateNormal(this);
   this._player = true;
-  this._value = 100;
+  this._value = 0;
   this._flashing = false;
   this._collisionResolvingMoveLimit = 10;
   this._upgradeLevel = 0;
