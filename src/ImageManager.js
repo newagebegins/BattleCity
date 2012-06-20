@@ -128,7 +128,9 @@ var ImageManager = (function() {
     
     enemy: null,
     lives: null,
+    
     roman_one: null,
+    roman_one_white: null,
     
     points_100: null,
     points_200: null,
@@ -144,6 +146,8 @@ var ImageManager = (function() {
     powerup_timer: null,
     
     battle_city: null,
+    namcot: null,
+    copyright: null,
   };
   
   for (var i in images) {
