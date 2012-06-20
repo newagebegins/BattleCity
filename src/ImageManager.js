@@ -142,6 +142,8 @@ var ImageManager = (function() {
     powerup_star: null,
     powerup_tank: null,
     powerup_timer: null,
+    
+    battle_city: null,
   };
   
   for (var i in images) {

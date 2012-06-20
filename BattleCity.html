@@ -72,6 +72,8 @@
   <script type="text/javascript" src="src/BaseExplosionFactory.js"></script>
   <script type="text/javascript" src="src/BaseExplosion.js"></script>
   <script type="text/javascript" src="src/TankColor.js"></script>
+  <script type="text/javascript" src="src/SceneManager.js"></script>
+  <script type="text/javascript" src="src/MainMenuScene.js"></script>
   
   <script type="text/javascript" src="lib/Stats.js"></script>
   <script type="text/javascript" src="src/FPSCounter.js"></script>
@@ -92,7 +94,8 @@
       
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
-      var level = new Level(eventManager);
+      var sceneManager = new SceneManager();
+      sceneManager.toMainMenuScene();
       
       setInterval(gameLoop, 1000 / FPS);
       
@@ -100,10 +103,10 @@
         fpsCounter.begin();
         
         keyboard.fireEvents();
-        level.update();
+        sceneManager.update();
         
         clearCanvas();
-        level.draw(ctx);
+        sceneManager.draw(ctx);
         
         fpsCounter.end();
       }
