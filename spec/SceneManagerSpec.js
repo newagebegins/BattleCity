@@ -1,7 +1,8 @@
 describe("SceneManager", function () {
   it("#update", function () {
-    var manager = new SceneManager();
-    var scene = new MainMenuScene();
+    var eventManager = new EventManager();
+    var manager = new SceneManager(eventManager);
+    var scene = new MainMenuScene(new SceneManager(), eventManager);
     spyOn(scene, 'update');
     manager.setScene(scene);
     manager.update();
@@ -9,7 +10,7 @@ describe("SceneManager", function () {
   });
   
   it("#toMainMenuScene", function () {
-    var manager = new SceneManager();
+    var manager = new SceneManager(new EventManager());
     manager.toMainMenuScene();
     expect(manager.getScene() instanceof MainMenuScene).toBeTruthy();
   });

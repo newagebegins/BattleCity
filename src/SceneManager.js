@@ -1,4 +1,5 @@
-function SceneManager() {
+function SceneManager(eventManager) {
+  this._eventManager = eventManager;
   this._scene = null;
 }
 
@@ -11,7 +12,13 @@ SceneManager.prototype.getScene = function () {
 };
 
 SceneManager.prototype.toMainMenuScene = function () {
-  this._scene = new MainMenuScene();
+  this._scene = new MainMenuScene(this, this._eventManager);
+};
+
+SceneManager.prototype.toLevelScene = function () {
+};
+
+SceneManager.prototype.toConstructionScene = function () {
 };
 
 SceneManager.prototype.update = function () {
