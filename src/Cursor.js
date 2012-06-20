@@ -60,6 +60,6 @@ Cursor.prototype.updateHook = function () {
 
 Cursor.prototype.draw = function (ctx) {
   if (this._blinkTimer.isVisible()) {
-    ctx.drawImage(ImageManager.getImage('tank_player1_up_1'), this._x, this._y);
+    ctx.drawImage(ImageManager.getImage('tank_player1_up_c0_t1'), this._x, this._y);
   }
 };

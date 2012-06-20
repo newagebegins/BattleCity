@@ -93,6 +93,10 @@ MainMenuScene.prototype.setMainMenuController = function (mainMenuController) {
   this._mainMenuController = mainMenuController;
 };
 
+MainMenuScene.prototype.nextMenuItem = function () {
+  this._mainMenu.nextItem();
+};
+
 MainMenuScene.prototype._clearCanvas = function (ctx) {
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);

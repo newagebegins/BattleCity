@@ -1,5 +1,7 @@
-function Construction(eventManager) {
-  Gamefield.call(this, eventManager);
+function Construction(sceneManager, eventManager) {
+  Gamefield.call(this, sceneManager, eventManager);
+  
+  this._eventManager.addSubscriber(this, [Keyboard.Event.KEY_PRESSED]);
   
   new Builder(eventManager);
   this._structureManager = new StructureManager(eventManager);
@@ -9,12 +11,25 @@ function Construction(eventManager) {
   this._cursor.setPosition(new Point(this._x, this._y));
   new CursorController(eventManager, this._cursor);
   
-  new SpriteSerializerController(eventManager, this._structureManager);
+  this._spriteSerializerController = new SpriteSerializerController(eventManager, this._structureManager);
   
   this._createBase();
 }
 
 Construction.subclass(Gamefield);
+
+Construction.prototype.notify = function (event) {
+  if (event.name == Keyboard.Event.KEY_PRESSED) {
+    this.keyPressed(event.key);
+  }
+};
+
+Construction.prototype.keyPressed = function (key) {
+  if (key == Keyboard.Key.START) {
+    this._spriteSerializerController.destroy();
+    this._sceneManager.toMainMenuScene(true);
+  }
+};
 
 Construction.prototype._createBase = function () {
   var base = new Base(this._eventManager);

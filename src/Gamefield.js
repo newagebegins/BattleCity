@@ -1,6 +1,7 @@
-function Gamefield(eventManager) {
+function Gamefield(sceneManager, eventManager) {
   Rect.call(this);
   
+  this._sceneManager = sceneManager;
   this._eventManager = eventManager;
   
   this._x = Globals.UNIT_SIZE;

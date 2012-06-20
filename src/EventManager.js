@@ -21,6 +21,10 @@ EventManager.prototype.removeSubscriber = function (subscriber) {
   }
 };
 
+EventManager.prototype.removeAllSubscribers = function () {
+  this._subscribers = {};
+};
+
 EventManager.prototype.fireEvent = function (event) {
   var subscribers = this._subscribers[event.name];
   for (var i in subscribers) {
