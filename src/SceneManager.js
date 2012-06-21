@@ -21,7 +21,7 @@ SceneManager.prototype.toMainMenuScene = function (arrived) {
   }
 };
 
-SceneManager.prototype.toLevelScene = function () {
+SceneManager.prototype.toGameScene = function () {
   this._eventManager.removeAllSubscribers();
   this._scene = new Level(this);
 };

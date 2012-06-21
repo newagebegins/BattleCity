@@ -6,5 +6,5 @@ function OnePlayerMenuItem(sceneManager) {
 OnePlayerMenuItem.subclass(MainMenuItem);
 
 OnePlayerMenuItem.prototype.execute = function () {
-  this._sceneManager.toLevelScene();
+  this._sceneManager.toGameScene();
 };
