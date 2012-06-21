@@ -40,6 +40,5 @@ Pause.prototype.draw = function (ctx) {
     return;
   }
   ctx.fillStyle = "#e44437";
-  ctx.font = "16px prstart"
   ctx.fillText("PAUSE", 202, 240);
 };

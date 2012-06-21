@@ -128,6 +128,7 @@ var ImageManager = (function() {
     
     enemy: null,
     lives: null,
+    flag: null,
     
     roman_one: null,
     roman_one_white: null,

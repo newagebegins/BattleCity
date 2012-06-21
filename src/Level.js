@@ -90,6 +90,7 @@ Level.prototype.draw = function (ctx) {
   this._enemyFactoryView.draw(ctx);
   this._pause.draw(ctx);
   this._livesView.draw(ctx);
+  this._drawFlag(ctx);
 };
 
 Level.prototype.show = function () {
@@ -130,4 +131,11 @@ Level.prototype._createPowerUpFactory = function () {
     new Point(powerUpCol3X, powerUpRow4Y),
     new Point(powerUpCol4X, powerUpRow4Y),
   ]);
+};
+
+Level.prototype._drawFlag = function (ctx) {
+  ctx.drawImage(ImageManager.getImage('flag'), 464, 352);
+  
+  ctx.fillStyle = "black";
+  ctx.fillText("1", 482, 398);
 };
