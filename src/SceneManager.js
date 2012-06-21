@@ -23,7 +23,7 @@ SceneManager.prototype.toMainMenuScene = function (arrived) {
 
 SceneManager.prototype.toGameScene = function () {
   this._eventManager.removeAllSubscribers();
-  this._scene = new Level(this);
+  this._scene = new GameScene(this);
 };
 
 SceneManager.prototype.toConstructionScene = function () {

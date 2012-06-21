@@ -1,6 +1,8 @@
 function Level(sceneManager) {
   Gamefield.call(this, sceneManager);
   
+  this._visible = false;
+  
   new PlayerTankControllerFactory(this._eventManager);
   
   var playerTankFactory = new PlayerTankFactory(this._eventManager);
@@ -81,10 +83,17 @@ Level.prototype.update = function () {
 };
 
 Level.prototype.draw = function (ctx) {
+  if (!this._visible) {
+    return;
+  }
   Gamefield.prototype.draw.call(this, ctx);
   this._enemyFactoryView.draw(ctx);
   this._pause.draw(ctx);
   this._livesView.draw(ctx);
+};
+
+Level.prototype.show = function () {
+  this._visible = true;
 };
 
 Level.prototype._createPowerUpFactory = function () {

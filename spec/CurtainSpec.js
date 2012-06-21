@@ -7,7 +7,7 @@ describe("Curtain", function () {
   });
   
   describe("#fall", function () {
-    it("moving", function () {
+    it("speed - 1", function () {
       curtain.setHeight(3);
       curtain.setSpeed(1);
       expect(curtain.getPosition()).toEqual(0);
@@ -21,30 +21,21 @@ describe("Curtain", function () {
       expect(curtain.getPosition()).toEqual(3);
     });
     
-    it("event", function () {
-      var EVENT = {'name': Curtain.Event.HAS_FALLEN};
-      spyOn(eventManager, 'fireEvent');
-      
-      curtain.setHeight(2);
-      curtain.setSpeed(1);
-      
-      curtain.fall();
-      expect(curtain.getPosition()).toEqual(1);
-      expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
-      
+    it("speed - 2", function () {
+      curtain.setHeight(3);
+      curtain.setSpeed(2);
+      expect(curtain.getPosition()).toEqual(0);
       curtain.fall();
       expect(curtain.getPosition()).toEqual(2);
-      expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
-      eventManager.fireEvent.reset();
-      
       curtain.fall();
-      expect(curtain.getPosition()).toEqual(2);
-      expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
+      expect(curtain.getPosition()).toEqual(3);
+      curtain.fall();
+      expect(curtain.getPosition()).toEqual(3);
     });
   });
   
   describe("#rise", function () {
-    it("moving", function () {
+    it("speed - 1", function () {
       curtain.setHeight(3);
       curtain.setSpeed(1);
       curtain.setPosition(3);
@@ -59,26 +50,17 @@ describe("Curtain", function () {
       expect(curtain.getPosition()).toEqual(0);
     });
     
-    it("event", function () {
-      var EVENT = {'name': Curtain.Event.HAS_RISEN};
-      spyOn(eventManager, 'fireEvent');
-      
-      curtain.setHeight(2);
-      curtain.setSpeed(1);
-      curtain.setPosition(2);
-      
+    it("speed - 2", function () {
+      curtain.setHeight(3);
+      curtain.setSpeed(2);
+      curtain.setPosition(3);
+      expect(curtain.getPosition()).toEqual(3);
       curtain.rise();
       expect(curtain.getPosition()).toEqual(1);
-      expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
-      
       curtain.rise();
       expect(curtain.getPosition()).toEqual(0);
-      expect(eventManager.fireEvent).toHaveBeenCalledWith(EVENT);
-      eventManager.fireEvent.reset();
-      
       curtain.rise();
       expect(curtain.getPosition()).toEqual(0);
-      expect(eventManager.fireEvent).not.toHaveBeenCalledWith(EVENT);
     });
   });
 });
