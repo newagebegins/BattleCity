@@ -7,6 +7,8 @@ function EnemyFactory(eventManager) {
   this._positions = [];
   this._position = 0;
   
+  this._flashingTanks = [4, 11, 18];
+  
   this._interval = 150;
   this._timer = this._interval;
   
@@ -55,9 +57,7 @@ EnemyFactory.prototype.create = function () {
     return;
   }
   this._timer = 0;
-  this.createEnemy(this.getNextEnemy(), this.getNextPosition());
-  this.nextEnemy();
-  this.nextPosition();
+  this.createNextEnemy();
 };
 
 EnemyFactory.prototype.setInterval = function (interval) {
@@ -65,27 +65,38 @@ EnemyFactory.prototype.setInterval = function (interval) {
   this._timer = this._interval;
 };
 
-EnemyFactory.prototype.createEnemy = function (enemy, position) {
+EnemyFactory.prototype.setFlashingTanks = function (tanks) {
+  this._flashingTanks = tanks;
+};
+
+EnemyFactory.prototype.createNextEnemy = function () {
+  var tank = this.createEnemy(this.getNextEnemy(), this.getNextPosition());
+  this.nextEnemy();
+  this.nextPosition();
+  return tank;
+};
+
+EnemyFactory.prototype.createEnemy = function (type, position) {
   var tank = new Tank(this._eventManager);
   tank.makeEnemy();
-  tank.setType(enemy.type);
+  tank.setType(type);
   tank.setPosition(position);
   tank.setState(new TankStateAppearing(tank));
   
-  if (enemy.type == Tank.Type.BASIC) {
+  if (type == Tank.Type.BASIC) {
     tank.setMoveFrequency(2);
     tank.setTrackAnimationDuration(4);
     tank.setValue(100);
   }
-  else if (enemy.type == Tank.Type.FAST) {
+  else if (type == Tank.Type.FAST) {
     tank.setNormalSpeed(3);
     tank.setValue(200);
   }
-  else if (enemy.type == Tank.Type.POWER) {
+  else if (type == Tank.Type.POWER) {
     tank.setBulletSpeed(Bullet.Speed.FAST);
     tank.setValue(300);
   }
-  else if (enemy.type == Tank.Type.ARMOR) {
+  else if (type == Tank.Type.ARMOR) {
     tank.setMoveFrequency(2);
     tank.setTrackAnimationDuration(4);
     tank.setHitLimit(4);
@@ -93,7 +104,7 @@ EnemyFactory.prototype.createEnemy = function (enemy, position) {
     tank.setValue(400);
   }
   
-  if (enemy.flashing) {
+  if (arrayContains(this._flashingTanks, this._enemy + 1)) {
     tank.startFlashing();
   }
   
