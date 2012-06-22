@@ -57,11 +57,18 @@ describe("TankStateNormal", function () {
       state.update();
       expect(state.getImage()).toEqual('tank_player1_left_c0_t2');
     });
-    it("flashed", function () {
+    it("flashing & not hit", function () {
       tank.setDirection(Sprite.Direction.RIGHT);
       tank.startFlashing();
       state.setFlashed(true);
       expect(state.getImage()).toEqual('tank_player1_right_c0_t1_f');
+    });
+    it("flashing & hit", function () {
+      tank.setDirection(Sprite.Direction.RIGHT);
+      tank.startFlashing();
+      tank.hit();
+      state.setFlashed(true);
+      expect(state.getImage()).toEqual('tank_player1_right_c0_t1');
     });
     it("upgrade 1", function () {
       tank.setDirection(Sprite.Direction.RIGHT);

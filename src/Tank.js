@@ -144,6 +144,9 @@ Tank.prototype.updateHook = function () {
 };
 
 Tank.prototype.updateColor = function () {
+  if (this.isFlashing() && this._hit == 0) {
+    return;
+  }
   this._color.update();
 };
 
@@ -231,6 +234,10 @@ Tank.prototype.hit = function () {
   if (this._hit == this._hitLimit) {
     this.destroy();
   }
+};
+
+Tank.prototype.isNotHit = function () {
+  return this._hit == 0;
 };
 
 Tank.prototype.setHitLimit = function (limit) {
