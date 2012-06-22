@@ -122,6 +122,7 @@ var ImageManager = (function() {
     
     wall_brick: null,
     wall_steel: null,
+    trees: null,
     
     base: null,
     base_destroyed: null,

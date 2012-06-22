@@ -40,6 +40,8 @@ describe("Builder", function () {
       spyOn(builder, 'buildSteelWallTop');
       spyOn(builder, 'buildSteelWallFull');
       
+      spyOn(builder, 'buildTrees');
+      
       spyOn(builder, 'clear');
       
       builder.build(cursor);
@@ -81,6 +83,10 @@ describe("Builder", function () {
       builder.build(cursor);
       expect(builder.buildSteelWallFull).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildSteelWallFull.reset();
+      
+      builder.build(cursor);
+      expect(builder.buildTrees).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildTrees.reset();
       
       builder.build(cursor);
       expect(builder.clear).toHaveBeenCalledWith(cursor.getPosition());
@@ -194,6 +200,13 @@ describe("Builder", function () {
       expect(parts[1].getPosition()).toEqual(new Point(6, 3))
       expect(parts[2].getPosition()).toEqual(new Point(2, 7))
       expect(parts[3].getPosition()).toEqual(new Point(6, 7))
+    });
+    
+    it("#buildTrees", function () {
+      var parts = builder.buildTrees(new Point(2, 3));
+      var trees = parts[0];
+      expect(trees instanceof Trees).toBeTruthy();
+      expect(trees.getPosition()).toEqual(new Point(2, 3))
     });
   });
 });
