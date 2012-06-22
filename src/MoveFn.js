@@ -13,8 +13,18 @@ MoveFn.prototype.update = function () {
     return;
   }
   this._object[this._property] += this._increment;
-  if (this._object[this._property] - this._endValue == 0) {
+  if (this._isCompleted()) {
     this._active = false;
     this._listener.actionCompleted();
   }
+};
+
+MoveFn.prototype._isCompleted = function () {
+  if (this._increment > 0 && this._object[this._property] >= this._endValue) {
+    return true;
+  }
+  else if (this._increment < 0 && this._object[this._property] <= this._endValue) {
+    return true;
+  }
+  return false;
 };

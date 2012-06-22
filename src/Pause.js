@@ -3,6 +3,7 @@ function Pause(eventManager) {
   this._eventManager.addSubscriber(this, [Keyboard.Event.KEY_PRESSED]);
   this._pause = false;
   this._blinkTimer = new BlinkTimer(12);
+  this._active = true;
 }
 
 Pause.Event = {};
@@ -16,6 +17,9 @@ Pause.prototype.notify = function (event) {
 };
 
 Pause.prototype.keyPressed = function (key) {
+  if (!this._active) {
+    return;
+  }
   if (key == Keyboard.Key.P) {
     this._pause = !this._pause;
     
@@ -41,4 +45,8 @@ Pause.prototype.draw = function (ctx) {
   }
   ctx.fillStyle = "#e44437";
   ctx.fillText("PAUSE", 202, 240);
+};
+
+Pause.prototype.setActive = function (active) {
+  this._active = active;
 };

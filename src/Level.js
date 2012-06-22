@@ -1,6 +1,8 @@
 function Level(sceneManager, stageNumber) {
   Gamefield.call(this, sceneManager);
   
+  this._eventManager.addSubscriber(this, [BaseExplosion.Event.DESTROYED]);
+  
   this._visible = false;
   this._stage = stageNumber;
   
@@ -56,6 +58,13 @@ function Level(sceneManager, stageNumber) {
   var lives = new Lives(this._eventManager);
   this._livesView = new LivesView(lives);
   
+  this._gameOverMessage = new GameOverMessage();
+  
+  this._gameOverScript = new Script();
+  this._gameOverScript.setActive(false);
+  this._gameOverScript.enqueue(new MoveFn(this._gameOverMessage, 'y', 213, 100, this._gameOverScript));
+  this._gameOverScript.enqueue(new Delay(this._gameOverScript, 50));
+  
   this._loadStage(this._stage);
 }
 
@@ -68,6 +77,7 @@ Level.prototype.update = function () {
   this._freezeTimer.update();
   this._shovelHandler.update();
   this._pause.update();
+  this._gameOverScript.update();
 };
 
 Level.prototype.draw = function (ctx) {
@@ -79,10 +89,18 @@ Level.prototype.draw = function (ctx) {
   this._pause.draw(ctx);
   this._livesView.draw(ctx);
   this._drawFlag(ctx);
+  this._gameOverMessage.draw(ctx);
 };
 
 Level.prototype.show = function () {
   this._visible = true;
+};
+
+Level.prototype.notify = function (event) {
+  if (event.name == BaseExplosion.Event.DESTROYED) {
+    this._gameOverScript.setActive(true);
+    this._pause.setActive(false);
+  }
 };
 
 Level.prototype._loadStage = function (stageNumber) {
