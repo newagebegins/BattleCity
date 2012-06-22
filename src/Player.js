@@ -18,6 +18,7 @@ Player.prototype.setEventManager = function (eventManager) {
   this._eventManager.addSubscriber(this, [
     PointsFactory.Event.POINTS_CREATED,
     Tank.Event.PLAYER_DESTROYED,
+    PowerUpHandler.Event.TANK,
     Tank.Event.ENEMY_DESTROYED
   ]);
 };
@@ -28,6 +29,9 @@ Player.prototype.notify = function (event) {
   }
   else if (event.name == Tank.Event.PLAYER_DESTROYED) {
     this._lives--;
+  }
+  else if (event.name == PowerUpHandler.Event.TANK) {
+    this._lives++;
   }
   else if (event.name == Tank.Event.ENEMY_DESTROYED) {
     if (event.tank.getValue() > 0) {

@@ -64,6 +64,13 @@ describe("PowerUpHandler", function () {
       handler.handle(powerUp);
       expect(handler.handleStar).toHaveBeenCalledWith(player);
     });
+    
+    it("tank", function () {
+      spyOn(handler, 'handleTank');
+      powerUp.setType(PowerUp.Type.TANK);
+      handler.handle(powerUp);
+      expect(handler.handleTank).toHaveBeenCalled();
+    });
   });
   
   it("#handleGrenade", function () {
@@ -126,5 +133,13 @@ describe("PowerUpHandler", function () {
     spyOn(player, 'upgrade');
     handler.handleStar(player);
     expect(player.upgrade).toHaveBeenCalled();
+  });
+  
+  it("#handleTank", function () {
+    var eventManager = new EventManager();
+    spyOn(eventManager, 'fireEvent');
+    var handler = new PowerUpHandler(eventManager);
+    handler.handleTank();
+    expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': PowerUpHandler.Event.TANK});
   });
 });
