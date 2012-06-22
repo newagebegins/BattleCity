@@ -132,6 +132,7 @@ var ImageManager = (function() {
     
     roman_one: null,
     roman_one_white: null,
+    roman_one_red: null,
     
     points_100: null,
     points_200: null,
@@ -149,6 +150,8 @@ var ImageManager = (function() {
     battle_city: null,
     namcot: null,
     copyright: null,
+    white_line: null,
+    arrow: null,
   };
   
   for (var i in images) {

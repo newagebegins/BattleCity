@@ -31,6 +31,11 @@ SceneManager.prototype.toConstructionScene = function () {
   this._scene = new Construction(this);
 };
 
+SceneManager.prototype.toStageStatisticsScene = function () {
+  this._eventManager.removeAllSubscribers();
+  this._scene = new StageStatisticsScene(this);
+};
+
 SceneManager.prototype.update = function () {
   this._scene.update();
 };

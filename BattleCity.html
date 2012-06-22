@@ -95,6 +95,7 @@
   <script type="text/javascript" src="src/Stages.js"></script>
   <script type="text/javascript" src="src/MoveFn.js"></script>
   <script type="text/javascript" src="src/GameOverMessage.js"></script>
+  <script type="text/javascript" src="src/StageStatisticsScene.js"></script>
   
   <script type="text/javascript" src="lib/Stats.js"></script>
   <script type="text/javascript" src="src/FPSCounter.js"></script>
@@ -126,7 +127,6 @@
         keyboard.fireEvents();
         sceneManager.update();
         
-        clearCanvas();
         sceneManager.draw(ctx);
         
         fpsCounter.end();
@@ -136,11 +136,6 @@
         $('<canvas id="' + CANVAS_ID + '" width="' + Globals.CANVAS_WIDTH + '" height="' + Globals.CANVAS_HEIGHT + '"></canvas>').appendTo('body');
         var canvas = document.getElementById(CANVAS_ID);
         return canvas.getContext('2d');
-      };
-      
-      function clearCanvas() {
-        ctx.fillStyle = "#808080";
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       };
     });
   </script>

@@ -64,6 +64,7 @@ function Level(sceneManager, stageNumber) {
   this._gameOverScript.setActive(false);
   this._gameOverScript.enqueue(new MoveFn(this._gameOverMessage, 'y', 213, 100, this._gameOverScript));
   this._gameOverScript.enqueue(new Delay(this._gameOverScript, 50));
+  this._gameOverScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(); }});
   
   this._loadStage(this._stage);
 }
