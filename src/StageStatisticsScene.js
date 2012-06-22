@@ -1,5 +1,6 @@
-function StageStatisticsScene(sceneManager) {
+function StageStatisticsScene(sceneManager, stage) {
   this._sceneManager = sceneManager;
+  this._stage = stage;
   
   this._script = new Script();
   this._script.enqueue(new Delay(this._script, 100));
@@ -18,7 +19,7 @@ StageStatisticsScene.prototype.draw = function (ctx) {
   ctx.fillText("20000", 306, 32 + 14);
   
   ctx.fillStyle = "#ffffff";
-  ctx.fillText("STAGE  1", 194, 64 + 14);
+  ctx.fillText("STAGE " + ("" + this._stage).lpad(" ", 2), 194, 64 + 14);
   
   ctx.drawImage(ImageManager.getImage('roman_one_red'), 52, 96);
   
