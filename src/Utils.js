@@ -25,3 +25,10 @@ function arrayRemove(arr, obj) {
 function arrayRandomElement(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
+
+String.prototype.lpad = function(padString, length) {
+  var str = this;
+  while (str.length < length)
+    str = padString + str;
+  return str;
+}

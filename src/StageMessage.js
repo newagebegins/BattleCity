@@ -1,4 +1,5 @@
-function StageMessage() {
+function StageMessage(stage) {
+  this._stage = stage;
   this._visible = false;
 }
 
@@ -15,5 +16,5 @@ StageMessage.prototype.draw = function (ctx) {
     return;
   }
   ctx.fillStyle = "black";
-  ctx.fillText("STAGE  1", 195, 222);
+  ctx.fillText("STAGE " + ("" + this._stage).lpad(" ", 2), 195, 222);
 };

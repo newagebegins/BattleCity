@@ -2,8 +2,9 @@ function GameScene(sceneManager) {
   var self = this;
   this._sceneManager = sceneManager;
   this._curtain = new Curtain();
-  this._stageMessage = new StageMessage();
-  this._level = new Level(sceneManager);
+  this._stage = 1;
+  this._stageMessage = new StageMessage(this._stage);
+  this._level = new Level(sceneManager, this._stage);
   
   this._script = new Script();
   this._script.enqueue({update: function () {

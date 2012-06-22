@@ -27,3 +27,9 @@ describe("arrayRemove", function () {
     expect(a).toEqual([1, 3]);
   });
 });
+
+describe("String", function () {
+  it("#lpad", function () {
+    expect("1".lpad(" ", 2)).toEqual(" 1");
+  });
+});

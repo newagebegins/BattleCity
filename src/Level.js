@@ -1,8 +1,8 @@
-function Level(sceneManager) {
+function Level(sceneManager, stageNumber) {
   Gamefield.call(this, sceneManager);
   
   this._visible = false;
-  this._stage = 1;
+  this._stage = stageNumber;
   
   new PlayerTankControllerFactory(this._eventManager);
   
@@ -134,5 +134,5 @@ Level.prototype._drawFlag = function (ctx) {
   ctx.drawImage(ImageManager.getImage('flag'), 464, 352);
   
   ctx.fillStyle = "black";
-  ctx.fillText(this._stage, 482, 398);
+  ctx.fillText(("" + this._stage).lpad(" ", 2), 466, 398);
 };
