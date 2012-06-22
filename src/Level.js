@@ -1,4 +1,4 @@
-function Level(sceneManager, stageNumber) {
+function Level(sceneManager, stageNumber, player) {
   Gamefield.call(this, sceneManager);
   
   var self = this;
@@ -56,11 +56,17 @@ function Level(sceneManager, stageNumber) {
   
   this._pause = new Pause(this._eventManager);
   
-  var lives = new Lives(this._eventManager);
-  this._livesView = new LivesView(lives);
-  var score = new Score(this._eventManager);
-  
-  this._player = new Player(this._eventManager, lives, score);
+  if (player !== undefined) {
+    this._player = player;
+    this._livesView = new LivesView(this._player.getLives());
+  }
+  else {
+    var lives = new Lives(this._eventManager);
+    this._livesView = new LivesView(lives);
+    var score = new Score(this._eventManager);
+
+    this._player = new Player(this._eventManager, lives, score);
+  }
   
   this._gameOverMessage = new GameOverMessage();
   
@@ -68,12 +74,12 @@ function Level(sceneManager, stageNumber) {
   this._gameOverScript.setActive(false);
   this._gameOverScript.enqueue(new MoveFn(this._gameOverMessage, 'y', 213, 100, this._gameOverScript));
   this._gameOverScript.enqueue(new Delay(this._gameOverScript, 50));
-  this._gameOverScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player); }});
+  this._gameOverScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player, true); }});
   
   this._levelTransitionScript = new Script();
   this._levelTransitionScript.setActive(false);
   this._levelTransitionScript.enqueue(new Delay(this._levelTransitionScript, 200));
-  this._levelTransitionScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player); }});
+  this._levelTransitionScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player, false); }});
   
   this._loadStage(this._stage);
 }

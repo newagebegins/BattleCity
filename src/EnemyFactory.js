@@ -124,7 +124,7 @@ EnemyFactory.prototype.notify = function (event) {
     this._enemyCount--;
   }
   else if (event.name == TankExplosion.Event.DESTROYED) {
-    if (this.getEnemiesToCreateCount() == 0) {
+    if (event.explosion.getTank().isEnemy() && this.getEnemiesToCreateCount() == 0) {
       this._eventManager.fireEvent({'name': EnemyFactory.Event.LAST_ENEMY_DESTROYED});
     }
   }

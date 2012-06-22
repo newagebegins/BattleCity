@@ -33,3 +33,7 @@ Player.prototype.getTanks = function (type) {
 Player.prototype.getTanksCount = function () {
   return this._tanksCount;
 };
+
+Player.prototype.getLives = function () {
+  return this._lives;
+};

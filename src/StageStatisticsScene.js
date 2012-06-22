@@ -1,9 +1,10 @@
-function StageStatisticsScene(sceneManager, stage, player) {
+function StageStatisticsScene(sceneManager, stage, player, gameOver) {
   var self = this;
   
   this._sceneManager = sceneManager;
   this._stage = stage;
   this._player = player;
+  this._gameOver = gameOver;
   
   this._script = new Script();
   
@@ -23,8 +24,15 @@ function StageStatisticsScene(sceneManager, stage, player) {
   this._script.enqueue({execute: function () { self._armorTankPoints.show(); }});
   this._script.enqueue(this._armorTankPoints);
   this._script.enqueue({execute: function () { self._drawTotal = true; }});
-  this._script.enqueue(new Delay(this._script, 30));
-  this._script.enqueue({execute: function () { sceneManager.toGameOverScene(); }});
+  this._script.enqueue(new Delay(this._script, 60));
+  this._script.enqueue({execute: function () {
+    if (gameOver) {
+      sceneManager.toGameOverScene();
+    }
+    else {
+      sceneManager.toGameScene(stage + 1, player);
+    }
+  }});
 };
 
 StageStatisticsScene.prototype.update = function () {
