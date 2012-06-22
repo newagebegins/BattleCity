@@ -81,6 +81,15 @@ var ImageManager = (function() {
     tank_power_up_c0_t1: null,
     tank_power_up_c0_t2: null,
     
+    tank_power_down_c0_t1_f: null,
+    tank_power_down_c0_t2_f: null,
+    tank_power_left_c0_t1_f: null,
+    tank_power_left_c0_t2_f: null,
+    tank_power_right_c0_t1_f: null,
+    tank_power_right_c0_t2_f: null,
+    tank_power_up_c0_t1_f: null,
+    tank_power_up_c0_t2_f: null,
+    
     tank_armor_down_c0_t1: null,
     tank_armor_down_c0_t2: null,
     tank_armor_down_c1_t1: null,
