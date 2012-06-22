@@ -36,6 +36,11 @@ SceneManager.prototype.toStageStatisticsScene = function () {
   this._scene = new StageStatisticsScene(this);
 };
 
+SceneManager.prototype.toGameOverScene = function () {
+  this._eventManager.removeAllSubscribers();
+  this._scene = new GameOverScene(this);
+};
+
 SceneManager.prototype.update = function () {
   this._scene.update();
 };

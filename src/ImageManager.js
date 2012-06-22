@@ -152,6 +152,7 @@ var ImageManager = (function() {
     copyright: null,
     white_line: null,
     arrow: null,
+    game_over: null,
   };
   
   for (var i in images) {
