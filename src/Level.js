@@ -3,16 +3,20 @@ function Level(sceneManager, stageNumber, player) {
   
   var self = this;
   
-  this._eventManager.addSubscriber(this, [BaseExplosion.Event.DESTROYED, EnemyFactory.Event.LAST_ENEMY_DESTROYED]);
+  this._eventManager.addSubscriber(this, [
+    BaseExplosion.Event.DESTROYED,
+    Player.Event.OUT_OF_LIVES,
+    EnemyFactory.Event.LAST_ENEMY_DESTROYED
+  ]);
   
   this._visible = false;
   this._stage = stageNumber;
   
   new PlayerTankControllerFactory(this._eventManager);
   
-  var playerTankFactory = new PlayerTankFactory(this._eventManager);
-  playerTankFactory.setAppearPosition(new Point(this._x + 4 * Globals.UNIT_SIZE, this._y + 12 * Globals.UNIT_SIZE));
-  playerTankFactory.create();
+  this._playerTankFactory = new PlayerTankFactory(this._eventManager);
+  this._playerTankFactory.setAppearPosition(new Point(this._x + 4 * Globals.UNIT_SIZE, this._y + 12 * Globals.UNIT_SIZE));
+  this._playerTankFactory.create();
 
   new BulletFactory(this._eventManager);
   new BulletExplosionFactory(this._eventManager);
@@ -110,6 +114,11 @@ Level.prototype.notify = function (event) {
   if (event.name == BaseExplosion.Event.DESTROYED) {
     this._gameOverScript.setActive(true);
     this._pause.setActive(false);
+  }
+  else if (event.name == Player.Event.OUT_OF_LIVES) {
+    this._gameOverScript.setActive(true);
+    this._pause.setActive(false);
+    this._playerTankFactory.setActive(false);
   }
   else if (event.name == EnemyFactory.Event.LAST_ENEMY_DESTROYED) {
     this._levelTransitionScript.setActive(true);
