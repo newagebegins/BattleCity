@@ -3,7 +3,8 @@ describe("PowerUp", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var powerUp = new PowerUp(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(powerUp, [CollisionDetector.Event.COLLISION]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(powerUp,
+      [CollisionDetector.Event.COLLISION, EnemyFactory.Event.ENEMY_CREATED]);
   });
   
   describe("#notify", function () {
@@ -20,6 +21,17 @@ describe("PowerUp", function () {
         expect(powerUp.destroy).toHaveBeenCalled();
         expect(powerUp.getPlayerTank()).toEqual(player);
       });
+    });
+    
+    it("EnemyFactory.Event.ENEMY_CREATED", function () {
+      var eventManager = new EventManager();
+      var enemy = new Tank(eventManager);
+      enemy.makeEnemy();
+      enemy.startFlashing();
+      var powerUp = new PowerUp(eventManager);
+      spyOn(powerUp, 'destroy');
+      powerUp.notify({'name': EnemyFactory.Event.ENEMY_CREATED, 'enemy': enemy});
+      expect(powerUp.destroy).toHaveBeenCalled();
     });
   });
   

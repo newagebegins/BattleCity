@@ -1,6 +1,6 @@
 function PowerUp(eventManager) {
   Sprite.call(this, eventManager);
-  this._eventManager.addSubscriber(this, [CollisionDetector.Event.COLLISION]);
+  this._eventManager.addSubscriber(this, [CollisionDetector.Event.COLLISION, EnemyFactory.Event.ENEMY_CREATED]);
   
   this._w = Globals.UNIT_SIZE;
   this._h = Globals.UNIT_SIZE;
@@ -58,6 +58,11 @@ PowerUp.prototype.notify = function (event) {
   if (this._collidedWithPlayer(event)) {
     this._playerTank = event.initiator;
     this.destroy();
+  }
+  else if (event.name == EnemyFactory.Event.ENEMY_CREATED) {
+    if (event.enemy.isFlashing()) {
+      this.destroy();
+    }
   }
 };
 
