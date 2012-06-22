@@ -26,6 +26,7 @@ function StageStatisticsScene(sceneManager, stage, player, gameOver) {
   this._script.enqueue({execute: function () { self._drawTotal = true; }});
   this._script.enqueue(new Delay(this._script, 60));
   this._script.enqueue({execute: function () {
+    self._player.resetTanks();
     if (gameOver) {
       sceneManager.toGameOverScene();
     }

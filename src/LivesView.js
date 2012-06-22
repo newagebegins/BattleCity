@@ -1,5 +1,5 @@
-function LivesView(lives) {
-  this._lives = lives;
+function LivesView(player) {
+  this._player = player;
 }
 
 LivesView.prototype.draw = function (ctx) {
@@ -9,7 +9,7 @@ LivesView.prototype.draw = function (ctx) {
   ctx.drawImage(ImageManager.getImage('roman_one'), 468, 256);
   
   ctx.fillText("P", 482, 286 - 16);
-  ctx.fillText(this._lives.getCount(), 482, 286);
+  ctx.fillText(this._player.getLives(), 482, 286);
   
   ctx.drawImage(ImageManager.getImage('lives'), 465, 272);
 };

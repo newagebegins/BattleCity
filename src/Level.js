@@ -56,17 +56,10 @@ function Level(sceneManager, stageNumber, player) {
   
   this._pause = new Pause(this._eventManager);
   
-  if (player !== undefined) {
-    this._player = player;
-    this._livesView = new LivesView(this._player.getLives());
-  }
-  else {
-    var lives = new Lives(this._eventManager);
-    this._livesView = new LivesView(lives);
-    var score = new Score(this._eventManager);
-
-    this._player = new Player(this._eventManager, lives, score);
-  }
+  this._player = player === undefined ? new Player() : player;
+  this._player.setEventManager(this._eventManager);
+  
+  this._livesView = new LivesView(this._player);
   
   this._gameOverMessage = new GameOverMessage();
   
@@ -124,7 +117,7 @@ Level.prototype.notify = function (event) {
 };
 
 Level.prototype._loadStage = function (stageNumber) {
-  var stage = Globals.stages[stageNumber];
+  var stage = Globals.stages[(stageNumber - 1) % Globals.stages.length];
   
   var serializer = new SpriteSerializer(this._eventManager);
   serializer.unserializeSprites(stage.map);
