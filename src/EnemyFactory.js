@@ -1,6 +1,6 @@
 function EnemyFactory(eventManager) {
   this._eventManager = eventManager;
-  this._eventManager.addSubscriber(this, [Points.Event.DESTROYED]);
+  this._eventManager.addSubscriber(this, [Points.Event.DESTROYED, TankExplosion.Event.DESTROYED]);
   
   this._pauseListener = new PauseListener(this._eventManager);
   
@@ -18,6 +18,7 @@ function EnemyFactory(eventManager) {
 
 EnemyFactory.Event = {};
 EnemyFactory.Event.ENEMY_CREATED = 'EnemyFactory.Event.ENEMY_CREATED';
+EnemyFactory.Event.LAST_ENEMY_DESTROYED = 'EnemyFactory.Event.LAST_ENEMY_DESTROYED';
 
 EnemyFactory.prototype.setEnemies = function (enemies) {
   this._enemies = enemies;
@@ -121,6 +122,11 @@ EnemyFactory.prototype.getEnemiesToCreateCount = function () {
 EnemyFactory.prototype.notify = function (event) {
   if (event.name == Points.Event.DESTROYED) {
     this._enemyCount--;
+  }
+  else if (event.name == TankExplosion.Event.DESTROYED) {
+    if (this.getEnemiesToCreateCount() == 0) {
+      this._eventManager.fireEvent({'name': EnemyFactory.Event.LAST_ENEMY_DESTROYED});
+    }
   }
 };
 

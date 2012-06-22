@@ -3,7 +3,7 @@ function Level(sceneManager, stageNumber) {
   
   var self = this;
   
-  this._eventManager.addSubscriber(this, [BaseExplosion.Event.DESTROYED]);
+  this._eventManager.addSubscriber(this, [BaseExplosion.Event.DESTROYED, EnemyFactory.Event.LAST_ENEMY_DESTROYED]);
   
   this._visible = false;
   this._stage = stageNumber;
@@ -70,6 +70,11 @@ function Level(sceneManager, stageNumber) {
   this._gameOverScript.enqueue(new Delay(this._gameOverScript, 50));
   this._gameOverScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player); }});
   
+  this._levelTransitionScript = new Script();
+  this._levelTransitionScript.setActive(false);
+  this._levelTransitionScript.enqueue(new Delay(this._levelTransitionScript, 200));
+  this._levelTransitionScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player); }});
+  
   this._loadStage(this._stage);
 }
 
@@ -83,6 +88,7 @@ Level.prototype.update = function () {
   this._shovelHandler.update();
   this._pause.update();
   this._gameOverScript.update();
+  this._levelTransitionScript.update();
 };
 
 Level.prototype.draw = function (ctx) {
@@ -105,6 +111,9 @@ Level.prototype.notify = function (event) {
   if (event.name == BaseExplosion.Event.DESTROYED) {
     this._gameOverScript.setActive(true);
     this._pause.setActive(false);
+  }
+  else if (event.name == EnemyFactory.Event.LAST_ENEMY_DESTROYED) {
+    this._levelTransitionScript.setActive(true);
   }
 };
 
