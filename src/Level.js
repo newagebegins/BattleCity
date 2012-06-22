@@ -1,6 +1,8 @@
 function Level(sceneManager, stageNumber) {
   Gamefield.call(this, sceneManager);
   
+  var self = this;
+  
   this._eventManager.addSubscriber(this, [BaseExplosion.Event.DESTROYED]);
   
   this._visible = false;
@@ -17,7 +19,6 @@ function Level(sceneManager, stageNumber) {
   new TankExplosionFactory(this._eventManager);
   new BaseExplosionFactory(this._eventManager);
   new PointsFactory(this._eventManager);
-  new Score(this._eventManager);
   this._freezeTimer = new FreezeTimer(this._eventManager);
   
   this._aiControllersContainer = new AITankControllerContainer(this._eventManager);
@@ -57,6 +58,9 @@ function Level(sceneManager, stageNumber) {
   
   var lives = new Lives(this._eventManager);
   this._livesView = new LivesView(lives);
+  var score = new Score(this._eventManager);
+  
+  this._player = new Player(this._eventManager, lives, score);
   
   this._gameOverMessage = new GameOverMessage();
   
@@ -64,7 +68,7 @@ function Level(sceneManager, stageNumber) {
   this._gameOverScript.setActive(false);
   this._gameOverScript.enqueue(new MoveFn(this._gameOverMessage, 'y', 213, 100, this._gameOverScript));
   this._gameOverScript.enqueue(new Delay(this._gameOverScript, 50));
-  this._gameOverScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber); }});
+  this._gameOverScript.enqueue({execute: function () { sceneManager.toStageStatisticsScene(stageNumber, self._player); }});
   
   this._loadStage(this._stage);
 }
