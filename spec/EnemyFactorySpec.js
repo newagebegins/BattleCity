@@ -197,23 +197,21 @@ describe("EnemyFactory", function () {
   });
   
   describe("#notify", function () {
-    it("Points.Event.DESTROYED", function () {
-      var eventManager = new EventManager();
-      var factory = new EnemyFactory(eventManager);
-      var enemy = Tank.Type.BASIC;
-      var position = new Point(1, 2);
-      var tank = factory.createEnemy(enemy, position);
-      
-      expect(factory.getEnemyCount()).toEqual(1);
-      
-      var points = new Points(eventManager);
-      points.setType(Points.Type.TANK);
-      factory.notify({'name': Points.Event.DESTROYED, 'points': points});
-      
-      expect(factory.getEnemyCount()).toEqual(0);
-    });
-    
     describe("TankExplosion.Event.DESTROYED", function () {
+      it("enemy count should decrease", function () {
+        var eventManager = new EventManager();
+        var factory = new EnemyFactory(eventManager);
+        var tank = factory.createEnemy(Tank.Type.BASIC, new Point(1, 2));
+        tank.makeEnemy();
+
+        expect(factory.getEnemyCount()).toEqual(1);
+
+        var explosion = new TankExplosion(eventManager, tank);
+        factory.notify({'name': TankExplosion.Event.DESTROYED, 'explosion': explosion});
+
+        expect(factory.getEnemyCount()).toEqual(0);
+      });
+    
       it("no tanks left", function () {
         var eventManager = new EventManager();
         spyOn(eventManager, 'fireEvent')
@@ -225,11 +223,26 @@ describe("EnemyFactory", function () {
         expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': EnemyFactory.Event.LAST_ENEMY_DESTROYED});
       });
 
-      it("more tanks left", function () {
+      it("tanks to create left", function () {
         var eventManager = new EventManager();
         spyOn(eventManager, 'fireEvent')
         var factory = new EnemyFactory(eventManager);
         factory.setEnemies([Tank.Type.BASIC]);
+        var tank = new Tank(eventManager);
+        tank.makeEnemy();
+        var explosion = new TankExplosion(eventManager, tank);
+        factory.notify({'name': TankExplosion.Event.DESTROYED, 'explosion': explosion});
+        expect(eventManager.fireEvent).not.toHaveBeenCalledWith({'name': EnemyFactory.Event.LAST_ENEMY_DESTROYED});
+      });
+
+      it("tanks on the field left", function () {
+        var eventManager = new EventManager();
+        spyOn(eventManager, 'fireEvent')
+        var factory = new EnemyFactory(eventManager);
+        factory.setEnemies([Tank.Type.BASIC, Tank.Type.BASIC]);
+        factory.setPositions([new Point(0, 0)]);
+        factory.create();
+        factory.create();
         var tank = new Tank(eventManager);
         tank.makeEnemy();
         var explosion = new TankExplosion(eventManager, tank);
