@@ -8,6 +8,7 @@ var SoundManager = (function() {
     explosion_2: null,
     pause: null,
     powerup_appear: null,
+    powerup_pick: null,
   };
   
   for (var i in sounds) {

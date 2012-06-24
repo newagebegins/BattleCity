@@ -23,6 +23,8 @@ PowerUpHandler.prototype.notify = function (event) {
 };
 
 PowerUpHandler.prototype.handle = function (powerUp) {
+  SoundManager.play("powerup_pick");
+  
   if (powerUp.getType() == PowerUp.Type.GRENADE) {
     this.handleGrenade();
   }
