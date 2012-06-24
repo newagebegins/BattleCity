@@ -1,6 +1,7 @@
 var SoundManager = (function() {
   var sounds = {
     stage_start: null,
+    game_over: null,
   };
   
   for (var i in sounds) {

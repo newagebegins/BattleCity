@@ -2,6 +2,8 @@ function GameOverScene(sceneManager) {
   this._sceneManager = sceneManager;
   
   this._script = new Script();
+  this._script.enqueue(new Delay(this._script, 10));
+  this._script.enqueue({execute: function () {SoundManager.play("game_over");}});
   this._script.enqueue(new Delay(this._script, 100));
   this._script.enqueue({execute: function () {sceneManager.toMainMenuScene();}});
 };
