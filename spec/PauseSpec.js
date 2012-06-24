@@ -11,8 +11,8 @@ describe("Pause", function () {
       var eventManager = new EventManager();
       var pause = new Pause(eventManager);
       spyOn(pause, 'keyPressed');
-      pause.notify({'name': Keyboard.Event.KEY_PRESSED, 'key': Keyboard.Key.P});
-      expect(pause.keyPressed).toHaveBeenCalledWith(Keyboard.Key.P);
+      pause.notify({'name': Keyboard.Event.KEY_PRESSED, 'key': Keyboard.Key.START});
+      expect(pause.keyPressed).toHaveBeenCalledWith(Keyboard.Key.START);
     });
   });
   
@@ -21,10 +21,10 @@ describe("Pause", function () {
     spyOn(eventManager, 'fireEvent');
     var pause = new Pause(eventManager);
     
-    pause.keyPressed(Keyboard.Key.P);
+    pause.keyPressed(Keyboard.Key.START);
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Pause.Event.START});
     
-    pause.keyPressed(Keyboard.Key.P);
+    pause.keyPressed(Keyboard.Key.START);
     expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': Pause.Event.END});
   });
 });

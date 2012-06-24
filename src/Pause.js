@@ -20,7 +20,7 @@ Pause.prototype.keyPressed = function (key) {
   if (!this._active) {
     return;
   }
-  if (key == Keyboard.Key.P) {
+  if (key == Keyboard.Key.START) {
     this._pause = !this._pause;
     
     if (this._pause) {

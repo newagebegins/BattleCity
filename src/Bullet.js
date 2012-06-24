@@ -30,8 +30,13 @@ Bullet.prototype.notify = function (event) {
     this.destroy();
   }
   else if (this._wallCollision(event)) {
-    if (this._tank.isPlayer() && event.sprite instanceof SteelWall) {
-      SoundManager.play("bullet_hit_1");
+    if (this._tank.isPlayer()) {
+      if (event.sprite instanceof SteelWall) {
+        SoundManager.play("bullet_hit_1");
+      }
+      else if (event.sprite instanceof BrickWall) {
+        SoundManager.play("bullet_hit_2");
+      }
     }
     this.destroy();
   }
