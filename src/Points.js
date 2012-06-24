@@ -3,9 +3,14 @@ function Points(eventManager) {
   this._value = 0;
   this._duration = 20;
   this._timer = 0;
+  this._type = Points.Type.TANK;
 }
 
 Points.subclass(Sprite);
+
+Points.Type = {};
+Points.Type.TANK = 'Points.Type.TANK';
+Points.Type.POWERUP = 'Points.Type.POWERUP';
 
 Points.Event = {};
 Points.Event.DESTROYED = 'Points.Event.DESTROYED';
@@ -20,6 +25,14 @@ Points.prototype.getValue = function () {
 
 Points.prototype.setDuration = function (duration) {
   this._duration = duration;
+};
+
+Points.prototype.setType = function (type) {
+  this._type = type;
+};
+
+Points.prototype.getType = function () {
+  return this._type;
 };
 
 Points.prototype.updateTimer = function () {

@@ -207,6 +207,7 @@ describe("EnemyFactory", function () {
       expect(factory.getEnemyCount()).toEqual(1);
       
       var points = new Points(eventManager);
+      points.setType(Points.Type.TANK);
       factory.notify({'name': Points.Event.DESTROYED, 'points': points});
       
       expect(factory.getEnemyCount()).toEqual(0);

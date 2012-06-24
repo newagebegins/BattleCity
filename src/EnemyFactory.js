@@ -131,7 +131,7 @@ EnemyFactory.prototype.getEnemiesToCreateCount = function () {
 };
 
 EnemyFactory.prototype.notify = function (event) {
-  if (event.name == Points.Event.DESTROYED) {
+  if (event.name == Points.Event.DESTROYED && event.points.getType() == Points.Type.TANK) {
     this._enemyCount--;
   }
   else if (event.name == TankExplosion.Event.DESTROYED) {

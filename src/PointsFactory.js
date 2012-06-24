@@ -11,15 +11,15 @@ PointsFactory.prototype.notify = function (event) {
   if (this._enemyTankExplosionEnd(event)) {
     var explosion = event.explosion;
     var tank = explosion.getTank();
-    this.create(explosion.getCenter(), tank.getValue());
+    this.create(explosion.getCenter(), tank.getValue(), Points.Type.TANK);
   }
   else if (event.name == PowerUp.Event.DESTROYED) {
     var powerUp = event.powerUp;
-    this.create(powerUp.getCenter(), powerUp.getValue());
+    this.create(powerUp.getCenter(), powerUp.getValue(), Points.Type.POWERUP);
   }
 };
 
-PointsFactory.prototype.create = function (center, value) {
+PointsFactory.prototype.create = function (center, value, type) {
   var points = new Points(this._eventManager);
   points.setValue(value);
   points.setRect(new Rect(
@@ -27,6 +27,7 @@ PointsFactory.prototype.create = function (center, value) {
     center.getY() - this._pointsSize / 2,
     this._pointsSize,
     this._pointsSize));
+  points.setType(type);
   this._eventManager.fireEvent({'name': PointsFactory.Event.POINTS_CREATED, 'points': points});
   return points;
 };
