@@ -4,6 +4,8 @@ var SoundManager = (function() {
     game_over: null,
     bullet_shot: null,
     bullet_hit_1: null,
+    explosion_1: null,
+    explosion_2: null,
   };
   
   for (var i in sounds) {

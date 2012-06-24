@@ -26,5 +26,8 @@ TankExplosionFactory.prototype.create = function (tank) {
     tankCenter.getY() - this._explosionSize / 2,
     this._explosionSize,
     this._explosionSize));
+  
+  SoundManager.play("explosion_1");
+ 
   return explosion;
 };

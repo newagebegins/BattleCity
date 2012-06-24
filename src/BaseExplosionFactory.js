@@ -26,5 +26,8 @@ BaseExplosionFactory.prototype.create = function (base) {
     baseCenter.getY() - this._explosionSize / 2,
     this._explosionSize,
     this._explosionSize));
+    
+  SoundManager.play("explosion_2");
+  
   return explosion;
 };
