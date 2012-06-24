@@ -26,5 +26,8 @@ PowerUpFactory.prototype.create = function () {
   ];
   powerUp.setType(arrayRandomElement(types));
   powerUp.setPosition(arrayRandomElement(this._positions));
+  
+  SoundManager.play("powerup_appear");
+  
   return powerUp;
 };
