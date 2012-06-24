@@ -53,3 +53,30 @@ Globals.stages.push({
     Tank.Type.BASIC,
   ]
 });;
+
+// Stage 3
+Globals.stages.push({
+  map: "Base(224,400);BrickWall(208,416);BrickWall(208,400);BrickWall(208,384);BrickWall(224,384);BrickWall(240,384);BrickWall(256,384);BrickWall(256,400);BrickWall(256,416);BrickWall(32,80);BrickWall(48,80);BrickWall(32,96);BrickWall(48,96);Trees(64,48);Trees(64,80);Trees(96,80);Trees(96,48);Trees(128,48);Trees(128,80);Trees(128,112);Trees(96,112);Trees(64,112);Trees(32,112);Trees(32,144);Trees(64,144);Trees(96,144);Trees(128,144);Trees(128,176);Trees(96,176);Trees(64,176);Trees(32,176);Trees(64,208);BrickWall(64,256);BrickWall(80,256);BrickWall(64,272);BrickWall(64,288);BrickWall(32,272);BrickWall(48,272);BrickWall(32,288);BrickWall(48,288);BrickWall(112,272);BrickWall(112,288);BrickWall(128,256);BrickWall(144,256);BrickWall(160,272);BrickWall(160,288);BrickWall(128,272);BrickWall(144,272);BrickWall(128,288);BrickWall(144,288);BrickWall(32,336);BrickWall(48,336);BrickWall(32,352);BrickWall(48,352);BrickWall(32,368);BrickWall(48,368);BrickWall(32,384);BrickWall(48,384);BrickWall(64,368);BrickWall(80,368);BrickWall(64,384);BrickWall(80,384);BrickWall(64,400);BrickWall(80,400);BrickWall(64,416);BrickWall(80,416);BrickWall(96,400);BrickWall(112,400);BrickWall(96,416);BrickWall(112,416);SteelWall(32,400);SteelWall(48,400);SteelWall(32,416);SteelWall(48,416);SteelWall(128,368);SteelWall(128,384);SteelWall(128,336);SteelWall(128,352);BrickWall(208,272);BrickWall(208,288);BrickWall(224,272);BrickWall(240,272);BrickWall(256,272);BrickWall(272,272);BrickWall(288,272);BrickWall(304,272);BrickWall(192,304);BrickWall(208,304);BrickWall(192,320);BrickWall(208,320);BrickWall(256,320);BrickWall(272,320);BrickWall(288,320);BrickWall(304,320);BrickWall(256,336);BrickWall(272,336);BrickWall(288,336);BrickWall(304,336);BrickWall(320,400);BrickWall(336,400);BrickWall(320,416);BrickWall(336,416);Trees(320,368);Trees(352,368);Trees(384,368);Trees(384,336);Trees(352,336);Trees(320,336);Trees(320,304);Trees(352,304);Trees(384,304);Trees(416,304);Trees(416,272);Trees(384,272);Trees(352,272);Trees(320,272);Trees(320,240);Trees(352,240);Trees(416,240);Trees(384,240);Trees(384,208);SteelWall(288,208);SteelWall(304,208);SteelWall(288,224);SteelWall(304,224);SteelWall(256,208);SteelWall(272,208);SteelWall(256,224);SteelWall(272,224);SteelWall(224,208);SteelWall(240,208);SteelWall(224,224);SteelWall(240,224);BrickWall(224,176);BrickWall(240,176);BrickWall(224,192);BrickWall(240,192);BrickWall(224,144);BrickWall(240,144);BrickWall(224,160);BrickWall(240,160);BrickWall(192,144);BrickWall(208,144);BrickWall(192,160);BrickWall(208,160);BrickWall(160,144);BrickWall(176,144);BrickWall(160,160);BrickWall(176,160);BrickWall(256,112);BrickWall(272,112);BrickWall(256,128);BrickWall(272,128);BrickWall(256,144);BrickWall(272,144);BrickWall(320,144);BrickWall(336,144);BrickWall(320,160);BrickWall(336,160);BrickWall(320,112);BrickWall(336,112);BrickWall(320,128);BrickWall(336,128);BrickWall(352,112);BrickWall(368,112);BrickWall(352,128);BrickWall(368,128);BrickWall(384,112);BrickWall(400,112);BrickWall(384,128);BrickWall(400,128);BrickWall(416,112);BrickWall(416,128);BrickWall(400,144);BrickWall(400,160);BrickWall(400,176);BrickWall(400,192);BrickWall(288,16);BrickWall(304,16);BrickWall(288,32);BrickWall(304,32);BrickWall(160,16);BrickWall(176,16);BrickWall(160,32);BrickWall(176,32);BrickWall(160,48);BrickWall(176,48);BrickWall(160,64);BrickWall(176,64);SteelWall(416,64);SteelWall(432,64);SteelWall(384,64);SteelWall(400,64);SteelWall(352,64);SteelWall(368,64)",
+  tanks: [
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.BASIC,
+    Tank.Type.FAST,
+    Tank.Type.FAST,
+    Tank.Type.FAST,
+    Tank.Type.FAST,
+    Tank.Type.ARMOR,
+    Tank.Type.ARMOR,
+  ]
+});;
