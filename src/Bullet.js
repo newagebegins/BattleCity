@@ -23,7 +23,19 @@ Bullet.Type.NORMAL = 'Bullet.Type.NORMAL';
 Bullet.Type.ENHANCED = 'Bullet.Type.ENHANCED';
 
 Bullet.prototype.notify = function (event) {
-  if (this._outOfBounds(event) || this._wallCollision(event) || this._baseCollision(event)) {
+  if (this._outOfBounds(event)) {
+    if (this._tank.isPlayer()) {
+      SoundManager.play("bullet_hit_1");
+    }
+    this.destroy();
+  }
+  else if (this._wallCollision(event)) {
+    if (this._tank.isPlayer() && event.sprite instanceof SteelWall) {
+      SoundManager.play("bullet_hit_1");
+    }
+    this.destroy();
+  }
+  else if (this._baseCollision(event)) {
     this.destroy();
   }
   else if (this._tankCollision(event) && event.sprite.isCollidable()) {
