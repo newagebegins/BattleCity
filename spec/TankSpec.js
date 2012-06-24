@@ -127,6 +127,16 @@ describe("Tank", function () {
     expect(tank.resolveCollisionWithSprite).toHaveBeenCalledWith(base);
   });
   
+  it("should resolve collision when collides with water", function () {
+    spyOn(tank, 'resolveCollisionWithSprite');
+    var water = new Water(eventManager);
+    tank.notify({
+      'name': CollisionDetector.Event.COLLISION,
+      'initiator': tank,
+      'sprite': water});
+    expect(tank.resolveCollisionWithSprite).toHaveBeenCalledWith(water);
+  });
+  
   describe("collision with a tank", function () {
     it("normal tank", function () {
       spyOn(tank, 'resolveCollisionWithSprite');

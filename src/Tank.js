@@ -166,7 +166,7 @@ Tank.prototype.notify = function (event) {
   if (event.name == Bullet.Event.DESTROYED && event.tank == this) {
     this._bullets--;
   }
-  else if (this._wallCollision(event) || this._tankCollision(event) || this._baseCollision(event)) {
+  else if (this._wallCollision(event) || this._tankCollision(event) || this._baseCollision(event) || this._waterCollision(event)) {
     this.resolveCollisionWithSprite(event.sprite);
   }
   else if (this._bulletCollision(event) && this.canBeDestroyed()) {
@@ -400,6 +400,12 @@ Tank.prototype._baseCollision = function (event) {
   return event.name == CollisionDetector.Event.COLLISION &&
     event.initiator === this &&
     event.sprite instanceof Base;
+};
+
+Tank.prototype._waterCollision = function (event) {
+  return event.name == CollisionDetector.Event.COLLISION &&
+    event.initiator === this &&
+    event.sprite instanceof Water;
 };
 
 Tank.prototype._tankCollision = function (event) {
