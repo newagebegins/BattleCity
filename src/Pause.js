@@ -24,6 +24,7 @@ Pause.prototype.keyPressed = function (key) {
     this._pause = !this._pause;
     
     if (this._pause) {
+      SoundManager.play("pause");
       this._eventManager.fireEvent({'name': Pause.Event.START});
     }
     else {
