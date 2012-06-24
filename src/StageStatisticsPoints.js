@@ -10,7 +10,10 @@ function StageStatisticsPoints(value, count, listener) {
   this._script = new Script();
   this._script.enqueue(new Delay(this._script, 15));
   for (var i = 1; i < this._count; ++i) {
-    this._script.enqueue({execute: function () { self._counter++; }});
+    this._script.enqueue({execute: function () {
+      self._counter++;
+      SoundManager.play("statistics_1");
+    }});
     this._script.enqueue(new Delay(this._script, 10));
   }
   this._script.enqueue(new Delay(this._script, 15));

@@ -9,6 +9,7 @@ var SoundManager = (function() {
     pause: null,
     powerup_appear: null,
     powerup_pick: null,
+    statistics_1: null,
   };
   
   for (var i in sounds) {
