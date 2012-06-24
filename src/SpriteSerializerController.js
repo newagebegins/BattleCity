@@ -11,7 +11,7 @@ SpriteSerializerController.prototype._createTextArea = function () {
   this._textarea.css('width', Globals.CANVAS_WIDTH - 6);
   this._div = $('<div id="serialize" />');
   this._div.append(this._textarea);
-  $('body').append(this._div);
+  $('#main').prepend(this._div);
 };
 
 SpriteSerializerController.prototype.destroy = function () {
