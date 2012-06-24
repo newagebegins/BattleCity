@@ -4,12 +4,7 @@
 <head>
   <title>Battle City</title>
   
-  <style type="text/css">
-    @font-face {
-      font-family: prstart;
-      src: url('fonts/prstart.ttf');
-    } 
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/BattleCity.css" />
   
   <script type="text/javascript" src="lib/jquery-1.7.2.js"></script>
 
@@ -112,7 +107,6 @@
   <script type="text/javascript">
     $(function () {
       var FPS = 50;
-      var fpsCounter = new FPSCounter();
       
       var CANVAS_ID = 'canvas';
       var ctx = createCanvasContext();
@@ -126,18 +120,13 @@
       setInterval(gameLoop, 1000 / FPS);
       
       function gameLoop() {
-        fpsCounter.begin();
-        
         keyboard.fireEvents();
         sceneManager.update();
-        
         sceneManager.draw(ctx);
-        
-        fpsCounter.end();
       }
       
       function createCanvasContext() {
-        $('<canvas id="' + CANVAS_ID + '" width="' + Globals.CANVAS_WIDTH + '" height="' + Globals.CANVAS_HEIGHT + '"></canvas>').appendTo('body');
+        $('<canvas id="' + CANVAS_ID + '" width="' + Globals.CANVAS_WIDTH + '" height="' + Globals.CANVAS_HEIGHT + '"></canvas>').prependTo('#main');
         var canvas = document.getElementById(CANVAS_ID);
         return canvas.getContext('2d');
       };
@@ -147,5 +136,28 @@
 </head>
 
 <body>
+  <div id="main">
+    <div id="help">
+      <p>CONTROLS:</p>
+      <table>
+        <tr>
+          <td><img src="images/Nintendo-Dpad-Neutral.png" alt="" /></td>
+          <td>ARROWS</td>
+        </tr>
+        <tr>
+          <td><img src="images/Nintendo-Button-A.png" alt="" />,<img src="images/Nintendo-Button-B.png" alt="" /></td>
+          <td>SPACE</td>
+        </tr>
+        <tr>
+          <td><img src="images/Nintendo-Button-Start.png" alt="" /></td>
+          <td>ENTER</td>
+        </tr>
+        <tr>
+          <td><img src="images/Nintendo-Button-Select.png" alt="" /></td>
+          <td>CTRL</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
