@@ -4,7 +4,7 @@ describe("PointsFactory", function () {
     spyOn(eventManager, 'addSubscriber');
     var factory = new PointsFactory(eventManager);
     expect(eventManager.addSubscriber).toHaveBeenCalledWith(factory,
-      [TankExplosion.Event.DESTROYED, PowerUp.Event.DESTROYED]);
+      [TankExplosion.Event.DESTROYED, PowerUp.Event.PICK]);
   });
   
   describe("#notify", function () {
@@ -50,7 +50,7 @@ describe("PointsFactory", function () {
         var powerUp = new PowerUp(eventManager);
         powerUp.setPosition(new Point(1, 2));
         powerUp.setValue(200);
-        factory.notify({'name': PowerUp.Event.DESTROYED, 'powerUp': powerUp});
+        factory.notify({'name': PowerUp.Event.PICK, 'powerUp': powerUp});
         expect(factory.create).toHaveBeenCalledWith(powerUp.getCenter(), powerUp.getValue(), Points.Type.POWERUP);
       });
     });

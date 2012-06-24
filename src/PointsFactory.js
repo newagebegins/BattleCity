@@ -1,6 +1,6 @@
 function PointsFactory(eventManager) {
   this._eventManager = eventManager;
-  this._eventManager.addSubscriber(this, [TankExplosion.Event.DESTROYED, PowerUp.Event.DESTROYED]);
+  this._eventManager.addSubscriber(this, [TankExplosion.Event.DESTROYED, PowerUp.Event.PICK]);
   this._pointsSize = Globals.UNIT_SIZE;
 }
 
@@ -13,7 +13,7 @@ PointsFactory.prototype.notify = function (event) {
     var tank = explosion.getTank();
     this.create(explosion.getCenter(), tank.getValue(), Points.Type.TANK);
   }
-  else if (event.name == PowerUp.Event.DESTROYED) {
+  else if (event.name == PowerUp.Event.PICK) {
     var powerUp = event.powerUp;
     this.create(powerUp.getCenter(), powerUp.getValue(), Points.Type.POWERUP);
   }
