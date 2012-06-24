@@ -13,8 +13,11 @@ function GameScene(sceneManager, stage, player) {
       self._script.actionCompleted();
     }
   }});
-  this._script.enqueue({execute: function () {self._stageMessage.show();}});
-  this._script.enqueue(new Delay(this._script, 50));
+  this._script.enqueue({execute: function () {
+    self._stageMessage.show();
+    SoundManager.play("stage_start");
+  }});
+  this._script.enqueue(new Delay(this._script, 60));
   this._script.enqueue({execute: function () {
     self._stageMessage.hide();
     self._level.show();
