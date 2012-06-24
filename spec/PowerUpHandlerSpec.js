@@ -3,16 +3,16 @@ describe("PowerUpHandler", function () {
     var eventManager = new EventManager();
     spyOn(eventManager, 'addSubscriber');
     var handler = new PowerUpHandler(eventManager);
-    expect(eventManager.addSubscriber).toHaveBeenCalledWith(handler, [PowerUp.Event.DESTROYED]);
+    expect(eventManager.addSubscriber).toHaveBeenCalledWith(handler, [PowerUp.Event.PICK]);
   });
   
   describe("#notify", function () {
-    it("PowerUp.Event.DESTROYED", function () {
+    it("PowerUp.Event.PICK", function () {
       var eventManager = new EventManager();
       var handler = new PowerUpHandler(eventManager);
       spyOn(handler, 'handle');
       var powerUp = new PowerUp(eventManager);
-      handler.notify({'name': PowerUp.Event.DESTROYED, 'powerUp': powerUp});
+      handler.notify({'name': PowerUp.Event.PICK, 'powerUp': powerUp});
       expect(handler.handle).toHaveBeenCalledWith(powerUp);
     });
   });

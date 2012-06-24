@@ -11,6 +11,7 @@ describe("PowerUp", function () {
     describe("CollisionDetector.Event.COLLISION", function () {
       it("player", function () {
         var eventManager = new EventManager();
+        spyOn(eventManager, 'fireEvent');
         var powerUp = new PowerUp(eventManager);
         spyOn(powerUp, 'destroy');
         var player = new Tank(eventManager);
@@ -20,6 +21,7 @@ describe("PowerUp", function () {
           'sprite': powerUp});
         expect(powerUp.destroy).toHaveBeenCalled();
         expect(powerUp.getPlayerTank()).toEqual(player);
+        expect(eventManager.fireEvent).toHaveBeenCalledWith({'name': PowerUp.Event.PICK, 'powerUp': powerUp});
       });
     });
     

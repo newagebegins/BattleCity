@@ -15,6 +15,7 @@ PowerUp.subclass(Sprite);
 
 PowerUp.Event = {};
 PowerUp.Event.DESTROYED = 'PowerUp.Event.DESTROYED';
+PowerUp.Event.PICK = 'PowerUp.Event.PICK';
 
 PowerUp.Type = {};
 PowerUp.Type.GRENADE = 'grenade';
@@ -57,6 +58,7 @@ PowerUp.prototype.getImage = function () {
 PowerUp.prototype.notify = function (event) {
   if (this._collidedWithPlayer(event)) {
     this._playerTank = event.initiator;
+    this._eventManager.fireEvent({'name': PowerUp.Event.PICK, 'powerUp': this});
     this.destroy();
   }
   else if (event.name == EnemyFactory.Event.ENEMY_CREATED) {

@@ -1,6 +1,6 @@
 function PowerUpHandler(eventManager) {
   this._eventManager = eventManager;
-  eventManager.addSubscriber(this, [PowerUp.Event.DESTROYED]);
+  eventManager.addSubscriber(this, [PowerUp.Event.PICK]);
   
   this._spriteContainer = null;
 }
@@ -17,7 +17,7 @@ PowerUpHandler.prototype.setSpriteContainer = function (container) {
 };
 
 PowerUpHandler.prototype.notify = function (event) {
-  if (event.name == PowerUp.Event.DESTROYED) {
+  if (event.name == PowerUp.Event.PICK) {
     this.handle(event.powerUp);
   }
 };
