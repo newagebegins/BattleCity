@@ -5,10 +5,15 @@ function Animation(frames, frameDuration, loop) {
   this._frame = 0;
   this._timer = 0;
   this._completed = false;
+  this._active = true;
 }
 
+Animation.prototype.setActive = function (active) {
+  this._active = active;
+};
+
 Animation.prototype.update = function () {
-  if (this._completed) {
+  if (!this._active || this._completed) {
     return;
   }
   

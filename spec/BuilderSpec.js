@@ -40,6 +40,7 @@ describe("Builder", function () {
       spyOn(builder, 'buildSteelWallTop');
       spyOn(builder, 'buildSteelWallFull');
       
+      spyOn(builder, 'buildWater');
       spyOn(builder, 'buildTrees');
       
       spyOn(builder, 'clear');
@@ -83,6 +84,10 @@ describe("Builder", function () {
       builder.build(cursor);
       expect(builder.buildSteelWallFull).toHaveBeenCalledWith(cursor.getPosition());
       builder.buildSteelWallFull.reset();
+      
+      builder.build(cursor);
+      expect(builder.buildWater).toHaveBeenCalledWith(cursor.getPosition());
+      builder.buildWater.reset();
       
       builder.build(cursor);
       expect(builder.buildTrees).toHaveBeenCalledWith(cursor.getPosition());
@@ -200,6 +205,13 @@ describe("Builder", function () {
       expect(parts[1].getPosition()).toEqual(new Point(6, 3))
       expect(parts[2].getPosition()).toEqual(new Point(2, 7))
       expect(parts[3].getPosition()).toEqual(new Point(6, 7))
+    });
+    
+    it("#buildWater", function () {
+      var parts = builder.buildWater(new Point(2, 3));
+      var water = parts[0];
+      expect(water instanceof Water).toBeTruthy();
+      expect(water.getPosition()).toEqual(new Point(2, 3))
     });
     
     it("#buildTrees", function () {

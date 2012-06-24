@@ -149,6 +149,8 @@ var ImageManager = (function() {
     wall_brick: null,
     wall_steel: null,
     trees: null,
+    water_1: null,
+    water_2: null,
     
     base: null,
     base_destroyed: null,

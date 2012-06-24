@@ -15,6 +15,7 @@ function Builder(eventManager) {
     Builder.Structure.STEEL_WALL_TOP,
     Builder.Structure.STEEL_WALL_FULL,
     
+    Builder.Structure.WATER,
     Builder.Structure.TREES,
     
     Builder.Structure.CLEAR,
@@ -39,6 +40,7 @@ Builder.Structure.STEEL_WALL_LEFT = 'Builder.Structure.STEEL_WALL_LEFT';
 Builder.Structure.STEEL_WALL_TOP = 'Builder.Structure.STEEL_WALL_TOP';
 Builder.Structure.STEEL_WALL_FULL = 'Builder.Structure.STEEL_WALL_FULL';
 
+Builder.Structure.WATER = 'Builder.Structure.WATER';
 Builder.Structure.TREES = 'Builder.Structure.TREES';
 
 Builder.Structure.CLEAR = 'Builder.Structure.CLEAR';
@@ -95,6 +97,9 @@ Builder.prototype.build = function (cursor) {
   else if (this._structure == Builder.Structure.STEEL_WALL_FULL) {
     structure = this.buildSteelWallFull(cursor.getPosition());
   }
+  else if (this._structure == Builder.Structure.WATER) {
+    structure = this.buildWater(cursor.getPosition());
+  }
   else if (this._structure == Builder.Structure.TREES) {
     structure = this.buildTrees(cursor.getPosition());
   }
@@ -147,6 +152,15 @@ Builder.prototype.buildSteelWallTop = function (position) {
 
 Builder.prototype.buildSteelWallFull = function (position) {
   return this._buildWallFull(position, new SteelWallFactory(this._eventManager));
+};
+
+Builder.prototype.buildWater = function (position) {
+  var parts = [];
+  var water = new Water(this._eventManager);
+  water.setPosition(position);
+  water.stopAnimation();
+  parts.push(water);
+  return parts;
 };
 
 Builder.prototype.buildTrees = function (position) {
