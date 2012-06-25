@@ -87,4 +87,11 @@ describe("SpriteContainer", function () {
     expect(spriteContainer.getWalls().length).toEqual(2);
     expect(spriteContainer.getWalls()).toEqual([brickWallOne, brickWallTwo]);
   });
+  
+  it("#getBase", function () {
+    var eventManager = new EventManager();
+    var spriteContainer = new SpriteContainer(eventManager);
+    var base = new Base(eventManager);
+    expect(spriteContainer.getBase()).toBe(base);
+  });
 });

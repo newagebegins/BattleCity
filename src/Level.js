@@ -26,7 +26,7 @@ function Level(sceneManager, stageNumber, player) {
   this._freezeTimer = new FreezeTimer(this._eventManager);
   
   this._aiControllersContainer = new AITankControllerContainer(this._eventManager);
-  new AITankControllerFactory(this._eventManager);
+  this._aiTankControllerFactory = new AITankControllerFactory(this._eventManager, this._spriteContainer);
 
   this._enemyFactory = new EnemyFactory(this._eventManager);
   this._enemyFactory.setPositions([

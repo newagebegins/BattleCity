@@ -33,6 +33,15 @@ SpriteContainer.prototype.getWalls = function () {
   });
 };
 
+SpriteContainer.prototype.getBase = function () {
+  for (var i = 0; i < this._sprites.length; ++i) {
+    if (this._sprites[i] instanceof Base) {
+      return this._sprites[i];
+    }
+  }
+  return null;
+};
+
 SpriteContainer.prototype.notify = function (event) {
   if (event.name == Sprite.Event.CREATED) {
     this.addSprite(event.sprite);

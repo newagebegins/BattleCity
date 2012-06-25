@@ -24,13 +24,16 @@ describe("AITankController", function () {
 });
 
 describe("AITankController", function () {
-  var eventManager, tank, random, controller;
+  var eventManager, tank, random, spriteContainer, base, controller;
   
   beforeEach(function () {
     eventManager = new EventManager();
     tank = new Tank(eventManager);
     random = new Random();
-    controller = new AITankController(tank, random);
+    spriteContainer = new SpriteContainer(eventManager);
+    base = new Base(eventManager);
+    spyOn(spriteContainer, 'getBase').andReturn(base);
+    controller = new AITankController(tank, random, spriteContainer);
   });
   
   describe("#updateShoot", function () {

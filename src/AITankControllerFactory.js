@@ -1,8 +1,9 @@
-function AITankControllerFactory(eventManager) {
+function AITankControllerFactory(eventManager, spriteContainer) {
   this._eventManager = eventManager;
   this._eventManager.addSubscriber(this,
     [EnemyFactory.Event.ENEMY_CREATED, PowerUpHandler.Event.FREEZE, FreezeTimer.Event.UNFREEZE]);
   this._freezed = false;
+  this._spriteContainer = spriteContainer;
 }
 
 AITankControllerFactory.prototype.notify = function (event) {
@@ -18,7 +19,7 @@ AITankControllerFactory.prototype.notify = function (event) {
 };
 
 AITankControllerFactory.prototype.createController = function (tank) {
-  var controller = new AITankController(tank, new Random());
+  var controller = new AITankController(tank, new Random(), this._spriteContainer);
   if (this.isFreezed()) {
     controller.freeze();
   }

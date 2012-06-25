@@ -1,6 +1,7 @@
-function AITankController(tank, random) {
+function AITankController(tank, random, spriteContainer) {
   this._tank = tank;
   this._random = random;
+  this._spriteContainer = spriteContainer;
   this._eventManager = this._tank.getEventManager();
   this._pauseListener = new PauseListener(this._eventManager);
   
@@ -13,9 +14,9 @@ function AITankController(tank, random) {
   this._shootTimer = 0;
   this._shootProbability = 0.7;
   
-  this._directionUpdateInterval = 15;
+  this._directionUpdateInterval = 20;
   this._directionTimer = 0;
-  this._directionUpdateProbability = 0.7;
+  this._directionUpdateProbability = 0.6;
   
   this._eventManager.fireEvent({'name': AITankController.Event.CREATED, 'controller': this});
   
@@ -57,11 +58,34 @@ AITankController.prototype.updateDirection = function () {
   if (this._directionTimer >= this._directionUpdateInterval) {
     this._directionTimer = 0;
     if (this._random.getNumber() < this._directionUpdateProbability) {
+      var base = this._spriteContainer.getBase();
       var n = this._random.getNumber();
       var dir = Sprite.Direction.DOWN;
-      if (n < 0.4) {
-        dir = arrayRandomElement([Sprite.Direction.UP, Sprite.Direction.LEFT, Sprite.Direction.RIGHT]);
+      
+      if (base.getY() > this._tank.getY()) {
+        dir = Sprite.Direction.DOWN;
+        if (n < 0.4) {
+          dir = arrayRandomElement([Sprite.Direction.UP, Sprite.Direction.LEFT, Sprite.Direction.RIGHT]);
+        }
       }
+      else if (base.getY() == this._tank.getY()) {
+        if (base.getX() < this._tank.getX()) {
+          dir = Sprite.Direction.LEFT;
+          if (n < 0.4) {
+            dir = arrayRandomElement([Sprite.Direction.UP, Sprite.Direction.DOWN, Sprite.Direction.RIGHT]);
+          }
+        }
+        else if (base.getX() > this._tank.getX()) {
+          dir = Sprite.Direction.RIGHT;
+          if (n < 0.4) {
+            dir = arrayRandomElement([Sprite.Direction.UP, Sprite.Direction.LEFT, Sprite.Direction.DOWN]);
+          }
+        }
+      }
+      else {
+        dir = arrayRandomElement([Sprite.Direction.UP, Sprite.Direction.DOWN, Sprite.Direction.LEFT, Sprite.Direction.RIGHT]);
+      }
+      
       this._tank.setDirection(dir);
     }
   }
