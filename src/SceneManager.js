@@ -11,6 +11,11 @@ SceneManager.prototype.getScene = function () {
   return this._scene;
 };
 
+SceneManager.prototype.toLoadingScene = function () {
+  this._eventManager.removeAllSubscribers();
+  this._scene = new LoadingScene(this);
+};
+
 SceneManager.prototype.toMainMenuScene = function (arrived) {
   this._eventManager.removeAllSubscribers();
   this._scene = new MainMenuScene(this);

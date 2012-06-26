@@ -94,6 +94,7 @@
   <script type="text/javascript" src="src/StageStatisticsPoints.js"></script>
   <script type="text/javascript" src="src/Trees.js"></script>
   <script type="text/javascript" src="src/Water.js"></script>
+  <script type="text/javascript" src="src/LoadingScene.js"></script>
   
   <script type="text/javascript" src="lib/Stats.js"></script>
   <script type="text/javascript" src="src/FPSCounter.js"></script>
@@ -115,7 +116,7 @@
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
       var sceneManager = new SceneManager(eventManager);
-      sceneManager.toMainMenuScene();
+      sceneManager.toLoadingScene();
       
       setInterval(gameLoop, 1000 / FPS);
       

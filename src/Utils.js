@@ -5,6 +5,15 @@ Function.prototype.subclass = function(base) {
 };
 Function.prototype.subclass.nonconstructor = function() {};
 
+// Get the size of an object
+Object.size = function(obj) {
+  var size = 0, key;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) size++;
+  }
+  return size;
+};
+
 function arrayContains(arr, obj) {
   for (var i = 0; i < arr.length; ++i) {
     if (arr[i] === obj) {
