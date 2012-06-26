@@ -12,6 +12,9 @@ LoadingScene.prototype.update = function () {
 };
 
 LoadingScene.prototype.draw = function (ctx) {
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  
   ctx.fillStyle = "#ffffff";
   ctx.fillText("LOADING " + ("" + this._loadingProgress).lpad(" ", 3) + "%", 160, 240);
 };
