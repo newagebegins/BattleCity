@@ -184,7 +184,7 @@ var ImageManager = (function() {
     game_over: null,
   };
   
-  var imagesCount = Object.size(images);;
+  var imagesCount = Object.size(images);
   var imagesLoaded = 0;
   
   for (var i in images) {
