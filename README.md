@@ -1,4 +1,4 @@
-JavaScript/HTML5 remake of the NES "Battle City" game
+JavaScript/HTML5 remake of the Famicom "Battle City" game
 =====================================================
 
 [Play](http://newagebegins.github.com/BattleCity/BattleCity.html)  
