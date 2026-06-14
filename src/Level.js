@@ -11,11 +11,15 @@ function Level(sceneManager, stageNumber, player) {
   
   this._visible = false;
   this._stage = stageNumber;
-  
+
+  this._player = player === undefined ? new Player() : player;
+  this._player.setEventManager(this._eventManager);
+
   new PlayerTankControllerFactory(this._eventManager);
-  
+
   this._playerTankFactory = new PlayerTankFactory(this._eventManager);
   this._playerTankFactory.setAppearPosition(new Point(this._x + 4 * Globals.UNIT_SIZE, this._y + 12 * Globals.UNIT_SIZE));
+  this._playerTankFactory.setPlayer(this._player);
   this._playerTankFactory.create();
 
   new BulletFactory(this._eventManager);
@@ -54,15 +58,13 @@ function Level(sceneManager, stageNumber, player) {
   
   var powerUpHandler = new PowerUpHandler(this._eventManager);
   powerUpHandler.setSpriteContainer(this._spriteContainer);
-  
+  powerUpHandler.setPlayer(this._player);
+
   this._shovelHandler = new ShovelHandler(this._eventManager);
   this._shovelHandler.setBaseWallBuilder(baseWallBuilder);
-  
+
   this._pause = new Pause(this._eventManager);
-  
-  this._player = player === undefined ? new Player() : player;
-  this._player.setEventManager(this._eventManager);
-  
+
   this._livesView = new LivesView(this._player);
   
   this._gameOverMessage = new GameOverMessage();

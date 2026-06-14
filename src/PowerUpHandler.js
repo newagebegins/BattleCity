@@ -3,6 +3,7 @@ function PowerUpHandler(eventManager) {
   eventManager.addSubscriber(this, [PowerUp.Event.PICK]);
   
   this._spriteContainer = null;
+  this._player = null;
 }
 
 PowerUpHandler.Event = {};
@@ -14,6 +15,10 @@ PowerUpHandler.HELMET_DURATION = 345;
 
 PowerUpHandler.prototype.setSpriteContainer = function (container) {
   this._spriteContainer = container;
+};
+
+PowerUpHandler.prototype.setPlayer = function (player) {
+  this._player = player;
 };
 
 PowerUpHandler.prototype.notify = function (event) {
@@ -68,6 +73,10 @@ PowerUpHandler.prototype.handleShovel = function () {
 
 PowerUpHandler.prototype.handleStar = function (playerTank) {
   playerTank.upgrade();
+  // Remember the upgrade level on the player so it carries over to next stages.
+  if (this._player) {
+    this._player.setUpgradeLevel(playerTank.getUpgradeLevel());
+  }
 };
 
 PowerUpHandler.prototype.handleTank = function () {

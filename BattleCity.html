@@ -20,6 +20,7 @@
   <script type="text/javascript" src="src/SpriteController.js"></script>
   <script type="text/javascript" src="src/TankController.js"></script>
   <script type="text/javascript" src="src/Keyboard.js"></script>
+  <script type="text/javascript" src="src/Gamepad.js"></script>
   <script type="text/javascript" src="src/BulletFactory.js"></script>
   <script type="text/javascript" src="src/Bullet.js"></script>
   <script type="text/javascript" src="src/Painter.js"></script>
@@ -115,6 +116,7 @@
       
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
+      var gamepad = new Gamepad(eventManager);
       var sceneManager = new SceneManager(eventManager);
       sceneManager.toLoadingScene();
       
@@ -122,6 +124,7 @@
       
       function gameLoop() {
         keyboard.fireEvents();
+        gamepad.fireEvents();
         sceneManager.update();
         sceneManager.draw(ctx);
       }

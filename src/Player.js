@@ -1,6 +1,7 @@
 function Player() {
   this._lives = 2;
   this._score = 0;
+  this._upgradeLevel = 0;
   this.resetTanks();
 }
 
@@ -36,6 +37,7 @@ Player.prototype.notify = function (event) {
     }
     else {
       this._lives--;
+      this._upgradeLevel = 0;
     }
   }
   else if (event.name == PowerUpHandler.Event.TANK) {
@@ -63,4 +65,12 @@ Player.prototype.getTanks = function (type) {
 
 Player.prototype.getTanksCount = function () {
   return this._tanksCount;
+};
+
+Player.prototype.getUpgradeLevel = function () {
+  return this._upgradeLevel;
+};
+
+Player.prototype.setUpgradeLevel = function (level) {
+  this._upgradeLevel = level;
 };
