@@ -3,6 +3,7 @@ function PlayerTankFactory(eventManager) {
   this._eventManager.addSubscriber(this, [TankExplosion.Event.DESTROYED]);
   this._appearPosition = new Point(0, 0);
   this._active = true;
+  this._player = null;
 }
 
 PlayerTankFactory.Event = {};
@@ -21,10 +22,21 @@ PlayerTankFactory.prototype.setAppearPosition = function (position) {
   this._appearPosition = position;
 };
 
+PlayerTankFactory.prototype.setPlayer = function (player) {
+  this._player = player;
+};
+
 PlayerTankFactory.prototype.create = function () {
   var tank = new Tank(this._eventManager);
   tank.setPosition(this._appearPosition);
   tank.setState(new TankStateAppearing(tank));
+  // Restore the player's carried-over upgrade level (e.g. stars from a previous stage).
+  if (this._player) {
+    var level = this._player.getUpgradeLevel();
+    for (var i = 0; i < level; i++) {
+      tank.upgrade();
+    }
+  }
   this._eventManager.fireEvent({'name': PlayerTankFactory.Event.PLAYER_TANK_CREATED, 'tank': tank});
   return tank;
 };
